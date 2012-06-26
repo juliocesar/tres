@@ -13,29 +13,29 @@ good looking theme will be provided, as well as transitions.
 
 # Classes
 
-* Tres.Device
+* `Tres.Device`
   - Will track events such as orientation change, and keep info such as width/height, supported 
   features, etc.
-* Tres.Screen
+* `Tres.Screen`
   - A screen, with some features such as a fixed header/footer and momentum scrolling.
-* Tres.SwipeSet
+* `Tres.SwipeSet`
   - This class wraps a set of `Tres.Screen`s and allows for swipe navigation across them.
-* Tres.List
+* `Tres.List`
   - A simple list, bindable to a `Backbone.Collection`.
-* Tres.ListEntry
+* `Tres.ListEntry`
   - Contained by `Tres.List`. You can make it clickable by adding a `click` method to it. Renders
   differently depending on that.
-* Tres.Form
+* `Tres.Form`
   - A <form> wrapper class to capture data from it, and handle submitting and validations. Most
   likely tied to a `Backbone.Model`. Note: not likely this will generate the form from a model's
   attributes, since that means we need to define a schema for the model, and in which case we're 
   replicating what Backbone.Forms does. Just go and use it instead.
-* Tres.Notifications
+* `Tres.Notifications`
   - Displays animated notifications, clickable or not.
   
 Tentative stuff, but could be handled later by plugins.
 
-* Tres.Map
+* `Tres.Map`
   - A Google map screen, with some helpers to ease the capture/insertion of data from it.
 
 # Usage

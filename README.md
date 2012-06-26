@@ -42,33 +42,33 @@ Tentative stuff, but could be handled later by plugins.
   
 Here's roughly how I envision building an application:
 
-  class Book extends Backbone.Model
-  class Books extends Backbone.Collection
-    model : Book
-    url   : '/books'
+    class Book extends Backbone.Model
+    class Books extends Backbone.Collection
+      model : Book
+      url   : '/books'
 
-  class HomeScreen extends Tres.Screen
-    id        : 'home'
-    template  : JST['home']
+    class HomeScreen extends Tres.Screen
+      id        : 'home'
+      template  : JST['home']
     
-  class Router extends Tres.Router
-    routes :
-      ''  : 'home'
+    class Router extends Tres.Router
+      routes :
+        ''  : 'home'
       
-    home : ->
-      home = new HomeScreen
-      list = new Tres.List(collection : (new Books))      
-      home.render()
-      home.add list
+      home : ->
+        home = new HomeScreen
+        list = new Tres.List(collection : (new Books))      
+        home.render()
+        home.add list
       
-      list.fetch()
+        list.fetch()
   
-  $ ->    
-    window.App = 
-      Device  : new Tres.Device
-      Router  : new Tres.Router
+    $ ->    
+      window.App = 
+        Device  : new Tres.Device
+        Router  : new Tres.Router
     
-    Backbone.history.start(pushState : true)
+      Backbone.history.start(pushState : true)
     
 # Styles
 

@@ -4,13 +4,26 @@ $(document).ready(function() {
   };
   
   window.App = {};
-  
   App.Device = new Tres.Device;
-  App.Device.on('orientationchange', function() {
-    alert("width : " + this.width() + ' - height : ' + this.height());
+
+  var HomeScreen = Tres.Screen.extend({
+    template : JST['screen']
   });
   
-  App.HomeScreen = new Tres.Screen({ template : JST['screen'] });
-  
-  App.HomeScreen.embed();
+  App.HomeScreen = new HomeScreen;
+
+  var Router = Tres.Router.extend({
+    routes : {
+      '' : 'home'
+    },
+
+    home : function() {
+      App.HomeScreen.embed();
+      App.HomeScreen.activate();
+    }
+  });
+
+  App.Router = new Router;
+
+  Backbone.history.start({pushState : true});
 });

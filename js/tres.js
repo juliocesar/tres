@@ -60,7 +60,7 @@
     };
 
     Screen.prototype.embed = function() {
-      if (!this.rendered) {
+      if (this.rendered == null) {
         this.render();
       }
       return $body.append(this.el);
@@ -88,17 +88,18 @@
     }
 
     Router.prototype.initialize = function() {
-      var before, router, __super;
+      var before, router, __super,
+        _this = this;
       if (_.isFunction(this.before)) {
         __super = Backbone.history.loadUrl;
         before = this.before;
         router = this;
+        return Backbone.history.loadUrl = function() {
+          before.call(_this);
+          router.trigger('navigate');
+          return __super.apply(_this, arguments);
+        };
       }
-      return Backbone.history.loadUrl = function() {
-        before.call(this);
-        router.trigger('navigate');
-        return __super.apply(this, arguments);
-      };
     };
 
     return Router;

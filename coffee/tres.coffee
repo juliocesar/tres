@@ -27,7 +27,7 @@ class Tres.Screen extends Backbone.View
     @
 
   embed : ->
-    @render() unless @rendered
+    @render() unless @rendered?
     $body.append @el
 
   activate : ->
@@ -44,15 +44,10 @@ class Tres.Router extends Backbone.Router
       __super = Backbone.history.loadUrl
       before  = @before
       router  = @
-    Backbone.history.loadUrl = ->
-      before.call @
-      router.trigger 'navigate'
-      __super.apply @, arguments
-      
+      Backbone.history.loadUrl = =>
+        before.call @
+        router.trigger 'navigate'
+        __super.apply @, arguments
+
 
 window.Tres = Tres
-
-
-
-
-

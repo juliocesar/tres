@@ -5,9 +5,8 @@ $ ->
   SecondScreen  = Tres.Screen.extend()
 
   Tres.App.on 
-    ''        : -> new HomeScreen
-    'second'  : -> new SecondScreen
-
+    ''            : HomeScreen
+    'second/:id'  : SecondScreen
 
   Tres.App.boot()
 

@@ -10,12 +10,8 @@
     });
     SecondScreen = Tres.Screen.extend();
     Tres.App.on({
-      '': function() {
-        return new HomeScreen;
-      },
-      'second': function() {
-        return new SecondScreen;
-      }
+      '': HomeScreen,
+      'second/:id': SecondScreen
     });
     return Tres.App.boot();
   });

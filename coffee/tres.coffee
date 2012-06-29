@@ -43,6 +43,7 @@ class Tres.Screen extends Backbone.View
   activate : ->
     $body.find('>section').removeClass 'current'
     @$el.addClass 'current'
+    @active() if _.isFunction(@active)
 
   back : ->
     history.back()
@@ -64,8 +65,8 @@ Tres.App =
 
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
-      screen = map[url]()
-      @router.route url, "r#{_.uniqueId('r')}", ->
+      @router.route url, _.uniqueId('r'), =>
+        screen = new map[url]
         screen.embed()
         screen.activate()
 

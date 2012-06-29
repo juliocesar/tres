@@ -76,7 +76,10 @@
 
     Screen.prototype.activate = function() {
       $body.find('>section').removeClass('current');
-      return this.$el.addClass('current');
+      this.$el.addClass('current');
+      if (_.isFunction(this.active)) {
+        return this.active();
+      }
     };
 
     Screen.prototype.back = function() {
@@ -122,9 +125,9 @@
         map = {};
       }
       return _.each(_.keys(map), function(url) {
-        var screen;
-        screen = map[url]();
-        return _this.router.route(url, "r" + (_.uniqueId('r')), function() {
+        return _this.router.route(url, _.uniqueId('r'), function() {
+          var screen;
+          screen = new map[url];
           screen.embed();
           return screen.activate();
         });

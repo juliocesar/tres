@@ -1,7 +1,7 @@
 (function() {
 
   $(function() {
-    var App, HomeScreen, Router;
+    var HomeScreen, Router;
     window.JST = {
       'screen': $('#screen-template').html()
     };
@@ -10,14 +10,14 @@
     });
     Router = Tres.Router.extend({
       routes: {
-        '': 'home',
-        home: function() {
-          App.HomeScreen.embed();
-          return App.HomeScreen.activate();
-        }
+        '': 'home'
+      },
+      home: function() {
+        App.HomeScreen.embed();
+        return App.HomeScreen.activate();
       }
     });
-    App = {
+    window.App = {
       Device: new Tres.Device,
       HomeScreen: new HomeScreen,
       Router: new Router

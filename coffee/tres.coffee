@@ -6,6 +6,12 @@ JST       = window.JST
 $window   = $(window)
 $body     = $('body')
 
+defaultTemplate = """
+  <header></header>
+  <h1>Tres</h1>
+  <p>Welcome to Tres</p>
+"""
+
 class Tres.Device
   constructor : ->
     _.extend @, Backbone.Events
@@ -14,20 +20,24 @@ class Tres.Device
   width   : -> window.outerWidth
   height  : -> window.outerHeight
 
-
 class Tres.Screen extends Backbone.View
   tagName : 'section'
+  events  : 
+    'click a[href]' : 'clickLink'
 
   initialize : (options = {}) ->
     _.extend @, options
 
   render : ->
-    @$el.html @template
-    @rendered = true
+    @$el.html (@template or defaultTemplate)
     @
 
+  clickLink : (event) ->
+    event.preventDefault()
+    Tres.App.router.navigate $(event.currentTarget).attr('href'), true
+
   embed : ->
-    @render() unless @rendered?
+    @render()
     $body.append @el
 
   activate : ->
@@ -49,5 +59,17 @@ class Tres.Router extends Backbone.Router
         router.trigger 'navigate'
         __super.apply @, arguments
 
+Tres.App = 
+  router : new Tres.Router
+
+  on : (map = {}) ->
+    _.each _.keys(map), (url) =>
+      screen = map[url]()
+      @router.route url, "r#{_.uniqueId('r')}", ->
+        screen.embed()
+        screen.activate()
+
+  boot : ->
+    Backbone.history.start(pushState : true)
 
 window.Tres = Tres

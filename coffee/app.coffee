@@ -1,19 +1,13 @@
 $ ->
-  window.JST = { 'screen' : $('#screen-template').html() }
+  window.JST = { 'home' : $('#home-template').html() }
 
-  HomeScreen  = Tres.Screen.extend(template : JST['screen'])
-  Router      = Tres.Router.extend(
-    routes : 
-      '' : 'home'
+  HomeScreen    = Tres.Screen.extend(template : JST['home'])
+  SecondScreen  = Tres.Screen.extend()
 
-    home  : ->
-      App.HomeScreen.embed()
-      App.HomeScreen.activate()
-  )
+  Tres.App.on 
+    ''        : -> new HomeScreen
+    'second'  : -> new SecondScreen
 
-  window.App = 
-    Device      : new Tres.Device
-    HomeScreen  : new HomeScreen
-    Router      : new Router
 
-  Backbone.history.start(pushState : true)
+  Tres.App.boot()
+

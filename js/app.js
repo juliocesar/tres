@@ -1,30 +1,23 @@
 (function() {
 
   $(function() {
-    var HomeScreen, Router;
+    var HomeScreen, SecondScreen;
     window.JST = {
-      'screen': $('#screen-template').html()
+      'home': $('#home-template').html()
     };
     HomeScreen = Tres.Screen.extend({
-      template: JST['screen']
+      template: JST['home']
     });
-    Router = Tres.Router.extend({
-      routes: {
-        '': 'home'
+    SecondScreen = Tres.Screen.extend();
+    Tres.App.on({
+      '': function() {
+        return new HomeScreen;
       },
-      home: function() {
-        App.HomeScreen.embed();
-        return App.HomeScreen.activate();
+      'second': function() {
+        return new SecondScreen;
       }
     });
-    window.App = {
-      Device: new Tres.Device,
-      HomeScreen: new HomeScreen,
-      Router: new Router
-    };
-    return Backbone.history.start({
-      pushState: true
-    });
+    return Tres.App.boot();
   });
 
 }).call(this);

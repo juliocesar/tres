@@ -1,5 +1,5 @@
 (function() {
-  var $, $body, $window, Backbone, JST, Tres, _,
+  var $, $body, $window, Backbone, JST, Tres, defaultTemplate, _,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -16,6 +16,8 @@
   $window = $(window);
 
   $body = $('body');
+
+  defaultTemplate = "<header></header>\n<h1>Tres</h1>\n<p>Welcome to Tres</p>";
 
   Tres.Device = (function() {
 
@@ -46,6 +48,10 @@
 
     Screen.prototype.tagName = 'section';
 
+    Screen.prototype.events = {
+      'click a[href]': 'clickLink'
+    };
+
     Screen.prototype.initialize = function(options) {
       if (options == null) {
         options = {};
@@ -54,15 +60,17 @@
     };
 
     Screen.prototype.render = function() {
-      this.$el.html(this.template);
-      this.rendered = true;
+      this.$el.html(this.template || defaultTemplate);
       return this;
     };
 
+    Screen.prototype.clickLink = function(event) {
+      event.preventDefault();
+      return Tres.App.router.navigate($(event.currentTarget).attr('href'), true);
+    };
+
     Screen.prototype.embed = function() {
-      if (this.rendered == null) {
-        this.render();
-      }
+      this.render();
       return $body.append(this.el);
     };
 
@@ -105,6 +113,29 @@
     return Router;
 
   })(Backbone.Router);
+
+  Tres.App = {
+    router: new Tres.Router,
+    on: function(map) {
+      var _this = this;
+      if (map == null) {
+        map = {};
+      }
+      return _.each(_.keys(map), function(url) {
+        var screen;
+        screen = map[url]();
+        return _this.router.route(url, "r" + (_.uniqueId('r')), function() {
+          screen.embed();
+          return screen.activate();
+        });
+      });
+    },
+    boot: function() {
+      return Backbone.history.start({
+        pushState: true
+      });
+    }
+  };
 
   window.Tres = Tres;
 

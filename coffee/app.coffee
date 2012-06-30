@@ -3,10 +3,11 @@ $ ->
 
   HomeScreen    = Tres.Screen.extend(template : JST['home'])
   SecondScreen  = Tres.Screen.extend()
+  window.App           = new Tres.App(router : new Tres.Router(before : -> alert('before')))
 
-  Tres.App.on 
+  App.on 
     ''            : HomeScreen
     'second/:id'  : SecondScreen
 
-  Tres.App.boot()
+  App.boot()
 

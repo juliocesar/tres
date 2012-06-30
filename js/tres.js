@@ -98,28 +98,29 @@
       return Router.__super__.constructor.apply(this, arguments);
     }
 
-    Router.prototype.initialize = function() {
-      var before, router, __super,
-        _this = this;
-      if (_.isFunction(this.before)) {
-        __super = Backbone.history.loadUrl;
-        before = this.before;
-        router = this;
-        return Backbone.history.loadUrl = function() {
-          before.call(_this);
-          router.trigger('navigate');
-          return __super.apply(_this, arguments);
-        };
+    Router.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
       }
+      return _.extend(this, options);
     };
 
     return Router;
 
   })(Backbone.Router);
 
-  Tres.App = {
-    router: new Tres.Router,
-    on: function(map) {
+  Tres.App = (function() {
+
+    function App(options) {
+      if (options == null) {
+        options = {
+          router: new Tres.Router
+        };
+      }
+      _.extend(this, options);
+    }
+
+    App.prototype.on = function(map) {
       var _this = this;
       if (map == null) {
         map = {};
@@ -132,13 +133,27 @@
           return screen.activate();
         });
       });
-    },
-    boot: function() {
+    };
+
+    App.prototype.boot = function() {
+      var __super,
+        _this = this;
+      if (_.isFunction(this.router.before)) {
+        __super = Backbone.history.loadUrl;
+        Backbone.history.loadUrl = function() {
+          _this.router.before.call(_this);
+          _this.router.trigger('navigate');
+          return __super.apply(Backbone.history, arguments);
+        };
+      }
       return Backbone.history.start({
         pushState: true
       });
-    }
-  };
+    };
+
+    return App;
+
+  })();
 
   window.Tres = Tres;
 

@@ -9,11 +9,18 @@
       template: JST['home']
     });
     SecondScreen = Tres.Screen.extend();
-    Tres.App.on({
+    window.App = new Tres.App({
+      router: new Tres.Router({
+        before: function() {
+          return alert('before');
+        }
+      })
+    });
+    App.on({
       '': HomeScreen,
       'second/:id': SecondScreen
     });
-    return Tres.App.boot();
+    return App.boot();
   });
 
 }).call(this);

@@ -50,18 +50,12 @@ class Tres.Screen extends Backbone.View
 
 
 class Tres.Router extends Backbone.Router
-  initialize : ->
-    if _.isFunction(@before)
-      __super = Backbone.history.loadUrl
-      before  = @before
-      router  = @
-      Backbone.history.loadUrl = =>
-        before.call @
-        router.trigger 'navigate'
-        __super.apply @, arguments
+  initialize : (options = {}) ->
+    _.extend @, options
 
-Tres.App = 
-  router : new Tres.Router
+class Tres.App
+  constructor : (options = {router : new Tres.Router}) ->
+    _.extend @, options
 
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
@@ -71,6 +65,12 @@ Tres.App =
         screen.activate()
 
   boot : ->
+    if _.isFunction(@router.before)
+      __super = Backbone.history.loadUrl
+      Backbone.history.loadUrl = =>
+        @router.before.call @
+        @router.trigger 'navigate'
+        __super.apply Backbone.history, arguments
     Backbone.history.start(pushState : true)
 
 window.Tres = Tres

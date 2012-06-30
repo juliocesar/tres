@@ -64,14 +64,16 @@
       return this;
     };
 
+    Screen.prototype.embed = function() {
+      this.render();
+      $body.append(this.el);
+      this.embedded = true;
+      return this;
+    };
+
     Screen.prototype.clickLink = function(event) {
       event.preventDefault();
       return this.router.navigate($(event.currentTarget).attr('href'), true);
-    };
-
-    Screen.prototype.embed = function() {
-      this.render();
-      return $body.append(this.el);
     };
 
     Screen.prototype.activate = function() {
@@ -120,6 +122,8 @@
       _.extend(this, options);
     }
 
+    App.prototype.screens = [];
+
     App.prototype.on = function(map) {
       var _this = this;
       if (map == null) {
@@ -128,11 +132,16 @@
       return _.each(_.keys(map), function(url) {
         return _this.router.route(url, _.uniqueId('r'), function() {
           var screen;
-          screen = new map[url]({
-            router: _this.router
+          screen = _.find(_this.screens, function(screen) {
+            return screen === map[url];
           });
-          screen.embed();
-          return screen.activate();
+          if (screen != null) {
+            return screen.activate();
+          } else {
+            map[url].router = _this.router;
+            map[url].embed();
+            return map[url].activate();
+          }
         });
       });
     };

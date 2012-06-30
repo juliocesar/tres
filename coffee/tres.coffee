@@ -32,13 +32,16 @@ class Tres.Screen extends Backbone.View
     @$el.html (@template or defaultTemplate)
     @
 
+  embed : ->
+    @render()
+    $body.append @el
+    @embedded = true
+    @
+
   clickLink : (event) ->
     event.preventDefault()
     @router.navigate $(event.currentTarget).attr('href'), true
 
-  embed : ->
-    @render()
-    $body.append @el
 
   activate : ->
     $body.find('>section').removeClass 'current'
@@ -57,12 +60,18 @@ class Tres.App
   constructor : (options = {router : new Tres.Router}) ->
     _.extend @, options
 
+  screens : []
+
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
       @router.route url, _.uniqueId('r'), =>
-        screen = new map[url](router : @router)
-        screen.embed()
-        screen.activate()
+        screen = _.find(@screens, (screen) => screen is map[url])
+        if screen?
+          screen.activate()
+        else
+          map[url].router = @router
+          map[url].embed()
+          map[url].activate()
 
   boot : ->
     if _.isFunction(@router.before)

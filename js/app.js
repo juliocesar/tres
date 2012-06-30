@@ -5,9 +5,14 @@
     JST = {
       'home': $('#home-template').html()
     };
-    Places = Backbone.Collection.extend({
-      fetch: function() {
-        return this.reset({
+    Places = Backbone.Collection.extend();
+    HomeScreen = Tres.Screen.extend({
+      template: JST['home'],
+      active: function() {
+        var places;
+        places = new Places;
+        new Tres.List(places, this.$el.find('#places'));
+        return places.reset({
           id: 1,
           name: 'Veri Koko'
         }, {
@@ -17,15 +22,6 @@
           id: 3,
           name: 'Rio'
         });
-      }
-    });
-    HomeScreen = Tres.Screen.extend({
-      template: JST['home'],
-      active: function() {
-        var places;
-        places = new Places;
-        new Tres.List(places, this.$el.find('#places'));
-        return places.fetch();
       }
     });
     SecondScreen = Tres.Screen.extend();

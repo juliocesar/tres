@@ -112,14 +112,20 @@
       this.collection = collection;
       this.setElement(el);
       this.collection.on('add', this._add, this);
+      this.collection.on('remove', this._remove, this);
       return this.collection.on('reset', this._addAll, this);
     };
 
     List.prototype._add = function(model) {
       var child;
       child = this.make(this._tagMap[this.$el.get(0).tagName], null, model.get('name'));
+      model.template = child;
       this.$el.append(child);
       return this.$el;
+    };
+
+    List.prototype.remove = function(model) {
+      return model.template.remove();
     };
 
     List.prototype._addAll = function() {

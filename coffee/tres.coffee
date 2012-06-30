@@ -61,13 +61,18 @@ class Tres.List extends Backbone.View
 
   initialize : (@collection, el) ->
     @setElement(el)
-    @collection.on 'add',   @_add,    @
-    @collection.on 'reset', @_addAll, @
+    @collection.on 'add',     @_add,    @
+    @collection.on 'remove',  @_remove, @
+    @collection.on 'reset',   @_addAll, @
 
   _add : (model) ->
     child = @make @_tagMap[@$el.get(0).tagName], null, model.get('name')
+    model.template = child
     @$el.append child
     @$el
+
+  remove : (model) ->
+    model.template.remove()
 
   _addAll : ->
     @collection.each (model) => @_add(model)  

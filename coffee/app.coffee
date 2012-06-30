@@ -1,21 +1,19 @@
 $ ->
   JST = { 'home' : $('#home-template').html() }
 
-  Places = Backbone.Collection.extend(
-    fetch : ->
-      @reset(
-        { id : 1, name : 'Veri Koko' }
-        { id : 2, name : 'Koko Loko' }
-        { id : 3, name : 'Rio' }
-      )
-  )
+  Places = Backbone.Collection.extend()
 
   HomeScreen    = Tres.Screen.extend(
     template : JST['home']
     active : ->
       places = new Places
       new Tres.List(places, @$el.find('#places'))
-      places.fetch()
+      places.reset(
+        { id : 1, name : 'Veri Koko' }
+        { id : 2, name : 'Koko Loko' }
+        { id : 3, name : 'Rio' }
+      )
+
   )
   SecondScreen  = Tres.Screen.extend()
   App           = new Tres.App

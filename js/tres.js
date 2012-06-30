@@ -66,7 +66,7 @@
 
     Screen.prototype.clickLink = function(event) {
       event.preventDefault();
-      return Tres.App.router.navigate($(event.currentTarget).attr('href'), true);
+      return this.router.navigate($(event.currentTarget).attr('href'), true);
     };
 
     Screen.prototype.embed = function() {
@@ -128,7 +128,9 @@
       return _.each(_.keys(map), function(url) {
         return _this.router.route(url, _.uniqueId('r'), function() {
           var screen;
-          screen = new map[url];
+          screen = new map[url]({
+            router: _this.router
+          });
           screen.embed();
           return screen.activate();
         });

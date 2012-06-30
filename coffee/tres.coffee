@@ -34,7 +34,7 @@ class Tres.Screen extends Backbone.View
 
   clickLink : (event) ->
     event.preventDefault()
-    Tres.App.router.navigate $(event.currentTarget).attr('href'), true
+    @router.navigate $(event.currentTarget).attr('href'), true
 
   embed : ->
     @render()
@@ -60,7 +60,7 @@ class Tres.App
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
       @router.route url, _.uniqueId('r'), =>
-        screen = new map[url]
+        screen = new map[url](router : @router)
         screen.embed()
         screen.activate()
 

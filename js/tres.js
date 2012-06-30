@@ -68,6 +68,9 @@
     };
 
     Screen.prototype.embed = function() {
+      if (this.embedded) {
+        return false;
+      }
       this.render();
       $body.append(this.el);
       this.embedded = true;
@@ -83,15 +86,50 @@
       $body.find('>section').removeClass('current');
       this.$el.addClass('current');
       if (_.isFunction(this.active)) {
-        return this.active();
+        return this.active(arguments);
       }
     };
 
-    Screen.prototype.back = function() {
-      return history.back();
+    return Screen;
+
+  })(Backbone.View);
+
+  Tres.List = (function(_super) {
+
+    __extends(List, _super);
+
+    function List() {
+      return List.__super__.constructor.apply(this, arguments);
+    }
+
+    List.prototype._tagMap = {
+      'UL': 'LI',
+      'OL': 'LI',
+      'DIV': 'DIV'
     };
 
-    return Screen;
+    List.prototype.initialize = function(collection, el) {
+      this.collection = collection;
+      this.setElement(el);
+      this.collection.on('add', this._add, this);
+      return this.collection.on('reset', this._addAll, this);
+    };
+
+    List.prototype._add = function(model) {
+      var child;
+      child = this.make(this._tagMap[this.$el.get(0).tagName], null, model.get('name'));
+      this.$el.append(child);
+      return this.$el;
+    };
+
+    List.prototype._addAll = function() {
+      var _this = this;
+      return this.collection.each(function(model) {
+        return _this._add(model);
+      });
+    };
+
+    return List;
 
   })(Backbone.View);
 
@@ -137,14 +175,12 @@
           var screen;
           screen = _.find(_this.screens, function(screen) {
             return screen === map[url];
-          });
-          if (screen != null) {
-            return screen.activate();
-          } else {
-            map[url].router = _this.router;
-            map[url].embed();
-            return map[url].activate();
+          }) || map[url];
+          if (!screen.embedded) {
+            screen.router = _this.router;
+            screen.embed();
           }
+          return screen.activate(arguments);
         });
       });
     };

@@ -40,35 +40,20 @@ Tentative stuff, but could be handled later by plugins.
 
 # Usage
   
-Here's roughly how I envision building an application:
+Currently, usage looks like this:
 
-    class Book extends Backbone.Model
-    class Books extends Backbone.Collection
-      model : Book
-      url   : '/books'
+    $ ->
+      JST = { 'home' : $('#home-template').html() }
 
-    class HomeScreen extends Tres.Screen
-      id        : 'home'
-      template  : JST['home']
-    
-    class Router extends Tres.Router
-      routes :
-        ''  : 'home'
-      
-      home : ->
-        home = new HomeScreen
-        list = new Tres.List(collection : (new Books))      
-        home.render()
-        home.add list
-      
-        list.fetch()
-  
-    $ ->    
-      window.App = 
-        Device  : new Tres.Device
-        Router  : new Tres.Router
-    
-      Backbone.history.start(pushState : true)
+      HomeScreen    = Tres.Screen.extend(template : JST['home'])
+      SecondScreen  = Tres.Screen.extend()
+      App           = new Tres.App
+
+      App.on 
+        ''            : new HomeScreen
+        'second/:id'  : new SecondScreen
+
+      App.boot()
     
 # Styles
 

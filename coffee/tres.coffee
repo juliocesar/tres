@@ -26,6 +26,7 @@ class Tres.Screen extends Backbone.View
   # Ensure one can still declare events in a view without getting in the way of the defaults.
   _events   : 
     'click a[href]' : 'clickLink'
+
   events    : {}
 
   initialize : (options = {}) ->
@@ -37,6 +38,7 @@ class Tres.Screen extends Backbone.View
     @
 
   embed : ->
+    return false if @embedded
     @render()
     $body.append @el
     @embedded = true
@@ -46,15 +48,29 @@ class Tres.Screen extends Backbone.View
     event.preventDefault()
     @router.navigate $(event.currentTarget).attr('href'), true
 
-
   activate : ->
     $body.find('>section').removeClass 'current'
     @$el.addClass 'current'
-    @active() if _.isFunction(@active)
+    @active(arguments) if _.isFunction(@active)
 
-  back : ->
-    history.back()
+class Tres.List extends Backbone.View
+  _tagMap    :
+    'UL'    : 'LI'
+    'OL'    : 'LI'
+    'DIV'   : 'DIV'
 
+  initialize : (@collection, el) ->
+    @setElement(el)
+    @collection.on 'add',   @_add,    @
+    @collection.on 'reset', @_addAll, @
+
+  _add : (model) ->
+    child = @make @_tagMap[@$el.get(0).tagName], null, model.get('name')
+    @$el.append child
+    @$el
+
+  _addAll : ->
+    @collection.each (model) => @_add(model)  
 
 class Tres.Router extends Backbone.Router
   initialize : (options = {}) ->
@@ -69,13 +85,11 @@ class Tres.App
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
       @router.route url, _.uniqueId('r'), =>
-        screen = _.find(@screens, (screen) => screen is map[url])
-        if screen?
-          screen.activate()
-        else
-          map[url].router = @router
-          map[url].embed()
-          map[url].activate()
+        screen = (_.find(@screens, (screen) => screen is map[url]) or map[url])
+        unless screen.embedded
+          screen.router = @router
+          screen.embed()
+        screen.activate(arguments)
 
   boot : ->
     if _.isFunction(@router.before)
@@ -85,5 +99,6 @@ class Tres.App
         @router.trigger 'navigate'
         __super.apply Backbone.history, arguments
     Backbone.history.start(pushState : true)
+
 
 window.Tres = Tres

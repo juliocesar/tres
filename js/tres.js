@@ -48,9 +48,11 @@
 
     Screen.prototype.tagName = 'section';
 
-    Screen.prototype.events = {
+    Screen.prototype._events = {
       'click a[href]': 'clickLink'
     };
+
+    Screen.prototype.events = {};
 
     Screen.prototype.initialize = function(options) {
       if (options == null) {
@@ -61,6 +63,7 @@
 
     Screen.prototype.render = function() {
       this.$el.html(this.template || defaultTemplate);
+      this.delegateEvents(_.extend(this.events, this._events));
       return this;
     };
 

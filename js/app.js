@@ -1,15 +1,15 @@
 (function() {
 
   $(function() {
-    var SecondScreen;
-    window.JST = {
+    var App, HomeScreen, JST, SecondScreen;
+    JST = {
       'home': $('#home-template').html()
     };
-    window.HomeScreen = Tres.Screen.extend({
+    HomeScreen = Tres.Screen.extend({
       template: JST['home']
     });
     SecondScreen = Tres.Screen.extend();
-    window.App = new Tres.App;
+    App = new Tres.App;
     App.on({
       '': new HomeScreen,
       'second/:id': new SecondScreen

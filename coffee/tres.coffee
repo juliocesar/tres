@@ -21,15 +21,19 @@ class Tres.Device
   height  : -> window.outerHeight
 
 class Tres.Screen extends Backbone.View
-  tagName : 'section'
-  events  : 
+  tagName   : 'section'
+
+  # Ensure one can still declare events in a view without getting in the way of the defaults.
+  _events   : 
     'click a[href]' : 'clickLink'
+  events    : {}
 
   initialize : (options = {}) ->
     _.extend @, options
 
   render : ->
     @$el.html (@template or defaultTemplate)
+    @delegateEvents _.extend(@events, @_events)
     @
 
   embed : ->

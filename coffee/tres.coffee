@@ -75,6 +75,7 @@ class Tres.List extends Backbone.View
     model.template.remove()
 
   _addAll : ->
+    @$el.empty()
     @collection.each (model) => @_add(model)  
 
 class Tres.Router extends Backbone.Router

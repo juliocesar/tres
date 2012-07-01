@@ -130,6 +130,7 @@
 
     List.prototype._addAll = function() {
       var _this = this;
+      this.$el.empty();
       return this.collection.each(function(model) {
         return _this._add(model);
       });

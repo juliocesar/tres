@@ -1,0 +1,37 @@
+@import 'compass/css3/border-radius';
+
+$list-border      : #B4B4B4;
+$body-background  : -webkit-gradient(radial, 50% center, 200, 50% center, 40, from(#a51703), to(#BC4F40)), #a51703;
+
+body {
+  background : $body-background;
+  color      : white;
+  font       : 400 1em 'PT Sans Narrow', 'Helvetica Neue';
+  &>section {
+    // Floating headers
+    &>header {
+      background : black;
+      background : rgba(0,0,0,.9);
+      h1 {
+        font-size : 1.2em;
+        text-transform : uppercase;
+      }
+    }
+  }
+}
+
+ul.common {
+  @include border-radius(0.25rem);
+  border     : 1px solid $list-border;
+  background : white;
+  color      : black;    
+  li {
+    padding : 0.5em 0.4em;
+    border-top : 1px solid $list-border;
+    &:first-child {
+      @include border-top-left-radius(0.25rem);
+      @include border-top-right-radius(0.25rem);
+      border-top: 0;
+    }
+  }
+}

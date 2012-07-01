@@ -1,6 +1,5 @@
 guard 'coffeescript', :input => 'coffee', :output => 'js'
-guard 'sass', :input => 'sass', :output => 'css'
-
 guard 'compass' do
-  watch('^src/(.*)\.s[ac]ss')
+  watch('^scss/(.*)\.s[ac]ss')
+  watch('^scss/themes/(.*)\.s[ac]ss')
 end

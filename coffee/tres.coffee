@@ -78,6 +78,42 @@ class Tres.List extends Backbone.View
     @$el.empty()
     @collection.each (model) => @_add(model)  
 
+class Tres.Form
+  constructor : (@$el) ->
+  
+  fieldset : (filter) ->
+    new Tres.Form(@$el.find('fieldset').filter(filter))
+      
+  attributes : (options = {})->
+    attributes = {}
+    if options.only?
+      inputs = @$el.find("#{options.only} :input[name]")
+    else
+      inputs = @$el.find(':input[name]')
+      _.each inputs, (el) ->
+        $el = $(el)
+        if $el.is(':checkbox')
+          attributes[ $el.attr('name') ] = $el.is(':checked')
+        else
+          attributes[ $el.attr('name') ] = $el.val()
+    attributes
+  
+  setFromModel : (model) ->
+    _.each _.keys(model.attributes), (key) =>
+      $el = @$el.find("[name=\"#{key}\"]")
+      if $el.is(':checkbox') and model.attributes[key] is true
+        $el.attr('checked', 'checked')
+      else
+        $el.val model.attributes[key]
+  
+  clear : ->
+    _.each @$el.find(':input'), (el) ->
+      $el = $(el)
+      $el.removeAttr('checked') if $el.is(':checkbox')
+      $el.val('')
+    @
+
+
 class Tres.Router extends Backbone.Router
   initialize : (options = {}) ->
     _.extend @, options

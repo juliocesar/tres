@@ -140,6 +140,68 @@
 
   })(Backbone.View);
 
+  Tres.Form = (function() {
+
+    function Form($el) {
+      this.$el = $el;
+    }
+
+    Form.prototype.fieldset = function(filter) {
+      return new Tres.Form(this.$el.find('fieldset').filter(filter));
+    };
+
+    Form.prototype.attributes = function(options) {
+      var attributes, inputs;
+      if (options == null) {
+        options = {};
+      }
+      attributes = {};
+      if (options.only != null) {
+        inputs = this.$el.find("" + options.only + " :input[name]");
+      } else {
+        inputs = this.$el.find(':input[name]');
+        _.each(inputs, function(el) {
+          var $el;
+          $el = $(el);
+          if ($el.is(':checkbox')) {
+            return attributes[$el.attr('name')] = $el.is(':checked');
+          } else {
+            return attributes[$el.attr('name')] = $el.val();
+          }
+        });
+      }
+      return attributes;
+    };
+
+    Form.prototype.setFromModel = function(model) {
+      var _this = this;
+      return _.each(_.keys(model.attributes), function(key) {
+        var $el;
+        $el = _this.$el.find("[name=\"" + key + "\"]");
+        if ($el.is(':checkbox') && model.attributes[key] === true) {
+          return $el.attr('checked', 'checked');
+        } else {
+          return $el.val(model.attributes[key]);
+        }
+      });
+    };
+
+    Form.prototype.clear = function() {
+      _.each(this.$el.find(':input'), function(el) {
+        var $el;
+        $el = $(el);
+        if ($el.is(':checkbox')) {
+          $el.removeAttr('checked');
+        }
+        return $el.val('');
+      });
+      return this;
+    };
+
+    return Form;
+
+  })();
+
   Tres.Router = (function(_super) {
 
     __extends(Router, _super);

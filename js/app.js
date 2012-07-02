@@ -26,7 +26,8 @@
       }
     });
     SecondScreen = Tres.Screen.extend({
-      template: JST['form']
+      template: JST['form'],
+      active: function() {}
     });
     App = new Tres.App;
     App.on({

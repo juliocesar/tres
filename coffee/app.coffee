@@ -15,7 +15,10 @@ $ ->
       )
 
   )
-  SecondScreen  = Tres.Screen.extend(template : JST['form'])
+  SecondScreen  = Tres.Screen.extend(
+    template : JST['form']
+    active : ->
+  )
   App           = new Tres.App
 
   App.on 

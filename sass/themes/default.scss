@@ -7,7 +7,8 @@ $list-border          : #B4B4B4;
 $list-text            : black;
 $list-background      : white;
 $link-color           : white;
-$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));;
+$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));
+$button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
 
 
 body {
@@ -51,4 +52,15 @@ input {
   padding     : 0.5em;
   background  : $textfield-background;
   font-family : inherit;
+}
+
+button {
+  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+  @include border-radius(0.5em);
+  padding     : 0.5em 0.75em;
+  text-shadow : 1px 1px 0 black;
+  color       : white;
+  font-family : inherit;
+  font-weight : bold;
+  background  : $button-background;
 }

@@ -1,21 +1,21 @@
-/* line 13, ../sass/themes/default.scss */
+/* line 14, ../sass/themes/default.scss */
 body {
   background: -webkit-gradient(radial, 50% center, 200, 50% center, 40, from(#a51703), to(#bc4f40)), #a51703;
   color: white;
   font: 400 1em 'PT Sans Narrow', 'Helvetica Neue'; }
-  /* line 18, ../sass/themes/default.scss */
+  /* line 19, ../sass/themes/default.scss */
   body > section > header {
     background: rgba(0, 0, 0, 0.9); }
-    /* line 20, ../sass/themes/default.scss */
+    /* line 21, ../sass/themes/default.scss */
     body > section > header h1 {
       font-size: 1.2em;
       text-transform: uppercase; }
 
-/* line 28, ../sass/themes/default.scss */
+/* line 29, ../sass/themes/default.scss */
 a {
   color: white; }
 
-/* line 32, ../sass/themes/default.scss */
+/* line 33, ../sass/themes/default.scss */
 ul.common {
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
@@ -25,11 +25,11 @@ ul.common {
   border: 1px solid #b4b4b4;
   background: white;
   color: black; }
-  /* line 37, ../sass/themes/default.scss */
+  /* line 38, ../sass/themes/default.scss */
   ul.common li {
     padding: 0.5em 0.4em;
     border-top: 1px solid #b4b4b4; }
-    /* line 40, ../sass/themes/default.scss */
+    /* line 41, ../sass/themes/default.scss */
     ul.common li:first-child {
       -moz-border-radius-topleft: 0.25rem;
       -webkit-border-top-left-radius: 0.25rem;
@@ -39,7 +39,7 @@ ul.common {
       border-top-right-radius: 0.25rem;
       border-top: 0; }
 
-/* line 48, ../sass/themes/default.scss */
+/* line 49, ../sass/themes/default.scss */
 input {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -52,6 +52,23 @@ input {
   padding: 0.5em;
   background: -webkit-gradient(linear, 0% 0%, 0% 18%, from(#d4d4d4), to(white));
   font-family: inherit; }
+
+/* line 57, ../sass/themes/default.scss */
+button {
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  padding: 0.5em 0.75em;
+  text-shadow: 1px 1px 0 black;
+  color: white;
+  font-family: inherit;
+  font-weight: bold;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f5d201), to(#f5a101)); }
 
 /* line 3, ../sass/tres.scss */
 * {
@@ -70,7 +87,7 @@ p {
   margin: 0.5em 0; }
 
 /* line 13, ../sass/tres.scss */
-input {
+input, button, textarea {
   font-size: 100%; }
 
 /* line 15, ../sass/tres.scss */

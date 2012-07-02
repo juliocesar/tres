@@ -13,13 +13,26 @@
     <!-- Just inject templates from here into window.JST for the time being -->
     <script type="text/template" id="home-template">
       <header>
-        <button class="back"></button>
         <h1>Places</h1>
       </header>
       <ul id="places" class="common"></ul>
       <p>
         <a href="second/1">Go to the second screen</a>
       </p>
+    </script>
+    <script type="text/template" id="form-template">
+      <header>
+        <h1>Form</h1>
+      </header>
+      <form action="/foo" method="POST">
+      <label>Name</label>
+      <input type="text" placeholder="Your name">
+      <label>Phone</label>
+      <input type="tel" placeholder="Phone number">
+      <p>
+        <button type="submit">Submit</button>
+      </p>
+      </form>
     </script>
     <script src="/js/jquery-1.7.2.min.js"></script>
     <script src="/js/underscore.js"></script>

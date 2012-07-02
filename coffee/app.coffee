@@ -1,5 +1,5 @@
 $ ->
-  JST = { 'home' : $('#home-template').html() }
+  JST = { 'home' : $('#home-template').html(), 'form' : $('#form-template').html() }
 
   Places = Backbone.Collection.extend()
 
@@ -15,7 +15,7 @@ $ ->
       )
 
   )
-  SecondScreen  = Tres.Screen.extend()
+  SecondScreen  = Tres.Screen.extend(template : JST['form'])
   App           = new Tres.App
 
   App.on 

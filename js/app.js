@@ -3,7 +3,8 @@
   $(function() {
     var App, HomeScreen, JST, Places, SecondScreen;
     JST = {
-      'home': $('#home-template').html()
+      'home': $('#home-template').html(),
+      'form': $('#form-template').html()
     };
     Places = Backbone.Collection.extend();
     HomeScreen = Tres.Screen.extend({
@@ -24,7 +25,9 @@
         });
       }
     });
-    SecondScreen = Tres.Screen.extend();
+    SecondScreen = Tres.Screen.extend({
+      template: JST['form']
+    });
     App = new Tres.App;
     App.on({
       '': new HomeScreen,

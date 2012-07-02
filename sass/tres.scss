@@ -8,9 +8,9 @@
   -webkit-box-sizing : border-box 
 }
 
-ul {
-  list-style : none;
-}
+ul    { list-style : none }
+p     { margin : 0.5em 0 }
+input { font-size : 100% }
 
 body {
   position   : absolute;
@@ -57,6 +57,14 @@ body > section {
   }
 }
 
-p {
-  margin : 0.5em 0;
+form {
+  label { 
+    display     : block;
+    margin      : 0.25em 0;
+    font-weight : bold;
+  }
+  input { 
+    width : 100%;
+    margin-bottom : 0.5em;
+  }
 }

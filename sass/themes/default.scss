@@ -1,11 +1,13 @@
 @import 'compass/css3/border-radius';
+@import 'compass/css3/box-shadow';
 
-$body-background    : -webkit-gradient(radial, 50% center, 200, 50% center, 40, from(#a51703), to(#BC4F40)), #a51703;
-$header-background  : rgba(0,0,0,.9);
-$list-border        : #B4B4B4;
-$list-text          : black;
-$list-background    : white;
-$link-color         : white;
+$body-background      : -webkit-gradient(radial, 50% center, 200, 50% center, 40, from(#a51703), to(#BC4F40)), #a51703;
+$header-background    : rgba(0,0,0,.9);
+$list-border          : #B4B4B4;
+$list-text            : black;
+$list-background      : white;
+$link-color           : white;
+$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));;
 
 
 body {
@@ -33,7 +35,7 @@ ul.common {
   background : $list-background;
   color      : $list-text;    
   li {
-    padding : 0.5em 0.4em;
+    padding    : 0.5em 0.4em;
     border-top : 1px solid $list-border;
     &:first-child {
       @include border-top-left-radius(0.25rem);
@@ -41,4 +43,12 @@ ul.common {
       border-top: 0;
     }
   }
+}
+
+input {
+  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+  @include border-radius(0);
+  padding     : 0.5em;
+  background  : $textfield-background;
+  font-family : inherit;
 }

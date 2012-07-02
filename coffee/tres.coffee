@@ -5,6 +5,7 @@ Backbone  = window.Backbone
 JST       = window.JST
 $window   = $(window)
 $body     = $('body')
+make      = Backbone.View.prototype.make
 
 defaultTemplate = """
   <header></header>
@@ -112,6 +113,19 @@ class Tres.Form
       $el.removeAttr('checked') if $el.is(':checkbox')
       $el.val('')
     @
+
+
+Tres.Notifications =
+  $el : $(make('ul', id : 'notifications'))
+
+  notify : (message, options = { duration : 5000, type : 'exclamation-sign' }) ->
+    @$el.appendTo $body
+    $li = $(make('li', { class : "icon-#{options.type}"}, message))
+    @$el.append $li
+    $li.slideDown 250, =>
+      _.delay =>
+        $li.slideUp => $li.remove()
+      , options.duration
 
 
 class Tres.Router extends Backbone.Router

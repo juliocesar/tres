@@ -1,4 +1,5 @@
 @import 'themes/default';
+@import 'font-awesome';
 
 * { 
   margin             : 0; 
@@ -66,5 +67,19 @@ form {
   input { 
     width : 100%;
     margin-bottom : 0.5em;
+  }
+}
+
+#notifications {
+  position : fixed; 
+  right    : 0;
+  bottom   : 0;
+  left     : 0;
+  li {
+    display     : none;
+    padding     : 0.5em 1rem;
+    font-weight : bold;
+    font-size   : 1.2em;
+    &:before { margin-right : 0.25em }
   }
 }

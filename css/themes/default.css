@@ -1,17 +1,17 @@
-/* line 14, ../../sass/themes/default.scss */
+/* line 16, ../../sass/themes/default.scss */
 body {
   background: -webkit-gradient(radial, 50% center, 200, 50% center, 40, from(#a51703), to(#bc4f40)), #a51703;
   color: white;
   font: 400 1em 'PT Sans Narrow', 'Helvetica Neue'; }
-  /* line 19, ../../sass/themes/default.scss */
+  /* line 21, ../../sass/themes/default.scss */
   body > section > header {
     background: rgba(0, 0, 0, 0.9); }
-    /* line 21, ../../sass/themes/default.scss */
+    /* line 23, ../../sass/themes/default.scss */
     body > section > header h1 {
       font-size: 1.2em;
       text-transform: uppercase; }
 
-/* line 29, ../../sass/themes/default.scss */
+/* line 31, ../../sass/themes/default.scss */
 a {
   color: white; }
 
@@ -69,3 +69,8 @@ button {
   font-family: inherit;
   font-weight: bold;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f5d201), to(#f5a101)); }
+
+/* line 68, ../../sass/themes/default.scss */
+#notifications {
+  background: rgba(0, 0, 0, 0.9);
+  color: white; }

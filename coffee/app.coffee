@@ -26,4 +26,3 @@ $ ->
     'second/:id'  : new SecondScreen
 
   App.boot()
-

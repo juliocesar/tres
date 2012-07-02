@@ -9,6 +9,8 @@ $list-background      : white;
 $link-color           : white;
 $textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));
 $button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
+$notifications-background : rgba(0,0,0,.9);
+$notifications-color      : white;
 
 
 body {
@@ -26,9 +28,7 @@ body {
   }
 }
 
-a {
-  color : $link-color;
-}
+a { color : $link-color }
 
 ul.common {
   @include border-radius(0.25rem);
@@ -63,4 +63,9 @@ button {
   font-family : inherit;
   font-weight : bold;
   background  : $button-background;
+}
+
+#notifications {
+  background  : $notifications-background;
+  color       : $notifications-color
 }

@@ -1,5 +1,5 @@
 (function() {
-  var $, $body, $window, Backbone, JST, Tres, defaultTemplate, _,
+  var $, $body, $window, Backbone, JST, Tres, defaultTemplate, make, _,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -16,6 +16,8 @@
   $window = $(window);
 
   $body = $('body');
+
+  make = Backbone.View.prototype.make;
 
   defaultTemplate = "<header></header>\n<h1>Tres</h1>\n<p>Welcome to Tres</p>";
 
@@ -201,6 +203,34 @@
     return Form;
 
   })();
+
+  Tres.Notifications = {
+    $el: $(make('ul', {
+      id: 'notifications'
+    })),
+    notify: function(message, options) {
+      var $li,
+        _this = this;
+      if (options == null) {
+        options = {
+          duration: 5000,
+          type: 'exclamation-sign'
+        };
+      }
+      this.$el.appendTo($body);
+      $li = $(make('li', {
+        "class": "icon-" + options.type
+      }, message));
+      this.$el.append($li);
+      return $li.slideDown(250, function() {
+        return _.delay(function() {
+          return $li.slideUp(function() {
+            return $li.remove();
+          });
+        }, options.duration);
+      });
+    }
+  };
 
   Tres.Router = (function(_super) {
 

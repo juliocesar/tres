@@ -51,7 +51,8 @@
     Screen.prototype.tagName = 'section';
 
     Screen.prototype._events = {
-      'click a[href]': 'clickLink'
+      "click a[href]:not('.outlink')": 'touchLink',
+      "submit form": 'submit'
     };
 
     Screen.prototype.events = {};
@@ -79,10 +80,12 @@
       return this;
     };
 
-    Screen.prototype.clickLink = function(event) {
+    Screen.prototype.touchLink = function(event) {
       event.preventDefault();
       return this.router.navigate($(event.currentTarget).attr('href'), true);
     };
+
+    Screen.prototype.submit = function() {};
 
     Screen.prototype.activate = function() {
       $body.find('>section').removeClass('current');
@@ -204,7 +207,7 @@
 
   })();
 
-  Tres.Notifications = {
+  Tres.Notifier = {
     $el: $(make('ul', {
       id: 'notifications'
     })),
@@ -279,14 +282,21 @@
             screen.router = _this.router;
             screen.embed();
           }
-          return screen.activate(arguments);
+          return _.delay((function() {
+            return screen.activate(arguments);
+          }), 100);
         });
       });
     };
 
-    App.prototype.boot = function() {
+    App.prototype.boot = function(options) {
       var __super,
         _this = this;
+      if (options == null) {
+        options = {
+          pushState: true
+        };
+      }
       if (_.isFunction(this.router.before)) {
         __super = Backbone.history.loadUrl;
         Backbone.history.loadUrl = function() {
@@ -295,9 +305,7 @@
           return __super.apply(Backbone.history, arguments);
         };
       }
-      return Backbone.history.start({
-        pushState: true
-      });
+      return Backbone.history.start(options);
     };
 
     return App;

@@ -30,7 +30,7 @@ good looking theme will be provided, as well as transitions.
   likely tied to a `Backbone.Model`. Note: not likely this will generate the form from a model's
   attributes, since that means we need to define a schema for the model, and in which case we're 
   replicating what Backbone.Forms does. Just go and use it instead.
-* `Tres.Notifications`
+* `Tres.Notifier`
   - Displays animated notifications, clickable or not.
   
 Tentative stuff, but could be handled later by plugins.
@@ -38,28 +38,13 @@ Tentative stuff, but could be handled later by plugins.
 * `Tres.Map`
   - A Google map screen, with some helpers to ease the capture/insertion of data from it.
 
-# Usage
-  
-Currently, usage looks like this:
+# Development Track
 
-    $ ->
-      JST = { 'home' : $('#home-template').html() }
-
-      HomeScreen    = Tres.Screen.extend(template : JST['home'])
-      SecondScreen  = Tres.Screen.extend()
-      App           = new Tres.App
-
-      App.on 
-        ''            : new HomeScreen
-        'second/:id'  : new SecondScreen
-
-      App.boot()
+Things will be messy until I make final decisions on things. If you'd like to contribute or hack with this
+project, give me a shout and I'll help you set up the environment. Until then, this repo won't have any
+purpose beyond educational.
     
 # Styles
 
 As much as the philosophy is "stay out the way" and will remain so, a basic theme will be provided which
 uses exclusively fonts for icons and CSS3. That's in conformity with the trend of high resolution displays.
-
-# Thoughts
-
-Readme-oriented development is your friend!

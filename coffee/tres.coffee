@@ -13,6 +13,8 @@ defaultTemplate = """
   <p>Welcome to Tres</p>
 """
 
+# Tres.Device handles/exposes device events (orientation change, accellerometer, etc), screen width, and 
+# other hardware-related goodies.
 class Tres.Device
   constructor : ->
     _.extend @, Backbone.Events
@@ -21,12 +23,21 @@ class Tres.Device
   width   : -> window.outerWidth
   height  : -> window.outerHeight
 
+# Tres.Screen is the base screen class. So you'll pretty have one of these for each "route" in your app.
 class Tres.Screen extends Backbone.View
+
+  # Always use sections
   tagName   : 'section'
 
   # Ensure one can still declare events in a view without getting in the way of the defaults.
   _events   : 
-    'click a[href]' : 'clickLink'
+    # Click/touch on links will trigger pushState, but stay in the app. Except
+    # for links with the "outlink" class.
+    "click a[href]:not('.outlink')" : 'touchLink'
+
+    # Provide a convenience method `submit` which gets fired when you submit a form in a screen.
+    # You can still trap forms normally. This is just a shortcut in case you have 1 form in a screen.
+    "submit form"                   : 'submit'
 
   events    : {}
 
@@ -38,6 +49,7 @@ class Tres.Screen extends Backbone.View
     @delegateEvents _.extend(@events, @_events)
     @
 
+  # Embeds a Tres.Screen into the <body>. Returns false in case it's already embedded.
   embed : ->
     return false if @embedded
     @render()
@@ -45,15 +57,20 @@ class Tres.Screen extends Backbone.View
     @embedded = true
     @
 
-  clickLink : (event) ->
+  touchLink : (event) ->
     event.preventDefault()
     @router.navigate $(event.currentTarget).attr('href'), true
 
+  submit : ->
+
+  # Sets the class "current" to this screen, removing the class from whatever other sections
+  # that have it. Call the `active` method in case a screen has one.
   activate : ->
     $body.find('>section').removeClass 'current'
     @$el.addClass 'current'
     @active(arguments) if _.isFunction(@active)
 
+# Tres.List is a convenience class for rendering lists of things, interactible or not.
 class Tres.List extends Backbone.View
   _tagMap    :
     'UL'    : 'LI'
@@ -115,7 +132,7 @@ class Tres.Form
     @
 
 
-Tres.Notifications =
+Tres.Notifier =
   $el : $(make('ul', id : 'notifications'))
 
   notify : (message, options = { duration : 5000, type : 'exclamation-sign' }) ->
@@ -131,6 +148,7 @@ Tres.Notifications =
 class Tres.Router extends Backbone.Router
   initialize : (options = {}) ->
     _.extend @, options
+    
 
 class Tres.App
   constructor : (options = {router : new Tres.Router}) ->
@@ -145,16 +163,16 @@ class Tres.App
         unless screen.embedded
           screen.router = @router
           screen.embed()
-        screen.activate(arguments)
+        _.defer => screen.activate(arguments))
 
-  boot : ->
+  boot : (options = { pushState : true }) ->
     if _.isFunction(@router.before)
       __super = Backbone.history.loadUrl
       Backbone.history.loadUrl = =>
         @router.before.call @
         @router.trigger 'navigate'
         __super.apply Backbone.history, arguments
-    Backbone.history.start(pushState : true)
+    Backbone.history.start(options)
 
 
 window.Tres = Tres

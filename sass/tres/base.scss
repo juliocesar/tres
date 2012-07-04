@@ -1,4 +1,3 @@
-@import 'themes/default';
 @import 'font-awesome';
 
 * { 
@@ -30,7 +29,7 @@ body > section {
   left           : 0;
   min-height     : 100%;
   width          : 100%;
-  padding-top    : 4em;
+  // padding-top    : 4em;
   opacity        : 0;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
@@ -39,6 +38,9 @@ body > section {
   &>* {
     margin-left   : 1rem;
     margin-right  : 1rem;
+    &:first-child~header {
+      margin-top : 4em;
+    }
   }
   &>header {
     position   : absolute;

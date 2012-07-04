@@ -3,7 +3,7 @@ $ ->
 
   Places = Backbone.Collection.extend()
 
-  HomeScreen    = Tres.Screen.extend(
+  class HomeScreen extends Tres.Screen
     template : JST['home']
     active : ->
       places = new Places
@@ -14,12 +14,11 @@ $ ->
         { id : 3, name : 'Rio' }
       )
 
-  )
-  SecondScreen  = Tres.Screen.extend(
+  class SecondScreen extends Tres.Screen
     template : JST['form']
     active : ->
-  )
-  App           = new Tres.App
+
+  App = new Tres.App
 
   App.on 
     ''            : new HomeScreen

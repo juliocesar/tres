@@ -1,0 +1,97 @@
+@import 'compass/css3/border-radius';
+@import 'compass/css3/images';
+@import 'compass/css3/box-shadow';
+
+@import 'tres/base';
+
+$yellow               : #f4c72c;
+$body-background      : #242f35;
+$header-background    : rgba(0,0,0,.9);
+$list-border          : #B4B4B4;
+$list-text            : black;
+$list-background      : white;
+$link-color           : white;
+$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));
+$button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
+$notifications-background : rgba(0,0,0,.9);
+$notifications-color      : white;
+
+
+body {
+  background : $body-background;
+  color      : white;
+  font       : 400 1em 'PT Sans Narrow', 'Helvetica Neue';
+  &>section {
+    &>header {
+      @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+      h1 {
+        font-size : 1.2em;
+        text-transform : uppercase;
+      }
+    }
+  }
+}
+
+#logo {
+  font-size : 1.8em;
+  text-shadow : 2px 2px 0 black;
+  color       : $yellow;
+  span {
+    text-shadow : none;
+    color : white;
+  }
+}
+
+#home {
+  padding-top : 1em;
+  form {
+    margin-top    : 1em;
+    margin-bottom : 1em;
+  }
+  input {
+    display : block;
+    font-size : 1.2em;
+  }
+}
+
+a { color : $link-color }
+
+ul.common {
+  @include border-radius(0.25rem);
+  border     : 1px solid $list-border;
+  background : $list-background;
+  color      : $list-text;    
+  li {
+    padding    : 0.5em 0.4em;
+    border-top : 1px solid $list-border;
+    &:first-child {
+      @include border-top-left-radius(0.25rem);
+      @include border-top-right-radius(0.25rem);
+      border-top: 0;
+    }
+  }
+}
+
+input {
+  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+  @include border-radius(0);
+  padding     : 0.5em;
+  background  : $textfield-background;
+  font-family : inherit;
+}
+
+button {
+  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+  @include border-radius(0.5em);
+  padding     : 0.5em 0.75em;
+  text-shadow : 1px 1px 0 black;
+  color       : white;
+  font-family : inherit;
+  font-weight : bold;
+  background  : $button-background;
+}
+
+#notifications {
+  background  : $notifications-background;
+  color       : $notifications-color
+}

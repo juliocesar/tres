@@ -50,9 +50,9 @@
 
     Screen.prototype.tagName = 'section';
 
-    Screen.prototype._events = {
+    Screen.prototype.__events = {
       "click a[href]:not('.outlink')": 'touchLink',
-      "submit form": 'submit'
+      "submit form": '__submit'
     };
 
     Screen.prototype.events = {};
@@ -66,7 +66,7 @@
 
     Screen.prototype.render = function() {
       this.$el.html(this.template || defaultTemplate);
-      this.delegateEvents(_.extend(this.events, this._events));
+      this.delegateEvents(_.extend(this.events, this.__events));
       return this;
     };
 
@@ -83,6 +83,11 @@
     Screen.prototype.touchLink = function(event) {
       event.preventDefault();
       return this.router.navigate($(event.currentTarget).attr('href'), true);
+    };
+
+    Screen.prototype.__submit = function(event) {
+      this.submit.apply(this, arguments);
+      return this.$el.find(':focus').blur();
     };
 
     Screen.prototype.submit = function() {};
@@ -116,12 +121,12 @@
     List.prototype.initialize = function(collection, el) {
       this.collection = collection;
       this.setElement(el);
-      this.collection.on('add', this._add, this);
-      this.collection.on('remove', this._remove, this);
-      return this.collection.on('reset', this._addAll, this);
+      this.collection.on('add', this.__add, this);
+      this.collection.on('remove', this.__remove, this);
+      return this.collection.on('reset', this.__addAll, this);
     };
 
-    List.prototype._add = function(model) {
+    List.prototype.__add = function(model) {
       var child;
       child = this.make(this._tagMap[this.$el.get(0).tagName], null, model.get('name'));
       model.template = child;
@@ -129,15 +134,15 @@
       return this.$el;
     };
 
-    List.prototype.remove = function(model) {
+    List.prototype.__remove = function(model) {
       return model.template.remove();
     };
 
-    List.prototype._addAll = function() {
+    List.prototype.__addAll = function() {
       var _this = this;
       this.$el.empty();
       return this.collection.each(function(model) {
-        return _this._add(model);
+        return _this.__add(model);
       });
     };
 
@@ -278,13 +283,13 @@
           screen = _.find(_this.screens, function(screen) {
             return screen === map[url];
           }) || map[url];
-          if (!screen.embedded) {
+          if (screen.embedded !== true) {
             screen.router = _this.router;
             screen.embed();
           }
-          return _.delay((function() {
+          return _.defer(function() {
             return screen.activate(arguments);
-          }), 100);
+          });
         });
       });
     };
@@ -293,19 +298,20 @@
       var __super,
         _this = this;
       if (options == null) {
-        options = {
-          pushState: true
-        };
+        options = {};
       }
-      if (_.isFunction(this.router.before)) {
-        __super = Backbone.history.loadUrl;
-        Backbone.history.loadUrl = function() {
+      __super = Backbone.history.loadUrl;
+      Backbone.history.loadUrl = function() {
+        if (_.isFunction(_this.router.before)) {
           _this.router.before.call(_this);
-          _this.router.trigger('navigate');
-          return __super.apply(Backbone.history, arguments);
-        };
-      }
-      return Backbone.history.start(options);
+        }
+        _this.router.trigger('navigate');
+        window.scrollTo(0, 0);
+        return __super.apply(Backbone.history, arguments);
+      };
+      return Backbone.history.start(_.extend(options, {
+        pushState: true
+      }));
     };
 
     return App;

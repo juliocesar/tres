@@ -15,7 +15,12 @@
 
     Home.prototype.template = JST['home'];
 
-    Home.prototype.active = function() {};
+    Home.prototype.submit = function(event) {
+      var form;
+      event.preventDefault();
+      form = new Tres.Form(this.$el.find('form'));
+      return this.router.navigate("search/" + (encodeURI(form.attributes().query)), true);
+    };
 
     return Home;
 
@@ -57,8 +62,8 @@
     window.App = new Tres.App;
     App.on({
       '': new Home,
-      '/search/:query': new Search,
-      '/article/:name': new Article
+      'search/:query': new Search,
+      'article/:name': new Article
     });
     return App.boot({
       root: '/anagen/'

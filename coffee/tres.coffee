@@ -30,14 +30,14 @@ class Tres.Screen extends Backbone.View
   tagName   : 'section'
 
   # Ensure one can still declare events in a view without getting in the way of the defaults.
-  _events   : 
+  __events   : 
     # Click/touch on links will trigger pushState, but stay in the app. Except
     # for links with the "outlink" class.
     "click a[href]:not('.outlink')" : 'touchLink'
 
     # Provide a convenience method `submit` which gets fired when you submit a form in a screen.
     # You can still trap forms normally. This is just a shortcut in case you have 1 form in a screen.
-    "submit form"                   : 'submit'
+    "submit form"                   : '__submit'
 
   events    : {}
 
@@ -46,7 +46,7 @@ class Tres.Screen extends Backbone.View
 
   render : ->
     @$el.html (@template or defaultTemplate)
-    @delegateEvents _.extend(@events, @_events)
+    @delegateEvents _.extend(@events, @__events)
     @
 
   # Embeds a Tres.Screen into the <body>. Returns false in case it's already embedded.
@@ -60,6 +60,10 @@ class Tres.Screen extends Backbone.View
   touchLink : (event) ->
     event.preventDefault()
     @router.navigate $(event.currentTarget).attr('href'), true
+
+  __submit : (event) ->
+    @submit.apply @, arguments
+    @$el.find(':focus').blur()
 
   submit : ->
 
@@ -79,22 +83,22 @@ class Tres.List extends Backbone.View
 
   initialize : (@collection, el) ->
     @setElement(el)
-    @collection.on 'add',     @_add,    @
-    @collection.on 'remove',  @_remove, @
-    @collection.on 'reset',   @_addAll, @
+    @collection.on 'add',     @__add,    @
+    @collection.on 'remove',  @__remove, @
+    @collection.on 'reset',   @__addAll, @
 
-  _add : (model) ->
+  __add : (model) ->
     child = @make @_tagMap[@$el.get(0).tagName], null, model.get('name')
     model.template = child
     @$el.append child
     @$el
 
-  remove : (model) ->
+  __remove : (model) ->
     model.template.remove()
 
-  _addAll : ->
+  __addAll : ->
     @$el.empty()
-    @collection.each (model) => @_add(model)  
+    @collection.each (model) => @__add(model)  
 
 class Tres.Form
   constructor : (@$el) ->
@@ -147,8 +151,7 @@ Tres.Notifier =
 
 class Tres.Router extends Backbone.Router
   initialize : (options = {}) ->
-    _.extend @, options
-    
+    _.extend @, options    
 
 class Tres.App
   constructor : (options = {router : new Tres.Router}) ->
@@ -160,19 +163,19 @@ class Tres.App
     _.each _.keys(map), (url) =>
       @router.route url, _.uniqueId('r'), =>
         screen = (_.find(@screens, (screen) => screen is map[url]) or map[url])
-        unless screen.embedded
+        unless screen.embedded is true
           screen.router = @router
           screen.embed()
-        _.defer => screen.activate(arguments))
+        _.defer => screen.activate(arguments)
 
-  boot : (options = { pushState : true }) ->
-    if _.isFunction(@router.before)
-      __super = Backbone.history.loadUrl
-      Backbone.history.loadUrl = =>
-        @router.before.call @
-        @router.trigger 'navigate'
-        __super.apply Backbone.history, arguments
-    Backbone.history.start(options)
+  boot : (options = {}) ->
+    __super = Backbone.history.loadUrl
+    Backbone.history.loadUrl = =>
+      @router.before.call(@) if _.isFunction(@router.before)
+      @router.trigger 'navigate'
+      window.scrollTo(0,0)
+      __super.apply Backbone.history, arguments
+    Backbone.history.start(_.extend(options, pushState : true))
 
 
 window.Tres = Tres

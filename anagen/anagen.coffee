@@ -1,7 +1,11 @@
 class Home extends Tres.Screen
   id       : 'home'
   template : JST['home']
-  active : ->
+  submit : (event) ->
+    event.preventDefault()
+    form = new Tres.Form(@$el.find('form'))
+    @router.navigate "search/#{encodeURI(form.attributes().query)}", true
+
 
 class Search extends Tres.Screen
   id       : 'search'
@@ -16,6 +20,6 @@ $ ->
   window.App = new Tres.App
   App.on
     ''                : new Home
-    '/search/:query'  : new Search
-    '/article/:name'  : new Article
+    'search/:query'  : new Search
+    'article/:name'  : new Article
   App.boot(root : '/anagen/')

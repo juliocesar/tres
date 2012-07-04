@@ -64,6 +64,17 @@
       return _.extend(this, options);
     };
 
+    Screen.prototype.title = function(title) {
+      if (title == null) {
+        title = null;
+      }
+      if (title != null) {
+        return this.$el.find('h1').html(title);
+      } else {
+        return this.$el.find('h1').html();
+      }
+    };
+
     Screen.prototype.render = function() {
       this.$el.html(this.template || defaultTemplate);
       this.delegateEvents(_.extend(this.events, this.__events));
@@ -96,7 +107,7 @@
       $body.find('>section').removeClass('current');
       this.$el.addClass('current');
       if (_.isFunction(this.active)) {
-        return this.active(arguments);
+        return this.active.apply(this, arguments);
       }
     };
 
@@ -279,16 +290,15 @@
       }
       return _.each(_.keys(map), function(url) {
         return _this.router.route(url, _.uniqueId('r'), function() {
-          var screen;
-          screen = _.find(_this.screens, function(screen) {
-            return screen === map[url];
-          }) || map[url];
+          var args, screen;
+          screen = map[url];
           if (screen.embedded !== true) {
             screen.router = _this.router;
             screen.embed();
           }
+          args = arguments;
           return _.defer(function() {
-            return screen.activate(arguments);
+            return screen.activate.apply(screen, args);
           });
         });
       });

@@ -10,6 +10,8 @@ class Home extends Tres.Screen
 class Search extends Tres.Screen
   id       : 'search'
   template : JST['search']
+  active : (query) ->
+    @title("Search: #{query}")
 
 class Article extends Tres.Screen
   id       : 'article'

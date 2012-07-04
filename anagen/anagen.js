@@ -38,6 +38,10 @@
 
     Search.prototype.template = JST['search'];
 
+    Search.prototype.active = function(query) {
+      return this.title("Search: " + query);
+    };
+
     return Search;
 
   })(Tres.Screen);

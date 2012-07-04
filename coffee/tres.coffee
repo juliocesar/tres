@@ -44,6 +44,14 @@ class Tres.Screen extends Backbone.View
   initialize : (options = {}) ->
     _.extend @, options
 
+  # Returns the title of the screen, which will only exist if there's a header with a <h1>
+  # inside of it.
+  title : (title = null) ->
+    if title?
+      @$el.find('h1').html(title)
+    else
+      @$el.find('h1').html()
+
   render : ->
     @$el.html (@template or defaultTemplate)
     @delegateEvents _.extend(@events, @__events)
@@ -72,7 +80,7 @@ class Tres.Screen extends Backbone.View
   activate : ->
     $body.find('>section').removeClass 'current'
     @$el.addClass 'current'
-    @active(arguments) if _.isFunction(@active)
+    @active.apply(@, arguments) if _.isFunction(@active)
 
 # Tres.List is a convenience class for rendering lists of things, interactible or not.
 class Tres.List extends Backbone.View
@@ -162,11 +170,13 @@ class Tres.App
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
       @router.route url, _.uniqueId('r'), =>
-        screen = (_.find(@screens, (screen) => screen is map[url]) or map[url])
+        # screen = (_.find(@screens, (screen) => screen is map[url]) or map[url])
+        screen = map[url]
         unless screen.embedded is true
           screen.router = @router
           screen.embed()
-        _.defer => screen.activate(arguments)
+        args = arguments
+        _.defer => screen.activate.apply(screen, args)
 
   boot : (options = {}) ->
     __super = Backbone.history.loadUrl

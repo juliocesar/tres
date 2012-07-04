@@ -948,6 +948,10 @@ input, button, textarea {
   font-size: 100%; }
 
 /* line 15, ../../sass/tres/base.scss */
+html {
+  min-height: 420px; }
+
+/* line 16, ../../sass/tres/base.scss */
 body {
   position: absolute;
   height: 100%;
@@ -958,7 +962,7 @@ body {
   -webkit-transform-style: preserve-3d;
   -webkit-user-select: none; }
 
-/* line 26, ../../sass/tres/base.scss */
+/* line 27, ../../sass/tres/base.scss */
 body > section {
   display: block;
   position: absolute;
@@ -970,52 +974,52 @@ body > section {
   -webkit-transition: all 0.25s ease-in-out;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translate3d(100%, 0%, 0); }
-  /* line 38, ../../sass/tres/base.scss */
+  /* line 39, ../../sass/tres/base.scss */
   body > section > * {
     margin-left: 1rem;
     margin-right: 1rem; }
-    /* line 41, ../../sass/tres/base.scss */
+    /* line 42, ../../sass/tres/base.scss */
     body > section > *:first-child ~ header {
       margin-top: 4em; }
-  /* line 45, ../../sass/tres/base.scss */
+  /* line 46, ../../sass/tres/base.scss */
   body > section > header {
     position: absolute;
     top: 0;
     width: 100%;
     margin: 0;
     text-align: center; }
-    /* line 51, ../../sass/tres/base.scss */
+    /* line 52, ../../sass/tres/base.scss */
     body > section > header h1 {
       display: inline-block;
       margin: 0.5em 0; }
-  /* line 56, ../../sass/tres/base.scss */
+  /* line 57, ../../sass/tres/base.scss */
   body > section.current {
     opacity: 1;
     pointer-events: auto;
     -webkit-transform: translate3d(0%, 0%, 0); }
 
-/* line 64, ../../sass/tres/base.scss */
+/* line 65, ../../sass/tres/base.scss */
 form label {
   display: block;
   margin: 0.25em 0;
   font-weight: bold; }
-/* line 69, ../../sass/tres/base.scss */
+/* line 70, ../../sass/tres/base.scss */
 form input {
   width: 100%;
   margin-bottom: 0.5em; }
 
-/* line 75, ../../sass/tres/base.scss */
+/* line 76, ../../sass/tres/base.scss */
 #notifications {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0; }
-  /* line 80, ../../sass/tres/base.scss */
+  /* line 81, ../../sass/tres/base.scss */
   #notifications li {
     display: none;
     padding: 0.5em 1rem;
     font-weight: bold;
     font-size: 1.2em; }
-    /* line 85, ../../sass/tres/base.scss */
+    /* line 86, ../../sass/tres/base.scss */
     #notifications li:before {
       margin-right: 0.25em; }

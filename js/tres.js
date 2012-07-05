@@ -115,6 +115,30 @@
 
   })(Backbone.View);
 
+  Tres.ListEntry = (function(_super) {
+
+    __extends(ListEntry, _super);
+
+    function ListEntry() {
+      return ListEntry.__super__.constructor.apply(this, arguments);
+    }
+
+    ListEntry.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      return _.extend(this, options);
+    };
+
+    ListEntry.prototype.render = function() {
+      this.$el.html(this.template(this.model));
+      return this;
+    };
+
+    return ListEntry;
+
+  })(Backbone.View);
+
   Tres.List = (function(_super) {
 
     __extends(List, _super);
@@ -129,20 +153,26 @@
       'DIV': 'DIV'
     };
 
-    List.prototype.initialize = function(collection, el) {
-      this.collection = collection;
-      this.setElement(el);
+    List.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      _.extend(this, options);
+      this.setElement(this.el);
       this.collection.on('add', this.__add, this);
       this.collection.on('remove', this.__remove, this);
       return this.collection.on('reset', this.__addAll, this);
     };
 
     List.prototype.__add = function(model) {
-      var child;
-      child = this.make(this._tagMap[this.$el.get(0).tagName], null, model.get('name'));
-      model.template = child;
-      this.$el.append(child);
-      return this.$el;
+      var tag, template;
+      tag = this.entry.tagName || this._tagMap[this.$el.get(0).tagName];
+      template = new Tres.ListEntry(_.extend(this.entry, {
+        tagName: tag,
+        model: model
+      }));
+      model.template = template;
+      return this.$el.append(template.render().el);
     };
 
     List.prototype.__remove = function(model) {
@@ -155,6 +185,13 @@
       return this.collection.each(function(model) {
         return _this.__add(model);
       });
+    };
+
+    List.prototype.remove = function() {
+      if (this.collection != null) {
+        this.collection.off();
+      }
+      return List.__super__.remove.apply(this, arguments);
     };
 
     return List;

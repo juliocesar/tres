@@ -82,6 +82,15 @@ class Tres.Screen extends Backbone.View
     @$el.addClass 'current'
     @active.apply(@, arguments) if _.isFunction(@active)
 
+class Tres.ListEntry extends Backbone.View
+  initialize : (options = {}) ->
+    _.extend @, options
+
+  render : ->
+    @$el.html( @template(@model) )
+    @
+
+
 # Tres.List is a convenience class for rendering lists of things, interactible or not.
 class Tres.List extends Backbone.View
   _tagMap    :
@@ -89,17 +98,18 @@ class Tres.List extends Backbone.View
     'OL'    : 'LI'
     'DIV'   : 'DIV'
 
-  initialize : (@collection, el) ->
-    @setElement(el)
+  initialize : (options = {}) ->
+    _.extend @, options
+    @setElement(@el)
     @collection.on 'add',     @__add,    @
     @collection.on 'remove',  @__remove, @
     @collection.on 'reset',   @__addAll, @
 
   __add : (model) ->
-    child = @make @_tagMap[@$el.get(0).tagName], null, model.get('name')
-    model.template = child
-    @$el.append child
-    @$el
+    tag = @entry.tagName or @_tagMap[@$el.get(0).tagName]
+    template = new Tres.ListEntry(_.extend(@entry, { tagName : tag, model : model }))
+    model.template = template
+    @$el.append template.render().el
 
   __remove : (model) ->
     model.template.remove()
@@ -107,6 +117,10 @@ class Tres.List extends Backbone.View
   __addAll : ->
     @$el.empty()
     @collection.each (model) => @__add(model)  
+
+  remove : ->
+    @collection.off() if @collection?
+    super
 
 class Tres.Form
   constructor : (@$el) ->

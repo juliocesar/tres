@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="red" />
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+    <!-- <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet"> -->
     <link rel="stylesheet" href="/anagen/anagen.css">
   </head>
   <body>
@@ -23,19 +23,19 @@
     </script>
     <script type="text/template" id="search-template">
       <header>
-        <button type="button" class="back">Home</button>
+        <a href="" class="icon-search left"></a>
         <h1></h1>
       </header>
-      <ul></ul>
+      <ul class="common"></ul>
     </script>
     <script type="text/template" id="article-template">
       <header>
         <h1></h1>
       </header>
-      <ul id="articles"></ul>
+      <ul></ul>
     </script>
     <script type="text/template" id="result-template">
-      <h1><%= get('title') %></h1>
+      <%= get('title') %>
     </script>
     <script src="/js/jquery-1.7.2.min.js"></script>
     <script src="/js/underscore.js"></script>

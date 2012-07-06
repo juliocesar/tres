@@ -21,15 +21,16 @@ body {
   background : $body-background;
   color      : white;
   font       : 400 1em 'PT Sans Narrow', 'Helvetica Neue';
-  &>section {
-    &>header {
-      @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
-      h1 {
-        font-size : 1.2em;
-        text-transform : uppercase;
-      }
-    }
+}
+
+body > section > header {
+  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
+  background : $header-background;
+  h1 {
+    font-size      : 1.2em;
+    text-transform : uppercase
   }
+  a { font-size : 1.2em }
 }
 
 #logo {
@@ -62,8 +63,9 @@ ul.common {
   background : $list-background;
   color      : $list-text;    
   li {
-    padding    : 0.5em 0.4em;
-    border-top : 1px solid $list-border;
+    padding     : 0.75em 0.5em;
+    border-top  : 1px solid $list-border;
+    font-weight : bold;
     &:first-child {
       @include border-top-left-radius(0.25rem);
       @include border-top-right-radius(0.25rem);

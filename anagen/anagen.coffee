@@ -39,8 +39,8 @@ class Search extends Tres.Screen
     @title("Search: #{query}")
     @list ?= new Tres.List(
       collection : App.Suggestions
-      el : @$el.find('ul')
-      entry : { template : JST['result'] }
+      el         : @$el.find('ul')
+      entry      : { template : JST['result'] }
     )
     App.Suggestions.search query
 

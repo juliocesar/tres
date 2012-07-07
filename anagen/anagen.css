@@ -1003,13 +1003,13 @@ body > section > header {
   /* line 63, ../sass/tres/base.scss */
   body > section > header h1 {
     font-size: 1.9rem;
-    margin: 0.6rem 0;
+    margin: 0.9rem 0;
     white-space: nowrap; }
   /* line 68, ../sass/tres/base.scss */
   body > section > header a {
     position: absolute;
     font-size: 1.9rem;
-    margin-top: 0.6rem;
+    margin-top: 0.9rem;
     text-decoration: none; }
     /* line 73, ../sass/tres/base.scss */
     body > section > header a.left {
@@ -1058,7 +1058,7 @@ form {
 
 /* line 20, anagen.scss */
 body {
-  background: #242f35;
+  background: #232323;
   color: white;
   font-family: 'PT Sans Narrow', 'Helvetica Neue'; }
 
@@ -1070,24 +1070,25 @@ body > section > header {
   background: rgba(0, 0, 0, 0.9); }
   /* line 29, anagen.scss */
   body > section > header h1 {
+    color: #ff8e35;
     text-transform: uppercase;
     text-align: center; }
 
-/* line 35, anagen.scss */
+/* line 36, anagen.scss */
 #logo {
   font-size: 3rem;
   text-shadow: 2px 2px 0 black;
-  color: #f4c72c; }
-  /* line 39, anagen.scss */
+  color: #ff8e35; }
+  /* line 40, anagen.scss */
   #logo span {
     text-shadow: none;
     color: white; }
 
-/* line 46, anagen.scss */
+/* line 47, anagen.scss */
 a {
   color: white; }
 
-/* line 48, anagen.scss */
+/* line 49, anagen.scss */
 ul.common {
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
@@ -1097,13 +1098,13 @@ ul.common {
   border: 1px solid #b4b4b4;
   color: black;
   background: transparent; }
-  /* line 53, anagen.scss */
+  /* line 54, anagen.scss */
   ul.common li {
     padding: 0.75em 0.5em;
     border-top: 1px solid #b4b4b4;
     font-weight: bold;
     background: white; }
-    /* line 58, anagen.scss */
+    /* line 59, anagen.scss */
     ul.common li:first-child {
       -moz-border-radius-topleft: 0.25rem;
       -webkit-border-top-left-radius: 0.25rem;
@@ -1113,7 +1114,7 @@ ul.common {
       border-top-right-radius: 0.25rem;
       border-top: 0; }
 
-/* line 66, anagen.scss */
+/* line 67, anagen.scss */
 input {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -1125,7 +1126,7 @@ input {
   border-radius: 0;
   background: -webkit-gradient(linear, 0% 0%, 0% 18%, from(#d4d4d4), to(white)); }
 
-/* line 72, anagen.scss */
+/* line 73, anagen.scss */
 button {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -1142,7 +1143,7 @@ button {
   font-weight: bold;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f5d201), to(#f5a101)); }
 
-/* line 83, anagen.scss */
+/* line 84, anagen.scss */
 #notifications {
   background: rgba(0, 0, 0, 0.9);
   color: white; }

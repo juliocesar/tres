@@ -4,8 +4,8 @@
 
 @import 'tres/base';
 
-$yellow               : #f4c72c;
-$body-background      : #242f35;
+$orange               : #ff8e35;
+$body-background      : #232323;
 $header-background    : rgba(0,0,0,.9);
 $list-border          : #B4B4B4;
 $list-text            : black;
@@ -27,6 +27,7 @@ body > section > header {
   @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
   background : $header-background;
   h1 {
+    color          : $orange;
     text-transform : uppercase;
     text-align     : center;
   }
@@ -35,7 +36,7 @@ body > section > header {
 #logo {
   font-size : 3rem;
   text-shadow : 2px 2px 0 black;
-  color       : $yellow;
+  color       : $orange;
   span {
     text-shadow : none;
     color : white;

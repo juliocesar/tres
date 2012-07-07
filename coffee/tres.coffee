@@ -200,7 +200,7 @@ class Tres.App
     Backbone.history.loadUrl = =>
       @router.before.call(@) if _.isFunction(@router.before)
       @router.trigger 'navigate'
-      
+      window.scroll(0, 0)
       __super.apply Backbone.history, arguments
     Backbone.history.start(_.extend(options, pushState : true))
 

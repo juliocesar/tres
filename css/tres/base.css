@@ -1003,13 +1003,13 @@ body > section > header {
   /* line 63, ../../sass/tres/base.scss */
   body > section > header h1 {
     font-size: 1.9rem;
-    margin: 0.6rem 0;
+    margin: 0.9rem 0;
     white-space: nowrap; }
   /* line 68, ../../sass/tres/base.scss */
   body > section > header a {
     position: absolute;
     font-size: 1.9rem;
-    margin-top: 0.6rem;
+    margin-top: 0.9rem;
     text-decoration: none; }
     /* line 73, ../../sass/tres/base.scss */
     body > section > header a.left {

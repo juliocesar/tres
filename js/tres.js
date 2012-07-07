@@ -356,6 +356,7 @@
           _this.router.before.call(_this);
         }
         _this.router.trigger('navigate');
+        window.scroll(0, 0);
         return __super.apply(Backbone.history, arguments);
       };
       return Backbone.history.start(_.extend(options, {

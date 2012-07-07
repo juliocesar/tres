@@ -18,10 +18,13 @@ defaultTemplate = """
 class Tres.Device
   constructor : ->
     _.extend @, Backbone.Events
-    $window.on 'orientationchange', _.bind @trigger, @, 'orientationchange'
+    $window.on 'orientationchange', _.bind @trigger, @, 'orientation:change'
 
-  width   : -> window.outerWidth
-  height  : -> window.outerHeight
+  width       : -> window.outerWidth
+  height      : -> window.outerHeight
+  orientation : ->
+    
+
 
 # Tres.Screen is the base screen class. So you'll pretty have one of these for each "route" in your app.
 class Tres.Screen extends Backbone.View
@@ -176,7 +179,7 @@ class Tres.Router extends Backbone.Router
     _.extend @, options    
 
 class Tres.App
-  constructor : (options = {router : new Tres.Router}) ->
+  constructor : (options = {router : new Tres.Router, device : new Tres.Device}) ->
     _.extend @, options
 
   screens : []
@@ -197,7 +200,7 @@ class Tres.App
     Backbone.history.loadUrl = =>
       @router.before.call(@) if _.isFunction(@router.before)
       @router.trigger 'navigate'
-      window.scrollTo(0,0)
+      
       __super.apply Backbone.history, arguments
     Backbone.history.start(_.extend(options, pushState : true))
 

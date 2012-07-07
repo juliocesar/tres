@@ -940,21 +940,22 @@ ul {
   list-style: none; }
 
 /* line 12, ../../sass/tres/base.scss */
-p {
-  margin: 0.5em 0; }
-
-/* line 13, ../../sass/tres/base.scss */
 input, button, textarea {
   font-size: 100%; }
 
-/* line 15, ../../sass/tres/base.scss */
+/* line 14, ../../sass/tres/base.scss */
 html {
-  min-height: 420px; }
+  min-height: 420px;
+  font-size: 62.5%; }
+
+/* line 15, ../../sass/tres/base.scss */
+html, body {
+  height: 99.9%; }
 
 /* line 16, ../../sass/tres/base.scss */
 body {
-  position: absolute;
-  height: 100%;
+  font-size: 1.5rem;
+  line-height: 2.3rem;
   width: 100%;
   overflow-x: hidden;
   -webkit-perspective: 800;
@@ -966,6 +967,7 @@ body {
 body > section {
   display: block;
   position: absolute;
+  padding: 1.6rem 0;
   left: 0;
   min-height: 100%;
   width: 100%;
@@ -986,56 +988,70 @@ body > section {
 
 /* line 52, ../../sass/tres/base.scss */
 body > section > header {
-  position: absolute;
-  top: 0;
-  width: 100%;
   margin: 0;
-  z-index: 10000;
   text-align: center; }
-  /* line 59, ../../sass/tres/base.scss */
-  body > section > header + * {
-    margin-top: 4em; }
+  /* line 55, ../../sass/tres/base.scss */
+  body > section > header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000; }
   /* line 62, ../../sass/tres/base.scss */
+  body > section > header + * {
+    margin-top: 4.6rem; }
+  /* line 63, ../../sass/tres/base.scss */
   body > section > header h1 {
-    display: inline-block;
-    margin: 0.5em 0;
+    font-size: 1.9rem;
+    margin: 0.6rem 0;
     white-space: nowrap; }
-  /* line 67, ../../sass/tres/base.scss */
+  /* line 68, ../../sass/tres/base.scss */
   body > section > header a {
     position: absolute;
-    height: 1em;
-    width: 1em;
-    top: 0.5em;
+    font-size: 1.9rem;
+    margin-top: 0.6rem;
     text-decoration: none; }
     /* line 73, ../../sass/tres/base.scss */
     body > section > header a.left {
-      left: 1rem; }
+      left: 1.6rem; }
     /* line 74, ../../sass/tres/base.scss */
     body > section > header a.right {
-      right: 1rem; }
+      right: 1.6rem; }
 
-/* line 79, ../../sass/tres/base.scss */
-form label {
-  display: block;
-  margin: 0.25em 0;
-  font-weight: bold; }
+/* line 80, ../../sass/tres/base.scss */
+body > section h1 {
+  margin-bottom: 1.6rem; }
+/* line 81, ../../sass/tres/base.scss */
+body > section p, body > section input, body > section textarea, body > section button {
+  font-size: 1.8rem; }
+
 /* line 84, ../../sass/tres/base.scss */
-form input {
-  width: 100%;
-  margin-bottom: 0.5em; }
+form {
+  margin: 1.3rem 0; }
+  /* line 86, ../../sass/tres/base.scss */
+  form label {
+    display: block;
+    margin: 0.25em 0;
+    font-weight: bold; }
+  /* line 91, ../../sass/tres/base.scss */
+  form input, form textarea {
+    display: block;
+    padding: 0.9rem;
+    width: 100%;
+    font-family: inherit; }
 
-/* line 90, ../../sass/tres/base.scss */
+/* line 99, ../../sass/tres/base.scss */
 #notifications {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0; }
-  /* line 95, ../../sass/tres/base.scss */
+  /* line 104, ../../sass/tres/base.scss */
   #notifications li {
     display: none;
-    padding: 0.5em 1rem;
+    padding: 0.6rem 1rem;
     font-weight: bold;
-    font-size: 1.2em; }
-    /* line 100, ../../sass/tres/base.scss */
+    font-size: 1.6rem; }
+    /* line 109, ../../sass/tres/base.scss */
     #notifications li:before {
-      margin-right: 0.25em; }
+      margin-right: 1rem; }

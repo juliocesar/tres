@@ -18,23 +18,22 @@ $notifications-color      : white;
 
 
 body {
-  background : $body-background;
-  color      : white;
-  font       : 400 1em 'PT Sans Narrow', 'Helvetica Neue';
+  background  : $body-background;
+  color       : white;
+  font-family : 'PT Sans Narrow', 'Helvetica Neue';
 }
 
 body > section > header {
   @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
   background : $header-background;
   h1 {
-    font-size      : 1.2em;
-    text-transform : uppercase
+    text-transform : uppercase;
+    text-align     : center;
   }
-  a { font-size : 1.2em }
 }
 
 #logo {
-  font-size : 1.8em;
+  font-size : 3rem;
   text-shadow : 2px 2px 0 black;
   color       : $yellow;
   span {
@@ -43,29 +42,19 @@ body > section > header {
   }
 }
 
-#home {
-  padding-top : 1em;
-  form {
-    margin-top    : 1em;
-    margin-bottom : 1em;
-  }
-  input {
-    display : block;
-    font-size : 1.2em;
-  }
-}
 
 a { color : $link-color }
 
 ul.common {
   @include border-radius(0.25rem);
   border     : 1px solid $list-border;
-  background : $list-background;
   color      : $list-text;    
+  background : transparent;
   li {
     padding     : 0.75em 0.5em;
     border-top  : 1px solid $list-border;
     font-weight : bold;
+    background  : $list-background;
     &:first-child {
       @include border-top-left-radius(0.25rem);
       @include border-top-right-radius(0.25rem);
@@ -77,9 +66,7 @@ ul.common {
 input {
   @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
   @include border-radius(0);
-  padding     : 0.5em;
   background  : $textfield-background;
-  font-family : inherit;
 }
 
 button {

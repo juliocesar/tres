@@ -9,15 +9,15 @@
 }
 
 ul    { list-style : none }
-p     { margin : 0.5em 0 }
 input, button, textarea { font-size : 100% }
 
-html { min-height : 420px }
+html { min-height : 420px; font-size : 62.5% }
+html, body { height : 99.9% }
 body {
-  position   : absolute;
-  height     : 100%;
-  width      : 100%;
-  overflow-x : hidden;
+  font-size   : 1.5rem;
+  line-height : 2.3rem;
+  width       : 100%;
+  overflow-x  : hidden;
   -webkit-perspective      : 800;
   -webkit-text-size-adjust : none;
   -webkit-transform-style  : preserve-3d;
@@ -28,10 +28,10 @@ body {
 body > section {
   display        : block;
   position       : absolute;
+  padding        : 1.6rem 0;
   left           : 0;
   min-height     : 100%;
   width          : 100%;
-  // padding-top    : 4em;
   opacity        : 0;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
@@ -50,40 +50,49 @@ body > section {
 
 // Floating header, header stuffs
 body > section > header {
-  position : absolute;
-  top      : 0;
-  width    : 100%;
-  margin   : 0;
-  z-index  : 10000;
+  margin     : 0;
   text-align : center;
-  & + * {
-    margin-top : 4em;
+  &.fixed {
+    position : fixed;
+    top      : 0;
+    left     : 0;
+    width    : 100%;
+    z-index  : 10000
   }
+  & + * { margin-top : 4.6rem }
   h1 {
-    display     : inline-block;
-    margin      : 0.5em 0;
-    white-space : nowrap;
+    font-size   : 1.9rem;
+    margin      : 0.6rem 0;
+    white-space : nowrap
   }
   a {
     position        : absolute;
-    height          : 1em;
-    width           : 1em;
-    top             : 0.5em;
+    font-size       : 1.9rem;
+    margin-top      : 0.6rem;
     text-decoration : none;
-    &.left  { left : 1rem }
-    &.right { right : 1rem }
+    &.left  { left  : 1.6rem }
+    &.right { right : 1.6rem }
   }
 }
 
+// Type margins and sizes
+body > section {
+  h1    { margin-bottom : 1.6rem }
+  p, input, textarea, button { font-size : 1.8rem }
+}
+
 form {
+  margin : 1.3rem 0;
   label { 
     display     : block;
     margin      : 0.25em 0;
     font-weight : bold;
   }
-  input { 
-    width : 100%;
-    margin-bottom : 0.5em;
+  input, textarea { 
+    display     : block;
+    padding     : 0.9rem;
+    width       : 100%;
+    font-family : inherit;
   }
 }
 
@@ -94,9 +103,9 @@ form {
   left     : 0;
   li {
     display     : none;
-    padding     : 0.5em 1rem;
+    padding     : 0.6rem 1rem;
     font-weight : bold;
-    font-size   : 1.2em;
-    &:before { margin-right : 0.25em }
+    font-size   : 1.6rem;
+    &:before { margin-right : 1rem }
   }
 }

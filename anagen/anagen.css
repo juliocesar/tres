@@ -940,21 +940,22 @@ ul {
   list-style: none; }
 
 /* line 12, ../sass/tres/base.scss */
-p {
-  margin: 0.5em 0; }
-
-/* line 13, ../sass/tres/base.scss */
 input, button, textarea {
   font-size: 100%; }
 
-/* line 15, ../sass/tres/base.scss */
+/* line 14, ../sass/tres/base.scss */
 html {
-  min-height: 420px; }
+  min-height: 420px;
+  font-size: 62.5%; }
+
+/* line 15, ../sass/tres/base.scss */
+html, body {
+  height: 99.9%; }
 
 /* line 16, ../sass/tres/base.scss */
 body {
-  position: absolute;
-  height: 100%;
+  font-size: 1.5rem;
+  line-height: 2.3rem;
   width: 100%;
   overflow-x: hidden;
   -webkit-perspective: 800;
@@ -966,6 +967,7 @@ body {
 body > section {
   display: block;
   position: absolute;
+  padding: 1.6rem 0;
   left: 0;
   min-height: 100%;
   width: 100%;
@@ -986,65 +988,79 @@ body > section {
 
 /* line 52, ../sass/tres/base.scss */
 body > section > header {
-  position: absolute;
-  top: 0;
-  width: 100%;
   margin: 0;
-  z-index: 10000;
   text-align: center; }
-  /* line 59, ../sass/tres/base.scss */
-  body > section > header + * {
-    margin-top: 4em; }
+  /* line 55, ../sass/tres/base.scss */
+  body > section > header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10000; }
   /* line 62, ../sass/tres/base.scss */
+  body > section > header + * {
+    margin-top: 4.6rem; }
+  /* line 63, ../sass/tres/base.scss */
   body > section > header h1 {
-    display: inline-block;
-    margin: 0.5em 0;
+    font-size: 1.9rem;
+    margin: 0.6rem 0;
     white-space: nowrap; }
-  /* line 67, ../sass/tres/base.scss */
+  /* line 68, ../sass/tres/base.scss */
   body > section > header a {
     position: absolute;
-    height: 1em;
-    width: 1em;
-    top: 0.5em;
+    font-size: 1.9rem;
+    margin-top: 0.6rem;
     text-decoration: none; }
     /* line 73, ../sass/tres/base.scss */
     body > section > header a.left {
-      left: 1rem; }
+      left: 1.6rem; }
     /* line 74, ../sass/tres/base.scss */
     body > section > header a.right {
-      right: 1rem; }
+      right: 1.6rem; }
 
-/* line 79, ../sass/tres/base.scss */
-form label {
-  display: block;
-  margin: 0.25em 0;
-  font-weight: bold; }
+/* line 80, ../sass/tres/base.scss */
+body > section h1 {
+  margin-bottom: 1.6rem; }
+/* line 81, ../sass/tres/base.scss */
+body > section p, body > section input, body > section textarea, body > section button {
+  font-size: 1.8rem; }
+
 /* line 84, ../sass/tres/base.scss */
-form input {
-  width: 100%;
-  margin-bottom: 0.5em; }
+form {
+  margin: 1.3rem 0; }
+  /* line 86, ../sass/tres/base.scss */
+  form label {
+    display: block;
+    margin: 0.25em 0;
+    font-weight: bold; }
+  /* line 91, ../sass/tres/base.scss */
+  form input, form textarea {
+    display: block;
+    padding: 0.9rem;
+    width: 100%;
+    font-family: inherit; }
 
-/* line 90, ../sass/tres/base.scss */
+/* line 99, ../sass/tres/base.scss */
 #notifications {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0; }
-  /* line 95, ../sass/tres/base.scss */
+  /* line 104, ../sass/tres/base.scss */
   #notifications li {
     display: none;
-    padding: 0.5em 1rem;
+    padding: 0.6rem 1rem;
     font-weight: bold;
-    font-size: 1.2em; }
-    /* line 100, ../sass/tres/base.scss */
+    font-size: 1.6rem; }
+    /* line 109, ../sass/tres/base.scss */
     #notifications li:before {
-      margin-right: 0.25em; }
+      margin-right: 1rem; }
 
 /* line 20, anagen.scss */
 body {
   background: #242f35;
   color: white;
-  font: 400 1em 'PT Sans Narrow', 'Helvetica Neue'; }
+  font-family: 'PT Sans Narrow', 'Helvetica Neue'; }
 
 /* line 26, anagen.scss */
 body > section > header {
@@ -1054,39 +1070,24 @@ body > section > header {
   background: rgba(0, 0, 0, 0.9); }
   /* line 29, anagen.scss */
   body > section > header h1 {
-    font-size: 1.2em;
-    text-transform: uppercase; }
-  /* line 33, anagen.scss */
-  body > section > header a {
-    font-size: 1.2em; }
+    text-transform: uppercase;
+    text-align: center; }
 
-/* line 36, anagen.scss */
+/* line 35, anagen.scss */
 #logo {
-  font-size: 1.8em;
+  font-size: 3rem;
   text-shadow: 2px 2px 0 black;
   color: #f4c72c; }
-  /* line 40, anagen.scss */
+  /* line 39, anagen.scss */
   #logo span {
     text-shadow: none;
     color: white; }
 
 /* line 46, anagen.scss */
-#home {
-  padding-top: 1em; }
-  /* line 48, anagen.scss */
-  #home form {
-    margin-top: 1em;
-    margin-bottom: 1em; }
-  /* line 52, anagen.scss */
-  #home input {
-    display: block;
-    font-size: 1.2em; }
-
-/* line 58, anagen.scss */
 a {
   color: white; }
 
-/* line 60, anagen.scss */
+/* line 48, anagen.scss */
 ul.common {
   -webkit-border-radius: 0.25rem;
   -moz-border-radius: 0.25rem;
@@ -1094,14 +1095,15 @@ ul.common {
   -o-border-radius: 0.25rem;
   border-radius: 0.25rem;
   border: 1px solid #b4b4b4;
-  background: white;
-  color: black; }
-  /* line 65, anagen.scss */
+  color: black;
+  background: transparent; }
+  /* line 53, anagen.scss */
   ul.common li {
     padding: 0.75em 0.5em;
     border-top: 1px solid #b4b4b4;
-    font-weight: bold; }
-    /* line 69, anagen.scss */
+    font-weight: bold;
+    background: white; }
+    /* line 58, anagen.scss */
     ul.common li:first-child {
       -moz-border-radius-topleft: 0.25rem;
       -webkit-border-top-left-radius: 0.25rem;
@@ -1111,7 +1113,7 @@ ul.common {
       border-top-right-radius: 0.25rem;
       border-top: 0; }
 
-/* line 77, anagen.scss */
+/* line 66, anagen.scss */
 input {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -1121,11 +1123,9 @@ input {
   -ms-border-radius: 0;
   -o-border-radius: 0;
   border-radius: 0;
-  padding: 0.5em;
-  background: -webkit-gradient(linear, 0% 0%, 0% 18%, from(#d4d4d4), to(white));
-  font-family: inherit; }
+  background: -webkit-gradient(linear, 0% 0%, 0% 18%, from(#d4d4d4), to(white)); }
 
-/* line 85, anagen.scss */
+/* line 72, anagen.scss */
 button {
   -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -1142,7 +1142,7 @@ button {
   font-weight: bold;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f5d201), to(#f5a101)); }
 
-/* line 96, anagen.scss */
+/* line 83, anagen.scss */
 #notifications {
   background: rgba(0, 0, 0, 0.9);
   color: white; }

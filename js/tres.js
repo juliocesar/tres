@@ -25,7 +25,7 @@
 
     function Device() {
       _.extend(this, Backbone.Events);
-      $window.on('orientationchange', _.bind(this.trigger, this, 'orientationchange'));
+      $window.on('orientationchange', _.bind(this.trigger, this, 'orientation:change'));
     }
 
     Device.prototype.width = function() {
@@ -35,6 +35,8 @@
     Device.prototype.height = function() {
       return window.outerHeight;
     };
+
+    Device.prototype.orientation = function() {};
 
     return Device;
 
@@ -312,7 +314,8 @@
     function App(options) {
       if (options == null) {
         options = {
-          router: new Tres.Router
+          router: new Tres.Router,
+          device: new Tres.Device
         };
       }
       _.extend(this, options);
@@ -353,7 +356,6 @@
           _this.router.before.call(_this);
         }
         _this.router.trigger('navigate');
-        window.scrollTo(0, 0);
         return __super.apply(Backbone.history, arguments);
       };
       return Backbone.history.start(_.extend(options, {

@@ -78,7 +78,7 @@ body > section > header {
 // Type margins and sizes
 body > section {
   h1    { margin-bottom : 1.6rem }
-  p, input, textarea, button { font-size : 1.8rem }
+  p, input, textarea, button, li { font-size : 1.8rem }
 }
 
 form {
@@ -93,6 +93,12 @@ form {
     padding     : 0.9rem;
     width       : 100%;
     font-family : inherit;
+  }
+}
+
+ul.common {
+  li {
+    padding : 0.9rem;
   }
 }
 

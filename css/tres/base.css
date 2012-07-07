@@ -1022,7 +1022,7 @@ body > section > header {
 body > section h1 {
   margin-bottom: 1.6rem; }
 /* line 81, ../../sass/tres/base.scss */
-body > section p, body > section input, body > section textarea, body > section button {
+body > section p, body > section input, body > section textarea, body > section button, body > section li {
   font-size: 1.8rem; }
 
 /* line 84, ../../sass/tres/base.scss */
@@ -1040,18 +1040,22 @@ form {
     width: 100%;
     font-family: inherit; }
 
-/* line 99, ../../sass/tres/base.scss */
+/* line 100, ../../sass/tres/base.scss */
+ul.common li {
+  padding: 0.9rem; }
+
+/* line 105, ../../sass/tres/base.scss */
 #notifications {
   position: fixed;
   right: 0;
   bottom: 0;
   left: 0; }
-  /* line 104, ../../sass/tres/base.scss */
+  /* line 110, ../../sass/tres/base.scss */
   #notifications li {
     display: none;
     padding: 0.6rem 1rem;
     font-weight: bold;
     font-size: 1.6rem; }
-    /* line 109, ../../sass/tres/base.scss */
+    /* line 115, ../../sass/tres/base.scss */
     #notifications li:before {
       margin-right: 1rem; }

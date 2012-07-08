@@ -1,71 +1,21 @@
-@import 'compass/css3/border-radius';
-@import 'compass/css3/images';
-@import 'compass/css3/box-shadow';
-
 @import 'tres/base';
+@import 'tres/themes/default';
 
-$orange               : #ff8e35;
-$body-background      : #232323;
-$header-background    : rgba(0,0,0,.9);
-$list-border          : #B4B4B4;
-$list-text            : black;
-$list-background      : white;
-$link-color           : white;
-$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#D4D4D4), to(#FFFFFF));
-$button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
-$notifications-background : rgba(0,0,0,.9);
-$notifications-color      : white;
-
-
-body {
-  background  : $body-background;
-  color       : white;
-  font-family : 'PT Sans Narrow', 'Helvetica Neue';
-}
-
-body > section > header {
-  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
-  background : $header-background;
-  h1 {
-    color          : $orange;
-    text-transform : uppercase;
-    text-align     : center;
+#home {
+  padding-top : 5rem;
+  text-align : center;
+  form {
+    margin : 3rem 1rem;
   }
 }
 
 #logo {
   font-size : 3rem;
-  text-shadow : 2px 2px 0 black;
-  color       : $orange;
+  color       : $hot;
   span {
-    text-shadow : none;
+    margin : 0 0.5rem;
+    text-shadow : 0 0 0.1rem rgba(black, 0.9);
     color : white;
   }
 }
 
-
-a { color : $link-color }
-
-ul.common {
-  @include border-radius(0.6rem);
-  border     : 1px solid $list-border;
-  color      : $list-text;    
-  background : transparent;
-  li {
-    border-top  : 1px solid $list-border;
-    font-weight : bold;
-    background  : $list-background;
-    &:first-child { border-top: 0 }
-  }
-}
-
-input {
-  @include box-shadow(1px 1px 1px rgba(0,0,0,.5));
-  @include border-radius(0);
-  background  : $textfield-background;
-}
-
-#notifications {
-  background  : $notifications-background;
-  color       : $notifications-color
-}

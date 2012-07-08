@@ -1,5 +1,5 @@
 (function() {
-  var Article, Articles, Home, Search, Suggestion, Suggestions, URLs,
+  var Article, Home, Reader, Search, Suggestion, Suggestions, URLs,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -8,7 +8,7 @@
       return "http://en.wikipedia.org/w/api.php?action=parse&page=" + name + "&format=json&prop=text|displaytitle|sections|revid&mobileformat=html";
     },
     search: function(query) {
-      return "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + query + "&format=json&srlimit=10&srprop=snippet";
+      return "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" + query + "&format=json&srlimit=10&srprop=";
     }
   };
 
@@ -20,21 +20,7 @@
       return Article.__super__.constructor.apply(this, arguments);
     }
 
-    return Article;
-
-  })(Backbone.Model);
-
-  Articles = (function(_super) {
-
-    __extends(Articles, _super);
-
-    function Articles() {
-      return Articles.__super__.constructor.apply(this, arguments);
-    }
-
-    Articles.prototype.model = Article;
-
-    Articles.prototype.retrieve = function(page) {
+    Article.prototype.retrieve = function(page, callback) {
       var _this = this;
       return $.ajax({
         url: URLs.page(page),
@@ -44,15 +30,18 @@
         },
         success: function(response) {
           if (response.error == null) {
-            return _this.add(response.parse);
+            _this.set(response.parse);
+          }
+          if (_.isFunction(callback)) {
+            return callback();
           }
         }
       });
     };
 
-    return Articles;
+    return Article;
 
-  })(Backbone.Collection);
+  })(Backbone.Model);
 
   Suggestion = (function(_super) {
 
@@ -109,7 +98,7 @@
       var form;
       event.preventDefault();
       form = new Tres.Form(this.$el.find('form'));
-      return this.router.navigate("search/" + (encodeURI(form.attributes().query)), true);
+      return Tres.Router.navigate("search/" + (encodeURI(form.attributes().query)), true);
     };
 
     return Home;
@@ -130,13 +119,16 @@
 
     Search.prototype.active = function(query) {
       var _ref;
-      this.title("Search: " + query);
+      this.title(query);
       if ((_ref = this.list) == null) {
         this.list = new Tres.List({
           collection: App.Suggestions,
           el: this.$el.find('ul'),
           entry: {
-            template: JST['result']
+            template: JST['result'],
+            url: function() {
+              return "article/" + this.model.attributes.title;
+            }
           }
         });
       }
@@ -147,30 +139,40 @@
 
   })(Tres.Screen);
 
-  Article = (function(_super) {
+  Reader = (function(_super) {
 
-    __extends(Article, _super);
+    __extends(Reader, _super);
 
-    function Article() {
-      return Article.__super__.constructor.apply(this, arguments);
+    function Reader() {
+      return Reader.__super__.constructor.apply(this, arguments);
     }
 
-    Article.prototype.id = 'article';
+    Reader.prototype.id = 'show-article';
 
-    Article.prototype.template = JST['article'];
+    Reader.prototype.template = JST['article'];
 
-    return Article;
+    Reader.prototype.active = function(name) {
+      var _this = this;
+      this.title(name);
+      return this.model.retrieve(name, function() {
+        return _this.render();
+      });
+    };
+
+    return Reader;
 
   })(Tres.Screen);
 
   $(function() {
     window.App = new Tres.App;
-    App.Articles = new Articles;
     App.Suggestions = new Suggestions;
+    App.Reader = new Reader({
+      model: new Article
+    });
     App.on({
       '': new Home,
       'search/:query': new Search,
-      'article/:name': new Article
+      'article/:title': App.Reader
     });
     return App.boot({
       root: '/anagen/'

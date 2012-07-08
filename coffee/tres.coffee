@@ -7,15 +7,15 @@ $window   = $(window)
 $body     = $('body')
 make      = Backbone.View.prototype.make
 
-defaultTemplate = """
+defaultTemplate = _.template("""
   <header></header>
   <h1>Tres</h1>
   <p>Welcome to Tres</p>
-"""
+""")
 
 # Tres.Device handles/exposes device events (orientation change, accellerometer, etc), screen width, and 
 # other hardware-related goodies.
-class Tres.Device
+class Device
   constructor : ->
     _.extend @, Backbone.Events
     $window.on 'orientationchange', _.bind @trigger, @, 'orientation:change'
@@ -23,13 +23,13 @@ class Tres.Device
   width       : -> window.outerWidth
   height      : -> window.outerHeight
   orientation : ->
-    
 
+Tres.Device = new Device
 
 # Tres.Screen is the base screen class. So you'll pretty have one of these for each "route" in your app.
 class Tres.Screen extends Backbone.View
 
-  # Always use sections
+  # Defaults to using sections for screens
   tagName   : 'section'
 
   # Ensure one can still declare events in a view without getting in the way of the defaults.
@@ -56,7 +56,7 @@ class Tres.Screen extends Backbone.View
       @$el.find('h1').html()
 
   render : ->
-    @$el.html (@template or defaultTemplate)
+    @$el.html( (@template or defaultTemplate)(@model) )
     @delegateEvents _.extend(@events, @__events)
     @
 
@@ -70,7 +70,7 @@ class Tres.Screen extends Backbone.View
 
   touchLink : (event) ->
     event.preventDefault()
-    @router.navigate $(event.currentTarget).attr('href'), true
+    Tres.Router.navigate $(event.currentTarget).attr('href'), true
 
   __submit : (event) ->
     @submit.apply @, arguments
@@ -91,15 +91,19 @@ class Tres.ListEntry extends Backbone.View
 
   render : ->
     @$el.html( @template(@model) )
+    @delegateEvents('click' : 'touch') if _.isFunction(@url)
     @
+
+  touch : (event) ->
+    Tres.Router.navigate @url(), true
 
 
 # Tres.List is a convenience class for rendering lists of things, interactible or not.
 class Tres.List extends Backbone.View
-  _tagMap    :
-    'UL'    : 'LI'
-    'OL'    : 'LI'
-    'DIV'   : 'DIV'
+  _tagMap :
+    'UL'  : 'LI'
+    'OL'  : 'LI'
+    'DIV' : 'DIV'
 
   initialize : (options = {}) ->
     _.extend @, options
@@ -160,7 +164,7 @@ class Tres.Form
       $el.val('')
     @
 
-
+# Tres.Notifier: handles displaying in-app notifications
 Tres.Notifier =
   $el : $(make('ul', id : 'notifications'))
 
@@ -173,33 +177,31 @@ Tres.Notifier =
         $li.slideUp => $li.remove()
       , options.duration
 
+# Just a regular Backbone.Router for now. By default you'll have one for application
+class Router extends Backbone.Router
 
-class Tres.Router extends Backbone.Router
-  initialize : (options = {}) ->
-    _.extend @, options    
+# Make the router it accessible
+Tres.Router = new Router
 
 class Tres.App
-  constructor : (options = {router : new Tres.Router, device : new Tres.Device}) ->
+  constructor : (options = {}) ->
     _.extend @, options
 
   screens : []
 
   on : (map = {}) ->
     _.each _.keys(map), (url) =>
-      @router.route url, _.uniqueId('r'), =>
-        # screen = (_.find(@screens, (screen) => screen is map[url]) or map[url])
+      Tres.Router.route url, _.uniqueId('r'), =>
         screen = map[url]
-        unless screen.embedded is true
-          screen.router = @router
-          screen.embed()
+        screen.embed() unless screen.embedded is true
         args = arguments
         _.defer => screen.activate.apply(screen, args)
 
   boot : (options = {}) ->
     __super = Backbone.history.loadUrl
     Backbone.history.loadUrl = =>
-      @router.before.call(@) if _.isFunction(@router.before)
-      @router.trigger 'navigate'
+      Tres.Router.before.call(@) if _.isFunction(Tres.Router.before)
+      Tres.Router.trigger 'navigate'
       window.scroll(0, 0)
       __super.apply Backbone.history, arguments
     Backbone.history.start(_.extend(options, pushState : true))

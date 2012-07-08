@@ -1,18 +1,16 @@
 URLs =
   page : (name) -> "http://en.wikipedia.org/w/api.php?action=parse&page=#{name}&format=json&prop=text|displaytitle|sections|revid&mobileformat=html"
-  search : (query) -> "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=#{query}&format=json&srlimit=10&srprop=snippet"
+  search : (query) -> "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=#{query}&format=json&srlimit=10&srprop="
 
 class Article extends Backbone.Model
-class Articles extends Backbone.Collection
-  model : Article
-
-  retrieve : (page) ->
+  retrieve : (page, callback) ->
     $.ajax
       url      : URLs.page(page)
       dataType : 'jsonp'
       data     : { page : page }
       success  : (response) =>
-        @add response.parse unless response.error?
+        @set(response.parse) unless response.error?
+        callback() if _.isFunction(callback)
 
 class Suggestion extends Backbone.Model
 class Suggestions extends Backbone.Collection
@@ -29,34 +27,35 @@ class Home extends Tres.Screen
   submit : (event) ->
     event.preventDefault()
     form = new Tres.Form(@$el.find('form'))
-    @router.navigate "search/#{encodeURI(form.attributes().query)}", true
-
+    Tres.Router.navigate "search/#{encodeURI(form.attributes().query)}", true
 
 class Search extends Tres.Screen
   id       : 'search'
   template : JST['search']
   active : (query) ->
-    @title("Search: #{query}")
+    @title(query)
     @list ?= new Tres.List(
       collection : App.Suggestions
       el         : @$el.find('ul')
-      entry      : { template : JST['result'] }
+      entry      : { template : JST['result'], url : -> "article/#{@model.attributes.title}" }
     )
     App.Suggestions.search query
 
-
-class Article extends Tres.Screen
-  id       : 'article'
+class Reader extends Tres.Screen
+  id       : 'show-article'
   template : JST['article']
+  active   : (name) ->
+    @title(name)
+    @model.retrieve name, => @render()
 
 $ ->
-  window.App             = new Tres.App
-  App.Articles    = new Articles
-  App.Suggestions = new Suggestions
+  window.App        = new Tres.App
+  App.Suggestions   = new Suggestions
+  App.Reader        = new Reader(model : new Article)
 
   App.on
     ''                : new Home
     'search/:query'   : new Search
-    'article/:name'   : new Article
+    'article/:title'  : App.Reader
 
   App.boot(root : '/anagen/')

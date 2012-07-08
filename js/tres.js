@@ -1,5 +1,5 @@
 (function() {
-  var $, $body, $window, Backbone, JST, Tres, defaultTemplate, make, _,
+  var $, $body, $window, Backbone, Device, JST, Router, Tres, defaultTemplate, make, _,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -19,9 +19,9 @@
 
   make = Backbone.View.prototype.make;
 
-  defaultTemplate = "<header></header>\n<h1>Tres</h1>\n<p>Welcome to Tres</p>";
+  defaultTemplate = _.template("<header></header>\n<h1>Tres</h1>\n<p>Welcome to Tres</p>");
 
-  Tres.Device = (function() {
+  Device = (function() {
 
     function Device() {
       _.extend(this, Backbone.Events);
@@ -41,6 +41,8 @@
     return Device;
 
   })();
+
+  Tres.Device = new Device;
 
   Tres.Screen = (function(_super) {
 
@@ -78,7 +80,7 @@
     };
 
     Screen.prototype.render = function() {
-      this.$el.html(this.template || defaultTemplate);
+      this.$el.html((this.template || defaultTemplate)(this.model));
       this.delegateEvents(_.extend(this.events, this.__events));
       return this;
     };
@@ -95,7 +97,7 @@
 
     Screen.prototype.touchLink = function(event) {
       event.preventDefault();
-      return this.router.navigate($(event.currentTarget).attr('href'), true);
+      return Tres.Router.navigate($(event.currentTarget).attr('href'), true);
     };
 
     Screen.prototype.__submit = function(event) {
@@ -134,7 +136,16 @@
 
     ListEntry.prototype.render = function() {
       this.$el.html(this.template(this.model));
+      if (_.isFunction(this.url)) {
+        this.delegateEvents({
+          'click': 'touch'
+        });
+      }
       return this;
+    };
+
+    ListEntry.prototype.touch = function(event) {
+      return Tres.Router.navigate(this.url(), true);
     };
 
     return ListEntry;
@@ -290,7 +301,7 @@
     }
   };
 
-  Tres.Router = (function(_super) {
+  Router = (function(_super) {
 
     __extends(Router, _super);
 
@@ -298,25 +309,17 @@
       return Router.__super__.constructor.apply(this, arguments);
     }
 
-    Router.prototype.initialize = function(options) {
-      if (options == null) {
-        options = {};
-      }
-      return _.extend(this, options);
-    };
-
     return Router;
 
   })(Backbone.Router);
+
+  Tres.Router = new Router;
 
   Tres.App = (function() {
 
     function App(options) {
       if (options == null) {
-        options = {
-          router: new Tres.Router,
-          device: new Tres.Device
-        };
+        options = {};
       }
       _.extend(this, options);
     }
@@ -329,11 +332,10 @@
         map = {};
       }
       return _.each(_.keys(map), function(url) {
-        return _this.router.route(url, _.uniqueId('r'), function() {
+        return Tres.Router.route(url, _.uniqueId('r'), function() {
           var args, screen;
           screen = map[url];
           if (screen.embedded !== true) {
-            screen.router = _this.router;
             screen.embed();
           }
           args = arguments;
@@ -352,10 +354,10 @@
       }
       __super = Backbone.history.loadUrl;
       Backbone.history.loadUrl = function() {
-        if (_.isFunction(_this.router.before)) {
-          _this.router.before.call(_this);
+        if (_.isFunction(Tres.Router.before)) {
+          Tres.Router.before.call(_this);
         }
-        _this.router.trigger('navigate');
+        Tres.Router.trigger('navigate');
         window.scroll(0, 0);
         return __super.apply(Backbone.history, arguments);
       };

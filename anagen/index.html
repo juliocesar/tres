@@ -29,10 +29,13 @@
       <ul class="common"></ul>
     </script>
     <script type="text/template" id="article-template">
-      <header>
-        <h1></h1>
+      <header class="fixed">
+        <a class="back"></a>
+        <h1><%= get('displaytitle') %></h1>
       </header>
-      <ul></ul>
+      <section>
+        <%= get('text') %>
+      </section>
     </script>
     <script type="text/template" id="result-template">
       <%= get('title') %>

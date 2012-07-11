@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+$.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+ACTIONS = {
+  :server   => %w(server),
+  :new_at   => %w(build)
+  :init     => %w(init start)
+}
+
+def bail! reason
+  puts reason
+  exit -2
+end
+
+def figure_what_to_do!
+  help_and_exit if ARGV.empty?
+  if ACTIONS.values.flatten.include? ARGV.first
+    action = ACTIONS.select { |action, args| args.include? ARGV.first }.flatten.first
+    send action, *ARGV[1..(ARGV.length - 1)]
+  else
+    new_at ARGV.first
+  end
+end
+
+def help_and_exit!
+  STDERR.puts <<-HELP
+Tres  \|/
+  Usage:
+    tres new <directory>
+  Example:
+    tres new myapp
+  Other commands:
+    help        shows this menu
+    version     shows the current version of Tres you have installed
+  HELP
+  exit -1
+end
+
+def new_at
+end
+
+def server
+end
+
+def init
+end

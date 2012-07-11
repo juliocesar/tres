@@ -1,3 +1,7 @@
+require 'sinatra'
+
+
+
 guard 'coffeescript', :output => 'js' do
   watch('coffee/(.*)\.coffee')
 end
@@ -15,3 +19,11 @@ end
 guard 'compass' do
   watch('^anagen/(.*)\.s[ac]ss')
 end
+
+guard 'coffeescript', :input => 'app/assets/javascripts'
+
+guard 'compass' do
+  watch('^src/(.*)\.s[ac]ss')
+end
+
+guard 'sass', :input => 'sass', :output => 'css'

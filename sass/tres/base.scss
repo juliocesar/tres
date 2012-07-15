@@ -29,10 +29,11 @@ body > section {
   display        : block;
   position       : absolute;
   padding        : 1.6rem 0;
+  top            : 0;
   left           : 0;
-  min-height     : 100%;
   width          : 100%;
   opacity        : 0;
+  overflow       : auto;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
   -webkit-transform-style : preserve-3d;

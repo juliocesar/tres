@@ -4,6 +4,7 @@ require 'rubygems'
 require 'ext/string'
 require 'ext/filemethods'
 require 'tres/app'
+require 'tres/packager'
 require 'tres/errors'
 
 module Tres

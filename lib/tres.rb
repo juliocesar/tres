@@ -1,6 +1,7 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'rubygems'
+require 'logger'
 require 'ext/string'
 require 'ext/filemethods'
 require 'tres/app'

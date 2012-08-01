@@ -1,6 +1,6 @@
 URLs =
   page : (name) -> "http://en.wikipedia.org/w/api.php?action=parse&page=#{name}&format=json&prop=text|displaytitle|sections|revid&mobileformat=html"
-  search : (query) -> "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=#{query}&format=json&srlimit=10&srprop="  
+  search : (query) -> "http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=#{query}&format=json&srlimit=10&srprop="
 
 class Article extends Backbone.Model
   retrieve : (page, callback) ->

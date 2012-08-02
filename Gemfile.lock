@@ -16,6 +16,7 @@ GEM
     ffi (1.0.11)
     fssm (0.2.9)
     hike (1.2.1)
+    json_pure (1.7.3)
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
@@ -50,6 +51,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-script
   compass
+  json_pure
   listen
   rake
   rspec

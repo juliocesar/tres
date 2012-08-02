@@ -5,6 +5,7 @@ describe Tres::FileMethods do
   
   before :each do
     FileUtils.rm_rf TMP/'temp'
+    stub_listener!
     @app = Tres::App.new TMP/'temp'
   end
   

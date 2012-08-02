@@ -27,8 +27,8 @@ module Tres
 
     def create_all_dirs
       new_dir @dir
-      new_dir @path.join('sass').to_s
-      new_dir @path.join('coffeescripts').to_s
+      new_dir @path.join('styles').to_s
+      new_dir @path.join('scripts').to_s
       new_dir @path.join('templates').to_s
     end
 
@@ -37,7 +37,7 @@ module Tres
     end
 
     def make_assets_listener
-      @listeners[:assets] = Listen.to(@path.join('sass').to_s, @path.join('coffeescripts').to_s, LISTENER_OPTS)
+      @listeners[:assets] = Listen.to(@path.join('styles').to_s, @path.join('scripts').to_s, LISTENER_OPTS)
       @listeners[:assets].change do |*args|
         @packager.build_changed *args
       end

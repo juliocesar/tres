@@ -13,11 +13,11 @@ describe Tres::App do
     end
 
     it "creates a sass folder in the app's folder" do
-      File.directory?(TMP/'temp'/'sass').should be_true
+      File.directory?(TMP/'temp'/'styles').should be_true
     end
 
     it "creates a coffeescripts folder in the app's folder" do
-      File.directory?(TMP/'temp'/'coffeescripts').should be_true
+      File.directory?(TMP/'temp'/'scripts').should be_true
     end
 
     it "creates a packager for the app" do

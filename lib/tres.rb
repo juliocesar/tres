@@ -39,6 +39,14 @@ module Tres
     def templates_path
       root/'templates'
     end
+
+    def styles_path
+      root/'sass'
+    end
+
+    def scripts_path
+      root/'coffee'
+    end
   end
   VERSION = File.read Tres.root/'VERSION'
 end

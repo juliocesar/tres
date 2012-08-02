@@ -13,8 +13,13 @@ module Tres
       @logger = options[:logger]
       @sprockets = Sprockets::Environment.new @root do |env|
         env.logger = @logger
-        env.append_path @root.join('sass')
-        env.append_path @root.join('coffeescripts')
+        Compass.sass_engine_options[:load_paths].each do |path|
+          env.append_path path.to_s
+        end
+        env.append_path Tres.styles_path
+        env.append_path Tres.scripts_path
+        env.append_path @root.join('styles')
+        env.append_path @root.join('scripts')
       end
     end
 
@@ -25,5 +30,4 @@ module Tres
 
     end
   end
-
 end

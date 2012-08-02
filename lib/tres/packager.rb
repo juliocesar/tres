@@ -4,7 +4,6 @@ require 'compass'
 require 'coffee_script'
 
 module Tres
-
   class Packager
     attr_reader :sprockets
 
@@ -23,11 +22,10 @@ module Tres
       end
     end
 
-    def build_all
+    def package_styles modified, added, removed
     end
 
-    def build_changed modified, added, removed
-
+    def package_scripts modified, added, removed
     end
   end
 end

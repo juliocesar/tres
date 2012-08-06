@@ -8,7 +8,7 @@ module Tres
     attr_reader :sprockets
 
     def initialize options = {}
-      @root = options[:path]
+      @root = options[:path].join('assets')
       @logger = options[:logger]
       @sprockets = Sprockets::Environment.new @root do |env|
         env.logger = @logger
@@ -17,8 +17,7 @@ module Tres
         end
         env.append_path Tres.styles_path
         env.append_path Tres.scripts_path
-        env.append_path @root.join('styles')
-        env.append_path @root.join('scripts')
+        env.append_path @root
       end
     end
 

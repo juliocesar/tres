@@ -7,6 +7,7 @@ require 'ext/string'
 require 'ext/filemethods'
 require 'tres/app'
 require 'tres/packager'
+require 'tres/template_renderer'
 require 'tres/errors'
 
 module Tres

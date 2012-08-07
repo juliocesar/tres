@@ -24,9 +24,6 @@ describe Tres::TemplateCompiler do
 
       it "simply copies it over to build/ if the extension is .html" do
         @compiler.compile 'index.html'
-        puts "TEMPLATES: " + File.read(SAMPLE_PATH.to_s/'templates'/'index.html')
-        puts "BUILD: " + File.read(SAMPLE_PATH.to_s/'build'/'index.html')
-
         FileUtils.compare_file(
           SAMPLE_PATH.to_s/'templates'/'index.html',
           SAMPLE_PATH.to_s/'build'/'index.html'

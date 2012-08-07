@@ -20,6 +20,7 @@ describe Tres::TemplateCompiler do
 
       after do
         FileUtils.rm_f SAMPLE_PATH.to_s/'build'/'index.html'
+        FileUtils.rm_f SAMPLE_PATH.to_s/'build'/'index.haml'
       end
 
       it "simply copies it over to build/ if the extension is .html" do
@@ -29,7 +30,13 @@ describe Tres::TemplateCompiler do
           SAMPLE_PATH.to_s/'build'/'index.html'
         ).should be_true
       end
-      it 'compiles and copies the output to build/index.html' 
+
+      it 'compiles and puts the output in build/index.html' do
+        FileUtils.cp FIXTURES/'index.haml', SAMPLE_PATH.to_s/'templates/'
+        @compiler.compile 'index.haml'
+        File.read(SAMPLE_PATH.to_s/'build'/'index.html').should ==
+          Tilt.new(FIXTURES/'index.haml').render
+      end
     end
     it 'anything else gets injected in build/js/templates.js'
   end

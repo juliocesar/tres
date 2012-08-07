@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tres Test Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="red" />
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tres.css">
+  </head>
+  <body>
+    <!-- Just inject templates from here into window.JST for the time being -->
+    <script type="text/template" id="home-template">
+      <header>
+        <h1>Places</h1>
+      </header>
+      <ul id="places" class="common"></ul>
+      <p>
+        <a href="second/1">Go to the second screen</a>
+      </p>
+    </script>
+    <script type="text/template" id="form-template">
+      <header>
+        <h1>Form</h1>
+      </header>
+      <form action="/foo" method="POST">
+      <label>Name</label>
+      <input type="text" placeholder="Your name" name="name">
+      <label>Phone</label>
+      <input type="tel" placeholder="Phone number" name="tel">
+      <p>
+        <button type="submit">Submit</button>
+      </p>
+      </form>
+    </script>
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <script src="/js/underscore.js"></script>
+    <script src="/js/backbone.js"></script>
+    <script src="/js/tres.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

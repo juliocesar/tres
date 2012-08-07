@@ -64,6 +64,10 @@ module FileMethods
     File.dirname file
   end
 
+  def mkdir_p dir
+    FileUtils.mkdir_p dir
+  end
+
   def extname file
     File.extname file
   end

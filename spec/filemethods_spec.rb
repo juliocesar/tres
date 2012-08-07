@@ -12,7 +12,7 @@ describe Tres::FileMethods do
   it '#file? returns true if the argument is a file' do
     FileUtils.touch TMP/'temp'/'moo'
     file?(TMP/'temp'/'moo').should be_true
-  end  
+  end 
   
   it '#dir? returns true if the argument is a directory' do
     FileUtils.mkdir TMP/'temp'/'adir'

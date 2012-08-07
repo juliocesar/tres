@@ -2,7 +2,7 @@ describe Tres::Packager do
   before do
     FileUtils.rm_rf TMP/'temp'
     stub_listener!
-    @packager = Tres::Packager.new :path => SAMPLE_APP, :logger => MEMLOGGER
+    @packager = Tres::Packager.new :path => SAMPLE_PATH, :logger => MEMLOGGER
   end
 
   context "when using sprockets" do

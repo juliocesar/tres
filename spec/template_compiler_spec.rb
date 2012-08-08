@@ -10,21 +10,18 @@ describe Tres::TemplateCompiler do
     end
   end
 
-  it 'it renders Haml, ERB, among others'
+  context 'compiling' do
+    before do
+      FileUtils.cp FIXTURES/'index.html', SAMPLE_PATH.to_s/'templates/'
+    end
 
-  context 'compiling to HTML' do
-    context 'build/index.*' do
-      before do
-        FileUtils.cp FIXTURES/'index.html', SAMPLE_PATH.to_s/'templates/'
-      end
+    after do
+      FileUtils.rm_f SAMPLE_PATH.to_s/'templates'/'index.haml'
+    end
 
-      after do
-        FileUtils.rm_f SAMPLE_PATH.to_s/'build'/'index.html'
-        FileUtils.rm_f SAMPLE_PATH.to_s/'build'/'index.haml'
-      end
-
+    context '#compile_to_build' do
       it "simply copies it over to build/ if the extension is .html" do
-        @compiler.compile 'index.html'
+        @compiler.compile_to_build 'index.html'
         FileUtils.compare_file(
           SAMPLE_PATH.to_s/'templates'/'index.html',
           SAMPLE_PATH.to_s/'build'/'index.html'
@@ -33,11 +30,29 @@ describe Tres::TemplateCompiler do
 
       it 'compiles and puts the output in build/index.html' do
         FileUtils.cp FIXTURES/'index.haml', SAMPLE_PATH.to_s/'templates/'
-        @compiler.compile 'index.haml'
+        @compiler.compile_to_build 'index.haml'
         File.read(SAMPLE_PATH.to_s/'build'/'index.html').should ==
           Tilt.new(FIXTURES/'index.haml').render
       end
     end
-    it 'anything else gets injected in build/js/templates.js'
+
+    context '#compile_to_templates_js' do
+      it "adds a template to a global JST object in templates.js" do
+        @compiler.compile_to_templates_js 'book.haml'
+        contents = File.read(SAMPLE_PATH.to_s/'build'/'js'/'templates.js')
+        escaped = @compiler.send(:escape_js, Tilt.new(SAMPLE_PATH.to_s/'templates'/'book.haml').render)
+        contents.should include escaped
+      end
+    end
+
+    it "#compile_all iterates through all templates and compiles each" do
+      pending
+      @compiler.compile_all
+      build = SAMPLE_PATH.to_s/'build'
+      templates = SAMPLE_PATH.to_s/'templates'
+      File.read(build/'book.html').should == Tilt.new(templates/'book.haml').render
+      File.read(build/'books'/'li.html').should == Tilt.new(templates/'books'/'li.haml').render
+    end
   end
+  it 'anything else gets injected in build/js/templates.js'
 end

@@ -41,11 +41,11 @@ module Tres
       root/'templates'
     end
 
-    def styles_path
+    def styles_dir
       root/'sass'
     end
 
-    def scripts_path
+    def scripts_dir
       root/'coffee'
     end
   end

@@ -15,8 +15,8 @@ module Tres
         Compass.sass_engine_options[:load_paths].each do |path|
           env.append_path path.to_s
         end
-        env.append_path Tres.styles_path
-        env.append_path Tres.scripts_path
+        env.append_path Tres.styles_dir
+        env.append_path Tres.scripts_dir
         env.append_path @root
       end
     end

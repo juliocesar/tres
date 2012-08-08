@@ -39,9 +39,9 @@ describe Tres::TemplateCompiler do
     context '#compile_to_templates_js' do
       it "adds a template to a global JST object in templates.js" do
         @compiler.compile_to_templates_js 'book.haml'
-        contents = File.read(SAMPLE_PATH.to_s/'build'/'js'/'templates.js')
-        escaped = @compiler.send(:escape_js, Tilt.new(SAMPLE_PATH.to_s/'templates'/'book.haml').render)
-        contents.should include escaped
+        templates_js = File.read(SAMPLE_PATH.to_s/'build'/'js'/'templates.js')
+        template = @compiler.send(:escape_js, Tilt.new(SAMPLE_PATH.to_s/'templates'/'book.haml').render)
+        templates_js.should include template
       end
     end
 
@@ -54,5 +54,4 @@ describe Tres::TemplateCompiler do
       File.read(build/'books'/'li.html').should == Tilt.new(templates/'books'/'li.haml').render
     end
   end
-  it 'anything else gets injected in build/js/templates.js'
 end

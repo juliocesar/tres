@@ -27,14 +27,22 @@ module Tres
     def compile_to_templates_js path
       template = Tilt.new @templates.join(path).to_s
       mkdir_p @build.join('js').to_s
-      copy Tres.templates_path/'templates.js', @build.join('js').to_s
-      File.open @build.join('js').to_s/'templates.js', 'a' do |file|
+      unless file?(Tres.templates_path/'templates.js')
+        copy Tres.templates_path/'templates.js', @build.join('js').to_s 
+      end
+      File.open @build.join('js').to_s/'templates.js', 'a+' do |file|
         file << jst_format(path, template.render)
       end
     end
 
-    def compile_all      
-      extensions = EXTENSION_MAP.keys.flatten.uniq
+    def compile_all
+      if index = first_index_file
+        compile_to_build index 
+      end
+      Find.find(@templates.to_s) do |path|
+        next if dir?(path) or path =~ /index/
+        compile_to_templates_js Pathname(path).relative_path_from(@templates).to_s
+      end
     end
 
     private
@@ -52,16 +60,19 @@ module Tres
     end
 
     def jst_format path, template
-      "JST[\"#{basename(path, extname(path))}\"] = \"#{escape_js(template)}\";"
+      "JST[\"#{path.sub(extname(path), '')}\"] = \"#{escape_js(template)}\";"
     end
 
     def escape_js js
-      # https://github.com/itkin/respond_to_parent/blob/master/lib/responds_to_parent.rb
       js.
         gsub('\\', '\\\\\\').
         gsub(/\r\n|\r|\n/, '\\n').
         gsub(/['"]/, '\\\\\&').
         gsub('</script>','</scr"+"ipt>')
+    end
+
+    def first_index_file
+      Dir.glob(@templates.to_s + '/index.*').first
     end
   end
 end

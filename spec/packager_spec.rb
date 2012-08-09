@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/spec_helper'
+
 describe Tres::Packager do
   before do
     FileUtils.rm_rf TMP/'temp'

@@ -1,55 +1,50 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <title>(Anagen)</title>
-    <meta charset='utf-8'>
-      <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport' />
-      <meta content='yes' name='apple-mobile-web-app-capable' />
-      <meta content='red' name='apple-mobile-web-app-status-bar-style' />
-      <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet'>
-        <link href='/css/anagen.css' rel='stylesheet' />
-      </link>
-    </meta>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="red" />
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/anagen.css">
   </head>
   <body>
-    <script id='home-template' type='text/template'>
-      <h1 id='logo'><span>(</span>Anagen
-        <span>)</span>
+    <script type="text/template" id="home-template">
+      <h1 id="logo">
+        <span>(</span>Anagen<span>)</span>
       </h1>
-      <form action='#' method='post'>
-        <input capitalize='off' id='query' name='query' placeholder='Wikipedia search' type='text' />
+      <form action="#" method="post">
+        <input type="text" capitalize="off" id="query" name="query" placeholder="Wikipedia search">
       </form>
       <p>
-        This app was built using
-        <a class='outlink' href='http://tres.io'>Tres</a>
+        This app was built using <a href="http://tres.io" class="outlink">Tres</a>
       </p>
     </script>
-    <script id='search-template' type='text/template'>
-      <header class='fixed'>
-        <a class='icon-search left' href=''></a>
+    <script type="text/template" id="search-template">
+      <header class="fixed">
+        <a href="" class="icon-search left"></a>
         <h1></h1>
       </header>
-      <ul class='common'></ul>
+      <ul class="common"></ul>
     </script>
-    <script id='article-template' type='text/template'>
-      <header class='fixed'>
-        <a class='back'></a>
-        <h1>
-          <%= get('displaytitle') %>
-        </h1>
+    <script type="text/template" id="article-template">
+      <header class="fixed">
+        <a class="back"></a>
+        <h1><%= get('displaytitle') %></h1>
       </header>
       <section>
-        <%=  get('text') %>
+        <%= get('text') %>
       </section>
     </script>
-    <script id='result-template' type='text/template'>
+    <script type="text/template" id="result-template">
       <%= get('title') %>
     </script>
-    <script src='/assets/jquery-1.7.2.min.js'></script>
-    <script src='/assets/underscore.js'></script>
-    <script src='/assets/backbone.js'></script>
-    <script src='/assets/tres.js'></script>
-    <script src='/assets/templates.js'></script>
-    <script src='/assets/anagen.js'></script>
+    <script src="/assets/jquery-1.7.2.min.js"></script>
+    <script src="/assets/underscore.js"></script>
+    <script src="/assets/backbone.js"></script>
+    <script src="/assets/tres.js"></script>
+    <script src="/assets/templates.js"></script>
+    <script src="/assets/anagen.js"></script>
   </body>
 </html>

@@ -1,10 +1,9 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Tres::Packager do
+describe Tres::AssetPackager do
   before do
-    FileUtils.rm_rf TMP/'temp'
     stub_listener!
-    @packager = Tres::Packager.new :path => SAMPLE_PATH, :logger => MEMLOGGER
+    @packager = Tres::AssetPackager.new :assets => Anagen.root/'assets', :logger => MEMLOGGER
   end
 
   context "when using sprockets" do
@@ -14,13 +13,14 @@ describe Tres::Packager do
       sprockets.should be_a Sprockets::Environment
     end
 
-    context "opening the sample app" do
+    context "opening Anagen" do
       it "has `app.coffee` among it's assets" do
-        sprockets['js/app.coffee'].should be_a Sprockets::BundledAsset
+        pending
+        sprockets['js/anagen.js'].should be_a Sprockets::BundledAsset
       end
 
       it "has `app.scss` among it's assets" do
-        sprockets['css/app.scss'].should be_a Sprockets::BundledAsset
+        sprockets['css/app.css'].should be_a Sprockets::BundledAsset
       end
     end
 

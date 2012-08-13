@@ -4,11 +4,11 @@ require 'compass'
 require 'coffee_script'
 
 module Tres
-  class Packager
+  class AssetPackager
     attr_reader :sprockets
 
     def initialize options = {}
-      @root = options[:path].join('assets')
+      @root   = options[:assets]
       @logger = options[:logger]
       @sprockets = Sprockets::Environment.new @root do |env|
         env.logger = @logger

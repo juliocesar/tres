@@ -5,58 +5,57 @@ require 'stringio'
 module Tres
   class TemplateCompiler
     include FileMethods
+
     EXTENSION_MAP = {
       %w(.haml .erb)  => '.html'
     }
 
     def initialize options = {}
-      @root = options[:path]
-      @build = @root.join('build')
-      @templates = @root.join('templates')
+      @root = options[:root]
+      @templates = @root/'templates'
+      @build = @root/'build'
     end
 
     def compile_to_build path
-      if extname(path) == '.html'
-        copy @templates.join(path).to_s, @build.to_s
+      return copy(@templates/path, @build/path) if path == 'index.html'
+      mkdir_p @build/'templates'/dirname(path)
+      if static? path
+        copy @templates/path, @build/'templates'/path
       else
-        template = Tilt.new @templates.join(path).to_s
-        put_in_build with_compiled_extension(template.file), template.render
+        template = Tilt.new @templates/path
+        destination = compiled_extension(@build/'templates'/path)
+        create_file destination, template.render
       end
     end
 
     def compile_to_templates_js path
-      template = Tilt.new @templates.join(path).to_s
-      mkdir_p @build.join('js').to_s
+      if static? path
+        contents = read_file(@templates/path)
+      else
+        contents = Tilt.new(@templates/path).render
+      end
+      mkdir_p @build/'js'
       unless file?(Tres.templates_path/'templates.js')
-        copy Tres.templates_path/'templates.js', @build.join('js').to_s 
+        copy Tres.templates_path/'templates.js', @build/'js'
       end
-      File.open @build.join('js').to_s/'templates.js', 'a+' do |file|
-        file << jst_format(path, template.render)
-      end
+      append_to_file @build/'js'/'/templates.js', jst_format(path, contents)
     end
 
     def compile_all
       if index = first_index_file
         compile_to_build index 
       end
-      Find.find(@templates.to_s) do |path|
+      Find.find(@templates) do |path|
         next if dir?(path) or path =~ /index/
-        compile_to_templates_js Pathname(path).relative_path_from(@templates).to_s
+        compile_to_templates_js Pathname(path).relative_path_from(Pathname(@templates)).to_s
       end
     end
 
     private
-    def with_compiled_extension file
-      ext = extname(file)
-      static_ext = EXTENSION_MAP.map { |exts, final| final if exts.include?(ext) }.first
-      basename(file, ext) + static_ext
-    end
-
-    def put_in_build path, contents
-      mkdir_p dirname(path)
-      File.open @build.join(path).to_s, 'w' do |file|
-        file << contents
-      end
+    def compiled_extension path
+      actual = extname(path)
+      wanted = EXTENSION_MAP.map { |exts, final| final if exts.include?(actual) }.first
+      dirname(path)/(basename(path, actual) + wanted)
     end
 
     def jst_format path, template
@@ -71,8 +70,15 @@ module Tres
         gsub('</script>','</scr"+"ipt>')
     end
 
+    def static? path
+      extname(path) == '.html'
+    end
+
     def first_index_file
-      Dir.glob(@templates.to_s + '/index.*').first
+      file = Dir.glob(@templates/'index.*').first
+      if file
+        Pathname(file).relative_path_from(Pathname(@templates)).to_s
+      end
     end
   end
 end

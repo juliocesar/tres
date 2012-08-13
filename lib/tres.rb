@@ -6,7 +6,7 @@ require 'json/pure'
 require 'ext/string'
 require 'ext/filemethods'
 require 'tres/app'
-require 'tres/packager'
+require 'tres/asset_packager'
 require 'tres/template_compiler'
 require 'tres/errors'
 

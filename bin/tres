@@ -42,9 +42,14 @@ Tres
 end
 
 def new_at dir
-  Tres.say_progress "    → Creating Tres app on #{dir.dup.colorize(:yellow)}  " do
-    Tres::App.new dir
+  app = nil
+  Tres.say_progress "Creating Tres app on #{dir.dup.colorize(:yellow)}" do
+    app = Tres::App.new dir
   end
+  Tres.say_progress "Compiling boilerplate templates" do
+    app.template_compiler.compile_all
+  end
+  Tres.say "All done!"
 end
 
 def server

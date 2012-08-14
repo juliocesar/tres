@@ -7,6 +7,11 @@ describe Tres::App do
     @app = Tres::App.new TMP/'temp'
   end
 
+  it 'opens an existing app with Tres::All.open' do
+    an_app = Tres::App.open TMP/'temp'
+    an_app.should be_a Tres::App
+  end
+
   context 'creating a new app' do
     it "creates a folder for the app on" do
       File.directory?(TMP/'temp').should be_true
@@ -22,8 +27,12 @@ describe Tres::App do
       File.directory?(TMP/'temp'/'build').should be_true
     end
 
-    it "creates a packager" do
+    it "creates an asset packager" do
       @app.asset_packager.should be_a Tres::AssetPackager
+    end
+
+    it "creates a template compiler" do
+      @app.template_compiler.should be_a Tres::TemplateCompiler
     end
 
     it "creates a listener for templates" do

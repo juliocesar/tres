@@ -26,12 +26,12 @@ module Tres
     end
     
     def say something
-      STDOUT.puts something unless quiet?
+      STDOUT.puts "    → #{something}" unless quiet?
       yield if block_given?
     end
 
     def say_progress something, done = '✔'.colorize(:green)
-      STDOUT.write something unless quiet?
+      STDOUT.write "    → #{something}\t" unless quiet?
       yield if block_given?
       STDOUT.puts done unless quiet?
     end

@@ -4,10 +4,11 @@ require 'listen'
 
 module Tres
   class App
-    attr_reader :root, :asset_packager, :listener
+    attr_reader :root, :asset_packager, :template_compiler, :listener
     include FileMethods and extend FileMethods
     SKELETON = {
-      'index.html'  => '',
+      'index.html'  => 'templates',
+      'home.haml'   => 'templates',
       'all.coffee'  => 'assets'/'javascripts',
       '*.js'        => 'assets'/'javascripts',
       '*.scss'      => 'assets'/'stylesheets'
@@ -16,10 +17,13 @@ module Tres
     def initialize root, fresh = true
       @root = expand(root)
       @logger = Logger.new(STDOUT)
-      create_all_dirs if fresh
+      if fresh
+        create_all_dirs
+        copy_templates_over
+      end
       make_asset_packager
+      make_template_compiler
       make_templates_listener
-      copy_templates_over
     end
 
     def self.open root
@@ -44,6 +48,10 @@ module Tres
 
     def make_asset_packager
       @asset_packager = Tres::AssetPackager.new :assets => @root/'assets', :logger => @logger
+    end
+
+    def make_template_compiler
+      @template_compiler = Tres::TemplateCompiler.new :root => @root
     end
 
     def make_templates_listener

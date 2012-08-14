@@ -1,4 +1,5 @@
 require 'tilt'
+require 'haml'
 require 'find'
 require 'stringio'
 

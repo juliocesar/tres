@@ -4,8 +4,14 @@ require 'listen'
 
 module Tres
   class App
-    include FileMethods and extend FileMethods
     attr_reader :root, :asset_packager, :listener
+    include FileMethods and extend FileMethods
+    SKELETON = {
+      'index.html'  => '',
+      'all.coffee'  => 'assets'/'javascripts',
+      '*.js'        => 'assets'/'javascripts',
+      '*.scss'      => 'assets'/'stylesheets'
+    }    
 
     def initialize root, fresh = true
       @root = expand(root)
@@ -13,6 +19,7 @@ module Tres
       create_all_dirs if fresh
       make_asset_packager
       make_templates_listener
+      copy_templates_over
     end
 
     def self.open root
@@ -22,10 +29,17 @@ module Tres
     private
     def create_all_dirs
       new_dir @root
-      new_dir @root/'styles'
-      new_dir @root/'scripts'
+      new_dir @root/'assets'
+      new_dir @root/'assets'/'stylesheets'
+      new_dir @root/'assets'/'javascripts'
       new_dir @root/'templates'
       new_dir @root/'build'
+    end
+
+    def copy_templates_over
+      SKELETON.each do |file, destination|
+        copy Tres.templates_dir/file, @root/destination
+      end
     end
 
     def make_asset_packager

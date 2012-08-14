@@ -1,3 +1,4 @@
+# coding: utf-8
 $:.unshift File.dirname(__FILE__)
 
 require 'rubygems'
@@ -29,6 +30,12 @@ module Tres
       yield if block_given?
     end
 
+    def say_progress something, done = '✔'.colorize(:green)
+      STDOUT.write something unless quiet?
+      yield if block_given?
+      STDOUT.puts done unless quiet?
+    end
+
     def error message
       STDERR.puts message unless quiet?
     end
@@ -37,7 +44,7 @@ module Tres
       @root ||= File.expand_path File.dirname(__FILE__)/'..'
     end
 
-    def templates_path
+    def templates_dir
       root/'templates'
     end
 

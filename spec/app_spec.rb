@@ -12,12 +12,10 @@ describe Tres::App do
       File.directory?(TMP/'temp').should be_true
     end
 
-    it "creates a styles folder in the app's directory" do
-      File.directory?(TMP/'temp'/'styles').should be_true
-    end
-
-    it "creates a scripts folder in the app's folder" do
-      File.directory?(TMP/'temp'/'scripts').should be_true
+    it "creates a assets folder with scripts and styles in it" do
+      File.directory?(TMP/'temp'/'assets').should be_true
+      File.directory?(TMP/'temp'/'assets'/'stylesheets').should be_true
+      File.directory?(TMP/'temp'/'assets'/'javascripts').should be_true
     end
 
     it "creates a build folder in the app's folder" do

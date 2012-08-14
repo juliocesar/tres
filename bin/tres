@@ -1,10 +1,14 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 
-$.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'tres'
+require 'colorize'
 
 ACTIONS = {
   :server   => %w(server),
-  :new_at   => %w(build)
+  :new_at   => %w(new),
   :init     => %w(init start)
 }
 
@@ -14,18 +18,18 @@ def bail! reason
 end
 
 def figure_what_to_do!
-  help_and_exit if ARGV.empty?
+  help_and_exit! if ARGV.empty?
   if ACTIONS.values.flatten.include? ARGV.first
     action = ACTIONS.select { |action, args| args.include? ARGV.first }.flatten.first
     send action, *ARGV[1..(ARGV.length - 1)]
   else
-    new_at ARGV.first
+    help_and_exit!
   end
 end
 
 def help_and_exit!
   STDERR.puts <<-HELP
-Tres  \|/
+Tres 
   Usage:
     tres new <directory>
   Example:
@@ -37,7 +41,10 @@ Tres  \|/
   exit -1
 end
 
-def new_at
+def new_at dir
+  Tres.say_progress "    → Creating Tres app on #{dir.dup.colorize(:yellow)}  " do
+    Tres::App.new dir
+  end
 end
 
 def server
@@ -45,3 +52,6 @@ end
 
 def init
 end
+
+
+figure_what_to_do!

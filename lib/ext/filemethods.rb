@@ -22,16 +22,14 @@ module FileMethods
   end
 
   def copy from, to
-    Tres.say(" Copying\t#{from} to #{to}") {
-      Dir[from].each do |something|
-        File.directory?(something) ? FileUtils.cp_r(something, to) : FileUtils.cp(something, to)
-      end
-    }
+    Dir[from].each do |something|
+      File.directory?(something) ? FileUtils.cp_r(something, to) : FileUtils.cp(something, to)
+    end
   end
 
   def new_dir dir, careful = true
     confirm "#{dir} already exists. Proceed?" if careful and dir?(dir)
-    Tres.say(" Creating\t#{dir}") { FileUtils.mkdir_p dir }
+    FileUtils.mkdir_p dir
   end
 
   def read_file file

@@ -24,7 +24,7 @@ Anagen.templates    = Anagen.root/'templates'
 Anagen.templates_js = Anagen.build_js/'templates.js'
 
 class String
-  def read
+  def contents
     File.read self
   end
 
@@ -46,6 +46,8 @@ def clean_build!
   FileUtils.rm_f  Anagen.build_index
   FileUtils.rm_f  Anagen.templates_js  
   FileUtils.rm_rf Anagen.build_templates
+  FileUtils.rm_rf Anagen.build_js
+  FileUtils.rm_rf Anagen.build_css
 end
 
 RSpec.configure do |config|

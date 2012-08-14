@@ -12,22 +12,24 @@ describe Tres::App do
       File.directory?(TMP/'temp').should be_true
     end
 
-    it "creates a sass folder in the app's folder" do
+    it "creates a styles folder in the app's directory" do
       File.directory?(TMP/'temp'/'styles').should be_true
     end
 
-    it "creates a coffeescripts folder in the app's folder" do
+    it "creates a scripts folder in the app's folder" do
       File.directory?(TMP/'temp'/'scripts').should be_true
     end
 
-    it "creates a packager for the app" do
-      @app.packager.should be_an_instance_of Tres::Packager
+    it "creates a build folder in the app's folder" do
+      File.directory?(TMP/'temp'/'build').should be_true
+    end
+
+    it "creates a packager" do
+      @app.asset_packager.should be_a Tres::AssetPackager
+    end
+
+    it "creates a listener for templates" do
+      @app.listener.should_not be_nil # yeah, sorta
     end
   end  
-
-  context 'listeners' do
-    it "keeps listeners in a hash" do
-      @app.instance_variable_get(:@listeners).should be_a Hash
-    end
-  end
 end

@@ -10,9 +10,12 @@ require 'tres/app'
 require 'tres/asset_packager'
 require 'tres/template_compiler'
 require 'tres/server'
+require 'tres/logger'
 require 'tres/errors'
 
 module Tres
+  OUTPUT_FORMAT = "   → %s"
+
   class << self
     def quiet!
       @quiet = true
@@ -27,12 +30,12 @@ module Tres
     end
     
     def say something
-      STDOUT.puts "    → #{something}" unless quiet?
+      STDOUT.puts(OUTPUT_FORMAT % something) unless quiet?
       yield if block_given?
     end
 
     def say_progress something, done = '✔'.colorize(:green)
-      STDOUT.write "    → #{something}\t" unless quiet?
+      STDOUT.write(OUTPUT_FORMAT % something + "\t") unless quiet?
       yield if block_given?
       STDOUT.puts done unless quiet?
     end

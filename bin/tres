@@ -53,6 +53,9 @@ def new_at dir
 end
 
 def server
+  Tres.say "Starting server"
+  app = Tres::App.open Dir.pwd
+  Rack::Handler.default.run Tres::Server.build(app), :Port => 4567
 end
 
 def init

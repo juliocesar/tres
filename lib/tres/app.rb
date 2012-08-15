@@ -7,6 +7,7 @@ module Tres
     attr_reader :root, :asset_packager, :template_compiler, :listener
     include FileMethods and extend FileMethods
     SKELETON = {
+      'config.ru'   => '',
       'index.html'  => 'templates',
       'home.haml'   => 'templates',
       'all.coffee'  => 'assets'/'javascripts',

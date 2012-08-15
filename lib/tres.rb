@@ -9,6 +9,7 @@ require 'ext/filemethods'
 require 'tres/app'
 require 'tres/asset_packager'
 require 'tres/template_compiler'
+require 'tres/server'
 require 'tres/errors'
 
 module Tres

@@ -57,7 +57,7 @@ module Tres
     end
 
     def scripts_dir
-      root/'coffee'
+      root/'javascripts'
     end
   end
   VERSION = File.read Tres.root/'VERSION'

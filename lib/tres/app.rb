@@ -11,8 +11,7 @@ module Tres
       'index.html'  => 'templates',
       'home.haml'   => 'templates',
       'all.coffee'  => 'assets'/'javascripts',
-      '*.js'        => 'assets'/'javascripts',
-      '*.scss'      => 'assets'/'stylesheets'
+      'all.scss'    => 'assets'/'stylesheets'
     }    
 
     def initialize root, fresh = true

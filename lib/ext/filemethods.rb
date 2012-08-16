@@ -16,9 +16,7 @@ module FileMethods
   end
 
   def move from, to
-    Tres.say(" Moving\t#{from} to #{to}") {
-      Dir[from].each do |something| FileUtils.mv something, to end
-    }
+    Dir[from].each do |something| FileUtils.mv something, to end
   end
 
   def copy from, to

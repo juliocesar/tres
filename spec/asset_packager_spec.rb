@@ -15,18 +15,18 @@ describe Tres::AssetPackager do
 
     context "opening Anagen" do
       it "has `anagen.js` in js/anagen.js" do
-        sprockets['js/anagen.js'].should be_a Sprockets::BundledAsset
+        sprockets['javascripts/anagen.js'].should be_a Sprockets::BundledAsset
       end
 
       it "has `app.css` in css/app.css" do
-        sprockets['css/app.css'].should be_a Sprockets::BundledAsset
+        sprockets['stylesheets/app.css'].should be_a Sprockets::BundledAsset
       end
     end
 
     context "SASS require paths" do
       it "adds Tres' own styles to the path" do
         lambda do
-          sprockets['with_imports.scss']
+          sprockets['/stylesheets/with_imports.scss']
         end.should_not raise_error
       end
     end

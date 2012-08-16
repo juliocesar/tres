@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/rack_logger'
 
 module Tres
   class Server
+    attr_accessor :app
     def self.build app
       me = self
       Rack::Builder.new do

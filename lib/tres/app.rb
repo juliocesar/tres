@@ -17,7 +17,7 @@ module Tres
 
     def initialize root, fresh = true
       @root = expand(root)
-      @logger = Logger.new(STDOUT)
+      @logger = Tres::Logger.new(STDOUT)
       if fresh
         create_all_dirs
         copy_templates_over

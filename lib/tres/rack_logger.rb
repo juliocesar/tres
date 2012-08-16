@@ -2,23 +2,9 @@ require 'rack'
 require 'colorize'
 
 module Tres
-  class RackLogger
-    def initialize(app, logger=nil)
-      @app = app
-      @logger = logger
-    end
-
-    def call(env)
-      began_at = Time.now
-      status, header, body = @app.call(env)
-      header = ::Rack::Utils::HeaderHash.new(header)
-      body = ::Rack::BodyProxy.new(body) { log(env, status, header, began_at) }
-      [status, header, body]
-    end
-
+  class RackLogger < ::Rack::CommonLogger
     private
-
-    def log(env, status, header, began_at)
+    def log env, status, header, began_at
       now = Time.now
       length = extract_content_length(header)
 

@@ -21,11 +21,13 @@ describe Tres::Server do
     end
   end
 
-  it 'serves <APP ROOT>/index.html for every other page request' do
+  it "serves <APP ROOT>/index.html for requests that don't match an asset of a file in <APP ROOT>/build" do
     @app.template_compiler.compile_to_build 'index.html'
     resp1 = @server.get('/')
     resp2 = @server.get('/foobar')
     resp1.body.should == (Anagen.build/'index.html').contents
     resp2.body.should == (Anagen.build/'index.html').contents
   end
+
+  it "serves static files it finds in <APP ROOT>/build"
 end

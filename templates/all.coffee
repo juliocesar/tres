@@ -8,4 +8,8 @@
 #= require backbone-min
 #= require tres
 
+# Sample app file that includes a home screen. Change this at your leisure.
+#= require screens/home
+#= require app
+
 ## Your stuff goes below this line ##

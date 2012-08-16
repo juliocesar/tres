@@ -36,7 +36,7 @@ module Tres
         contents = Tilt.new(@templates/path).render
       end
       mkdir_p @build/'js'
-      unless file?(Tres.templates_dir/'templates.js')
+      unless file?(@build/'js'/'templates.js')
         copy Tres.templates_dir/'templates.js', @build/'js'
       end
       append_to_file @build/'js'/'/templates.js', jst_format(path, contents)

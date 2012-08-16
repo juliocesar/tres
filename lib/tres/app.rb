@@ -7,11 +7,13 @@ module Tres
     attr_reader :root, :asset_packager, :template_compiler, :listener
     include FileMethods and extend FileMethods
     SKELETON = {
-      'config.ru'   => '',
-      'index.html'  => 'templates',
-      'home.haml'   => 'templates',
-      'all.coffee'  => 'assets'/'javascripts',
-      'all.scss'    => 'assets'/'stylesheets'
+      'config.ru'     => '',
+      'index.html'    => 'templates',
+      'home.haml'     => 'templates',
+      'all.coffee'    => 'assets'/'javascripts',
+      'app.coffee'    => 'assets'/'javascripts',
+      'home.coffee'   => 'assets'/'javascripts'/'screens',
+      'all.scss'      => 'assets'/'stylesheets'
     }    
 
     def initialize root, fresh = true
@@ -36,6 +38,7 @@ module Tres
       new_dir @root/'assets'
       new_dir @root/'assets'/'stylesheets'
       new_dir @root/'assets'/'javascripts'
+      new_dir @root/'assets'/'javascripts'/'screens'
       new_dir @root/'templates'
       new_dir @root/'build'
     end

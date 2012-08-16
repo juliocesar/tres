@@ -39,9 +39,8 @@ module FileMethods
   end
 
   def append_to_file path, contents
-    File.open path, 'a+' do |file| file << contents end
+    File.open path, 'a' do |file| file << contents end
   end
-
 
   def name_and_extension file
     [basename(file, extname(file)), extname(file).sub(/^./, '')]

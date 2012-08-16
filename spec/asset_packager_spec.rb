@@ -23,11 +23,15 @@ describe Tres::AssetPackager do
       end
     end
 
+    context "JavaScripts require paths" do
+      it "should find anything under <APP ROOT>/assets/javascripts" do
+        sprockets['javascripts/all.js'].should be_a Sprockets::BundledAsset
+      end
+    end
+
     context "SASS require paths" do
       it "adds Tres' own styles to the path" do
-        lambda do
-          sprockets['/stylesheets/with_imports.scss']
-        end.should_not raise_error
+        sprockets['stylesheets/with_imports.scss'].should be_a Sprockets::BundledAsset
       end
     end
   end

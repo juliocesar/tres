@@ -9,17 +9,6 @@ module Tres
       length = extract_content_length(header)
 
       logger = @logger || env['rack.errors']
-      # logger.write FORMAT % [
-      #   env['HTTP_X_FORWARDED_FOR'] || env["REMOTE_ADDR"] || "-",
-      #   env["REMOTE_USER"] || "-",
-      #   now.strftime("%d/%b/%Y %H:%M:%S"),
-      #   env["REQUEST_METHOD"],
-      #   env["PATH_INFO"],
-      #   env["QUERY_STRING"].empty? ? "" : "?"+env["QUERY_STRING"],
-      #   env["HTTP_VERSION"],
-      #   status.to_s[0..3],
-      #   length,
-      #   now - began_at ]
       logger.write Tres::OUTPUT_FORMAT % (
         "[%s] %s %s\n" % [
           colorized_status(status),

@@ -12,6 +12,7 @@ describe Tres::Server do
       @app.asset_packager.sprockets.should_receive(:find_asset)
       @server.get('/stylesheets/app.css')
     end
+    
     it "accepts either absolute or relative paths for assets" do
       resp1 = @server.get('/stylesheets/app.css')
       resp2 = @server.get('stylesheets/app.css')

@@ -38,7 +38,7 @@ describe Tres::App do
     end
 
     it "creates a listener for templates" do
-      @app.listener.should_not be_nil # yeah, sorta
+      @app.listeners.templates.should_not be_nil # yeah, sorta
     end
   end
 

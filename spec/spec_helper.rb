@@ -43,6 +43,10 @@ def stub_listener!
   Listen.stub :to => mock(Listen::Listener, :change => 'true', :start => true)
 end
 
+def ok_response
+  [ 200, {'Content-Type' => 'text/plain'}, ['Ok'] ]
+end
+
 def clean_build!
   FileUtils.rm_f  Anagen.build_index
   FileUtils.rm_f  Anagen.templates_js  

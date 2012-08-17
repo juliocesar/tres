@@ -1,10 +1,11 @@
 require 'tres/asset_packager'
 require 'tres/template_compiler'
 require 'listen'
+require 'ostruct'
 
 module Tres
   class App
-    attr_reader :root, :asset_packager, :template_compiler, :listener
+    attr_reader :root, :asset_packager, :template_compiler, :listeners
     include FileMethods and extend FileMethods
     SKELETON = {
       'config.ru'     => '',
@@ -19,6 +20,7 @@ module Tres
     def initialize root, fresh = true
       @root = expand(root)
       @logger = Tres::Logger.new(STDOUT)
+      @listeners = OpenStruct.new
       if fresh
         create_all_dirs
         copy_templates_over
@@ -58,9 +60,9 @@ module Tres
     end
 
     def make_templates_listener
-      @listener = Listen.to @root/'templates', :latency => 0.25, :force_polling => true
-      @listener.change do |*args| end
-      @listener.start false
+      @listeners.templates = Listen.to @root/'templates', :latency => 0.25, :force_polling => true
+      @listeners.templates.change do |*args| end
+      @listeners.templates.start false
     end
   end
 end

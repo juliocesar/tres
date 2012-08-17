@@ -10,8 +10,7 @@ describe Tres::Server do
   end
 
   it "serves straight from the app's sprockets environment" do
-    pending "RSpec fail. Setting an expectation on @server.serve_asset makes it return nil"
-    @server.should_receive :serve_asset
+    @server.should_receive(:serve_asset).and_return(ok_response)
     @server.should_not_receive :serve_index
     @mock.get('/stylesheets/app.css')
   end
@@ -22,9 +21,8 @@ describe Tres::Server do
   end
 
   it "serves <APP ROOT>/index.html for requests that don't match an asset of a file in <APP ROOT>/build" do
-    pending "This fails, again for no good reason"
     @app.template_compiler.compile_to_build 'index.html'
-    @server.should_receive(:serve_index).twice
+    @server.should_receive(:serve_index).twice.and_return(ok_response)
     @mock.get('/')
     @mock.get('/foobar')
   end

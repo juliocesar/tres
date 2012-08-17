@@ -1,3 +1,3 @@
 require '../lib/tres'
 
-run Tres::Server.build(Tres::App.open(Dir.pwd))
+run Tres::Server.new(Tres::App.open(Dir.pwd)).to_rack_app

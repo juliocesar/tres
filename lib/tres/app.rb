@@ -50,7 +50,7 @@ module Tres
     end
 
     def make_asset_packager
-      @asset_packager = Tres::AssetPackager.new :assets => @root/'assets', :logger => @logger
+      @asset_packager = Tres::AssetPackager.new :root => @root, :logger => @logger
     end
 
     def make_template_compiler

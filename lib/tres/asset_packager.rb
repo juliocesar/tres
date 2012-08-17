@@ -8,7 +8,8 @@ module Tres
     attr_reader :sprockets
 
     def initialize options = {}
-      @assets = options[:assets]
+      @root = options[:root]
+      @assets = @root/'assets'
       @logger = options[:logger]
       @sprockets = Sprockets::Environment.new Pathname(@assets) do |env|
         env.logger = @logger
@@ -21,6 +22,11 @@ module Tres
         env.append_path @assets/'stylesheets'
         env.append_path @assets
       end
+    end
+
+    def compile_to_build path
+      asset = @sprockets[path]
+      asset.write_to(@root/'build'/path) if asset
     end
   end
 end

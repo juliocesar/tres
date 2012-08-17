@@ -57,7 +57,7 @@ end
 def server
   Tres.say "Starting server"
   app = Tres::App.open Dir.pwd
-  Rack::Handler.default.run Tres::Server.build(app), :Port => 4567
+  Rack::Handler.default.run Tres::Server.new(app).to_rack_app, :Port => 4567
 end
 
 def init

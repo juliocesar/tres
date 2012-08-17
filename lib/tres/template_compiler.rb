@@ -14,6 +14,7 @@ module Tres
     def initialize options = {}
       @root = options[:root]
       @templates = @root/'templates'
+      @assets = @root/'assets'
       @build = @root/'build'
     end
 
@@ -35,11 +36,10 @@ module Tres
       else
         contents = Tilt.new(@templates/path).render
       end
-      mkdir_p @build/'js'
-      unless file?(@build/'js'/'templates.js')
-        copy Tres.templates_dir/'templates.js', @build/'js'
+      unless file?(@assets/'javascripts'/'templates.js')
+        copy Tres.templates_dir/'templates.js', @assets/'javascripts'
       end
-      append_to_file @build/'js'/'/templates.js', jst_format(path, contents)
+      append_to_file @assets/'javascripts'/'templates.js', jst_format(path, contents)
     end
 
     def compile_all

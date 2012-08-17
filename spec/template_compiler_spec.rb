@@ -24,7 +24,6 @@ describe Tres::TemplateCompiler do
       it "adds a template to a global JST object in templates.js" do
         @compiler.compile_to_templates_js 'book.haml'
         Anagen.templates_js.contents.should include (Anagen.templates/'book.haml').escaped_compile
-        puts Anagen.templates_js.contents
       end
     end
 

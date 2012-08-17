@@ -15,13 +15,14 @@ FileUtils.mkdir_p TMP
 
 Anagen = OpenStruct.new
 Anagen.root = File.dirname(__FILE__)/'sample'
+Anagen.assets = Anagen.root/'assets'
 Anagen.build = Anagen.root/'build'
 Anagen.build_templates = Anagen.build/'templates'
 Anagen.build_js     = Anagen.build/'js'
 Anagen.build_css    = Anagen.build/'css'
 Anagen.build_index  = Anagen.build/'index.html'
 Anagen.templates    = Anagen.root/'templates'
-Anagen.templates_js = Anagen.build_js/'templates.js'
+Anagen.templates_js = Anagen.assets/'javascripts'/'templates.js'
 
 class String
   def contents

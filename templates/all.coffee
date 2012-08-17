@@ -8,8 +8,11 @@
 #= require backbone-min
 #= require tres
 
-# Sample app file that includes a home screen. Change this at your leisure.
+## This automagically makes all templates available in a window.JST object ##
+#= require templates
+
+## Sample app file that includes a home screen. Change this at your leisure ##
 #= require screens/home
 #= require app
 
-## Your stuff goes below this line ##
+## Your stuff most likely goes below this line ##

@@ -17,10 +17,8 @@ describe Tres::Server do
   end
 
   it "accepts either absolute or relative paths for assets" do
-    resp1 = @mock.get('/stylesheets/app.css')
-    resp2 = @mock.get('stylesheets/app.css')
-    resp1.status.should == 200
-    resp2.status.should == 200
+    @mock.get('/stylesheets/app.css').status.should == 200
+    @mock.get('stylesheets/app.css').status.should == 200
   end
 
   it "serves <APP ROOT>/index.html for requests that don't match an asset of a file in <APP ROOT>/build" do

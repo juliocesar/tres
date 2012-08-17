@@ -3,16 +3,18 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Tres::App do
   before do
     FileUtils.rm_rf TMP/'temp'
-    stub_listener!
     @app = Tres::App.new TMP/'temp'
   end
 
   it 'opens an existing app with Tres::All.open' do
+    stub_listener!
     an_app = Tres::App.open TMP/'temp'
     an_app.should be_a Tres::App
   end
 
   context 'creating a new app' do
+    before { stub_listener! }
+
     it "creates a folder for the app on" do
       File.directory?(TMP/'temp').should be_true
     end
@@ -38,5 +40,14 @@ describe Tres::App do
     it "creates a listener for templates" do
       @app.listener.should_not be_nil # yeah, sorta
     end
-  end  
+  end
+
+  context 'monitoring the templates directory' do
+    it 'recompiles templates that change'
+    it 'compiles adds templates that are added'
+  end
+
+  context 'monitoring the assets directory' do
+    it 'only compiles assets that exist statically in <APP ROOT>/build'
+  end
 end

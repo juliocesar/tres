@@ -39,12 +39,12 @@ module Tres
       [ 200, { 'Content-Type' => 'text/html' }, File.open(@app.root/'build'/'index.html') ]
     end
 
-    def not_found? response
-      response[0] == 404
-    end
-
     def not_found
       [ 404, { 'Content-Type' => 'text/plain' }, ['Not found'] ]
+    end
+
+    def not_found? response
+      response[0] == 404
     end
   end
 end

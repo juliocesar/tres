@@ -11,11 +11,6 @@ describe Tres::Server do
 
   it "serves straight from the app's sprockets environment" do
     pending "RSpec fail. Setting an expectation on @server.serve_asset makes it return nil"
-    # pending "This is absolutely fucked up"
-    # 
-    # THIS SHOULD WORK. ADDING THIS EXPECTATION IS ENOUGH TO MAKE
-    # @server.serve_asset RETURN FUCKING NIL
-    # 
     @server.should_receive :serve_asset
     @server.should_not_receive :serve_index
     @mock.get('/stylesheets/app.css')

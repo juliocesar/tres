@@ -72,7 +72,6 @@ module Tres
       return false unless file?(@assets/'javascripts'/'templates.js')
       lines = readlines @assets/'javascripts'/'templates.js'
       lines.reject! { |line| line =~ /^JST\[\"#{path.sub(extname(path), '')}\"\]/ }
-      puts lines.inspect
       create_file @assets/'javascripts'/'templates.js', lines.join("\n")
     end
 

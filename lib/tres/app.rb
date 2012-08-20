@@ -64,11 +64,20 @@ module Tres
     def make_templates_listener
       @listeners.templates = Listen.to @root/'templates', :latency => 0.25, :force_polling => true
       @listeners.templates.change do |modified, added, removed|
-        added_modified = (added + modified).map { |path| relativize(path, @root) }
-        Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
-          @template_compiler.compile_all
+        added_modified  = (added + modified).map { |path| relativize(path, @root) }
+        removed         = removed.map { |path| relativize(path, @root) }
+
+        unless added_modified.empty?
+          Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
+            @template_compiler.compile_all
+          end
         end
-        @template_compiler.remove_template removed unless removed.empty?
+
+        unless removed.empty?
+          Tres.say_progress "Removing #{removed.join(', ').colorize(:yellow)}" do
+            @template_compiler.remove_template removed 
+          end
+        end
       end
       @listeners.templates.start false
     end

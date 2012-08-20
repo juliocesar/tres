@@ -41,13 +41,4 @@ describe Tres::App do
       @app.listeners.templates.should_not be_nil # yeah, sorta
     end
   end
-
-  context 'monitoring the templates directory' do
-    it 'recompiles templates that change'
-    it 'compiles adds templates that are added'
-  end
-
-  context 'monitoring the assets directory' do
-    it 'only compiles assets that exist statically in <APP ROOT>/build'
-  end
 end

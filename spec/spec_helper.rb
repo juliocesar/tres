@@ -55,6 +55,10 @@ def clean_build!
   FileUtils.rm_rf Anagen.build_css
 end
 
+def restore_anagen!
+  `git checkout #{Anagen.root}`
+end
+
 RSpec.configure do |config|
   config.color_enabled = true
 

@@ -7,6 +7,26 @@ describe Tres::TemplateCompiler do
     clean_build!
   end
 
+  context 'removing templates' do
+    after  { restore_anagen! }
+
+    it "removes a template from templates.js if removed from <APP ROOT>/templates" do
+      @compiler.compile_to_templates_js 'book.haml'
+      @compiler.remove_template 'book.haml'
+      restore_anagen!
+      Anagen.templates_js.contents.should_not include (Anagen.templates/'book.haml').escaped_compile
+    end
+    it "removes a template from build/templates if removed from <APP ROOT>/templates" do
+      @compiler.remove_template 'book.haml'
+      File.exists?(Anagen.templates/'book.haml').should be_false
+    end
+    it "leaves build/index.html alone no matter what" do
+      @compiler.compile_to_build 'index.html'
+      @compiler.remove_template 'index.html'  
+      File.exists?(Anagen.build/'index.html').should be_true
+    end
+  end
+
   context 'compiling' do
     describe '#compile_to_build' do
       it "with a template not index.*, it simply copies it over to build/<path> if the extension is .html" do

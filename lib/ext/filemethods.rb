@@ -3,6 +3,8 @@ require 'fileutils'
 module Tres
 
 module FileMethods
+  extend self
+  
   def file? file
     File.exists? file
   end
@@ -19,6 +21,10 @@ module FileMethods
     Dir[from].each do |something| FileUtils.mv something, to end
   end
 
+  def relativize path, root
+    Pathname(path).relative_path_from(Pathname(root)).to_s
+  end
+
   def copy from, to
     Dir[from].each do |something|
       File.directory?(something) ? FileUtils.cp_r(something, to) : FileUtils.cp(something, to)
@@ -32,6 +38,10 @@ module FileMethods
 
   def read_file file
     File.read file
+  end
+
+  def readlines file
+    File.readlines file
   end
 
   def create_file path, contents
@@ -81,17 +91,13 @@ module FileMethods
   end
 
   def delete! file
-    Tres.say " Deleting\t#{file}" do
-      dir?(file) ? FileUtils.rm_rf(file) : FileUtils.rm(file) rescue nil
-    end
+    dir?(file) ? FileUtils.rm_rf(file) : FileUtils.rm(file) rescue nil
   end
 
   def new_file path
-    Tres.say "  #{file?(path) ? "Changing" : "Creating"}\t#{path}" do
-      File.open path, 'w' do |file|
-        yieldage = yield if block_given?
-        file.write yieldage unless yieldage.empty? or not yieldage.is_a?(String)
-      end
+    File.open path, 'w' do |file|
+      yieldage = yield if block_given?
+      file.write yieldage unless yieldage.empty? or not yieldage.is_a?(String)
     end
   end
 

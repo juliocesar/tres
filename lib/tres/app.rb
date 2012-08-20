@@ -6,7 +6,9 @@ require 'ostruct'
 module Tres
   class App
     attr_reader :root, :asset_packager, :template_compiler, :listeners
+    
     include FileMethods and extend FileMethods
+
     SKELETON = {
       'config.ru'     => '',
       'index.html'    => 'templates',
@@ -61,7 +63,13 @@ module Tres
 
     def make_templates_listener
       @listeners.templates = Listen.to @root/'templates', :latency => 0.25, :force_polling => true
-      @listeners.templates.change do |*args| end
+      @listeners.templates.change do |modified, added, removed|
+        added_modified = (added + modified).map { |path| relativize(path, @root) }
+        Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
+          @template_compiler.compile_all
+        end
+        @template_compiler.remove_template removed unless removed.empty?
+      end
       @listeners.templates.start false
     end
   end

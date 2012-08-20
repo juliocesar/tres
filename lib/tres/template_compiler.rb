@@ -31,15 +31,13 @@ module Tres
     end
 
     def compile_to_templates_js path
-      if static? path
-        contents = read_file(@templates/path)
-      else
-        contents = Tilt.new(@templates/path).render
-      end
+      contents = static?(path) ? read_file(@templates/path) : Tilt.new(@templates/path).render
       unless file?(@assets/'javascripts'/'templates.js')
         copy Tres.templates_dir/'templates.js', @assets/'javascripts'
       end
-      append_to_file @assets/'javascripts'/'templates.js', jst_format(path, contents)
+      unless in_templates_js? path
+        append_to_file @assets/'javascripts'/'templates.js', jst_format(path, contents)
+      end
     end
 
     def compile_all
@@ -48,11 +46,36 @@ module Tres
       end
       Find.find(@templates) do |path|
         next if dir?(path) or path =~ /index/
-        compile_to_templates_js Pathname(path).relative_path_from(Pathname(@templates)).to_s
+        compile_to_templates_js relativize(path, @templates)
       end
     end
 
+    def remove_template path
+      if path.is_a? Array
+        path.each do |file|
+          remove_template file
+        end
+      end
+      return false if path =~ /index/
+      remove_from_templates_js path
+      delete! @templates/path
+      delete! @build/path
+    end
+
     private
+    def in_templates_js? path
+      lines = readlines @assets/'javascripts'/'templates.js'
+      !!lines.index { |line| line =~ /^JST\[\"#{path.sub(extname(path), '')}\"\]/ }
+    end
+
+    def remove_from_templates_js path
+      return false unless file?(@assets/'javascripts'/'templates.js')
+      lines = readlines @assets/'javascripts'/'templates.js'
+      lines.reject! { |line| line =~ /^JST\[\"#{path.sub(extname(path), '')}\"\]/ }
+      puts lines.inspect
+      create_file @assets/'javascripts'/'templates.js', lines.join("\n")
+    end
+
     def compiled_extension path
       actual = extname(path)
       wanted = EXTENSION_MAP.map { |exts, final| final if exts.include?(actual) }.first
@@ -60,7 +83,7 @@ module Tres
     end
 
     def jst_format path, template
-      "JST[\"#{path.sub(extname(path), '')}\"] = \"#{escape_js(template)}\";"
+      "JST[\"#{path.sub(extname(path), '')}\"] = \"#{escape_js(template)}\";\n"
     end
 
     def escape_js js
@@ -77,9 +100,7 @@ module Tres
 
     def first_index_file
       file = Dir.glob(@templates/'index.*').first
-      if file
-        Pathname(file).relative_path_from(Pathname(@templates)).to_s
-      end
+      relativize(file, @templates) if file
     end
   end
 end

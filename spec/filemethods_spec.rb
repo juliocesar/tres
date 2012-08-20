@@ -13,6 +13,10 @@ describe Tres::FileMethods do
     FileUtils.touch TMP/'temp'/'moo'
     file?(TMP/'temp'/'moo').should be_true
   end 
+
+  it '#relativize returns the relative path from the first to second argument' do
+    relativize("/foo/bar/baz/2", "/foo/bar").should == "baz/2"
+  end
   
   it '#dir? returns true if the argument is a directory' do
     FileUtils.mkdir TMP/'temp'/'adir'

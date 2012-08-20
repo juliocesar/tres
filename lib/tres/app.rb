@@ -19,22 +19,22 @@ module Tres
       'all.scss'      => 'assets'/'stylesheets'
     }    
 
-    def initialize root, fresh = true
+    def initialize root, options = { :fresh => true }
       @root = expand(root)
       @logger = Tres::Logger.new(STDOUT)
       @listeners = OpenStruct.new
-      if fresh
+      if options[:fresh] == true
         create_all_dirs
         copy_templates_over
         copy_fonts_over
       end
       make_asset_packager
       make_template_compiler
-      make_templates_listener
+      make_templates_listener unless options[:deaf] == true
     end
 
-    def self.open root
-      new root, false
+    def self.open root, options = {}
+      new root, options.merge(:fresh => false)
     end
 
     private

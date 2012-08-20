@@ -35,9 +35,7 @@ describe Tres::AssetPackager do
   end
 
   context 'compiling assets to static format' do
-    after do
-      clean_build!
-    end
+    after { clean_build! }
 
     it 'compiles stylesheets do the same path found in sprockets' do
       @packager.compile_to_build 'stylesheets/app.css'
@@ -56,6 +54,11 @@ describe Tres::AssetPackager do
     it 'creates a new javascript if the extension is .js' do
       @packager.new_script 'about.js'
       File.exists?(Anagen.assets/'javascripts'/'about.js').should be_true
+    end
+
+    it 'defaults to .coffee if no extension is provided' do
+      @packager.new_script 'about'
+      File.exists?(Anagen.assets/'javascripts'/'about.coffee').should be_true
     end
 
     it 'creates the directories to a path if necessary' do

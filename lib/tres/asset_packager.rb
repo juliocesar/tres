@@ -33,6 +33,7 @@ module Tres
 
     def new_script path, contents = ""
       mkdir_p @assets/'javascripts'/dirname(path)
+      path = path + '.coffee' if extname(path).blank?
       raise Tres::ScriptExistsError if file?(@assets/'javascripts'/path)
       create_file @assets/'javascripts'/path, contents
     end

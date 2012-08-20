@@ -42,6 +42,7 @@ module Tres
 
     def new_template path, contents = ""
       mkdir_p @templates/dirname(path)
+      path = path + '.haml' if extname(path).blank?
       raise Tres::TemplateExistsError if file?(@templates/path)
       create_file @templates/path, contents
     end

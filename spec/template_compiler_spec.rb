@@ -78,6 +78,11 @@ describe Tres::TemplateCompiler do
       File.exists?(Anagen.templates/'fridges.haml').should be_true
     end
 
+    it "defaults to haml if no extension is provided" do
+      @compiler.new_template 'cups'
+      File.exists?(Anagen.templates/'cups.haml').should be_true
+    end
+
     it "creates the directories to a path if necessary" do
       @compiler.new_template 'zomg/fridges.haml'
       File.directory?(Anagen.templates/'zomg').should be_true

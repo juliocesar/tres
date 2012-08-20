@@ -9,7 +9,7 @@ require 'colorize'
 ACTIONS = {
   :server   => %w(server),
   :new_at   => %w(new),
-  :init     => %w(init start)
+  :screen   => %w(screen)
 }
 
 def bail! reason
@@ -60,8 +60,16 @@ def server
   Rack::Handler.default.run Tres::Server.new(app).to_rack_app, :Port => 4567
 end
 
-def init
+def screen name
+  app = Tres::App.open Dir.pwd, :deaf => true
+  Tres.say_progress "Creating template #{name.downcase.colorize(:yellow)}" do
+    app.template_compiler.new_template name.downcase
+  end
+  Tres.say_progress "Creating script #{name.downcase.colorize(:yellow)}" do
+    script = Tilt.new(Tres.templates_dir/'screen_script.coffee.erb')
+    script = script.render OpenStruct.new(:class_name => name.classify, :name => name.downcase)
+    app.asset_packager.new_script "screens/#{name.downcase}", script
+  end
 end
-
 
 figure_what_to_do!

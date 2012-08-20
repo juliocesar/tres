@@ -57,6 +57,7 @@ end
 
 def restore_anagen!
   `git checkout #{Anagen.root}`
+  `git clean -f #{Anagen.root}`
 end
 
 RSpec.configure do |config|

@@ -26,6 +26,7 @@ module Tres
       if fresh
         create_all_dirs
         copy_templates_over
+        copy_fonts_over
       end
       make_asset_packager
       make_template_compiler
@@ -51,6 +52,10 @@ module Tres
       SKELETON.each do |file, destination|
         copy Tres.templates_dir/file, @root/destination
       end
+    end
+
+    def copy_fonts_over
+      copy Tres.root/'font', @root/'build'
     end
 
     def make_asset_packager

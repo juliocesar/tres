@@ -13,8 +13,7 @@ describe Tres::TemplateCompiler do
     it "removes a template from templates.js if removed from <APP ROOT>/templates" do
       @compiler.compile_to_templates_js 'book.haml'
       @compiler.remove_template 'book.haml'
-      restore_anagen!
-      Anagen.templates_js.contents.should_not include (Anagen.templates/'book.haml').escaped_compile
+      Anagen.templates_js.contents.should_not include "JST[\"book\"]"
     end
 
     it "removes a template from build/templates if removed from <APP ROOT>/templates" do
@@ -68,6 +67,25 @@ describe Tres::TemplateCompiler do
         Anagen.templates_js.contents.should include (Anagen.templates/'book.haml').escaped_compile
         Anagen.templates_js.contents.should include (Anagen.templates/'books'/'li.haml').escaped_compile
       end
+    end
+  end
+
+  context 'creating templates' do
+    after { restore_anagen! }
+
+    it "creates a new template with #new_template" do
+      @compiler.new_template 'fridges.haml'
+      File.exists?(Anagen.templates/'fridges.haml').should be_true
+    end
+
+    it "creates the directories to a path if necessary" do
+      @compiler.new_template 'zomg/fridges.haml'
+      File.directory?(Anagen.templates/'zomg').should be_true
+    end
+
+    it "raises TemplateExistsError if a template in the same path exists" do
+      @compiler.new_template 'forks.haml'
+      lambda { @compiler.new_template 'forks.haml' }.should raise_error(Tres::TemplateExistsError)
     end
   end
 end

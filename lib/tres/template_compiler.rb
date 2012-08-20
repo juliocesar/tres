@@ -40,6 +40,12 @@ module Tres
       end
     end
 
+    def new_template path, contents = ""
+      mkdir_p @templates/dirname(path)
+      raise Tres::TemplateExistsError if file?(@templates/path)
+      create_file @templates/path, contents
+    end
+
     def compile_all
       if index = first_index_file
         compile_to_build index 

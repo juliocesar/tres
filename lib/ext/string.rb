@@ -26,4 +26,8 @@ class String;
   def dasherize
     self.underscore.gsub(/_/, '-')
   end
+
+  def to_screen_name
+    self.classify.sub(/(screen)*$/i, 'Screen')
+  end
 end

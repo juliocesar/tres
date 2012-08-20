@@ -7,6 +7,8 @@ module Tres
   class AssetPackager
     attr_reader :sprockets
 
+    include FileMethods
+
     def initialize options = {}
       @root = options[:root]
       @assets = @root/'assets'
@@ -27,6 +29,16 @@ module Tres
     def compile_to_build path
       asset = @sprockets[path]
       asset.write_to(@root/'build'/path) if asset
+    end
+
+    def new_script path, contents = ""
+      mkdir_p @assets/'javascripts'/dirname(path)
+      raise Tres::ScriptExistsError if file?(@assets/'javascripts'/path)
+      create_file @assets/'javascripts'/path, contents
+    end
+
+    private
+    def coffeescript?
     end
   end
 end

@@ -44,4 +44,28 @@ describe Tres::AssetPackager do
       (Anagen.build/'stylesheets'/'app.css').contents.should == sprockets['stylesheets/app.css'].to_s
     end
   end
+
+  context 'creating scripts' do
+    after { restore_anagen! }
+
+    it 'creates a new coffeescript if the extension is .coffee' do
+      @packager.new_script 'about.coffee'
+      File.exists?(Anagen.assets/'javascripts'/'about.coffee').should be_true
+    end
+
+    it 'creates a new javascript if the extension is .js' do
+      @packager.new_script 'about.js'
+      File.exists?(Anagen.assets/'javascripts'/'about.js').should be_true
+    end
+
+    it 'creates the directories to a path if necessary' do
+      @packager.new_script 'about/index.js'
+      File.directory?(Anagen.assets/'javascripts'/'about').should be_true
+    end
+
+    it 'raises ScriptExistsError if a script with the same path exists' do
+      @packager.new_script 'about/index.js'
+      lambda { @packager.new_script 'about/index.js' }.should raise_error(Tres::ScriptExistsError)
+    end
+  end
 end

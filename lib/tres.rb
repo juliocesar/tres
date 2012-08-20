@@ -35,7 +35,7 @@ module Tres
     end
 
     def say_progress something, done = '✔'.colorize(:green)
-      STDOUT.write(OUTPUT_FORMAT % something + "\t") unless quiet?
+      STDOUT.write(OUTPUT_FORMAT % something + "  ") unless quiet?
       yield if block_given?
       STDOUT.puts done unless quiet?
     end

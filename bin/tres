@@ -67,7 +67,7 @@ def screen name
   end
   Tres.say_progress "Creating script #{name.downcase.colorize(:yellow)}" do
     script = Tilt.new(Tres.templates_dir/'screen_script.coffee.erb')
-    script = script.render OpenStruct.new(:class_name => name.classify, :name => name.downcase)
+    script = script.render OpenStruct.new(:name => name)
     app.asset_packager.new_script "screens/#{name.downcase}", script
   end
 end

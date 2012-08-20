@@ -1,3 +1,5 @@
-class <%= class_name %> extends Tres.Screen
-  id        : "add-an-id-here"
+class <%= name.classify %> extends Tres.Screen
+  id        : "<%= name.downcase.dasherize %>"
   template  : JST['screens/<%= name %>']
+
+window.<%= name.classify %> = <%= name.classify %>

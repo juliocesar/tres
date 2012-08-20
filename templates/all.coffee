@@ -12,7 +12,7 @@
 #= require templates
 
 ## Sample app file that includes a home screen. Change this at your leisure ##
-#= require screens/home
+#= require_tree ./screens
 #= require app
 
 ## Your stuff most likely goes below this line ##

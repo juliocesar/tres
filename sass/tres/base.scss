@@ -1,5 +1,9 @@
 @import 'font-awesome';
 
+// Quick FontAwesome fix so icons push the sentence
+// a bit to the right
+[class^="icon-"]:before { margin-right : .5rem }
+
 * { 
   margin             : 0; 
   padding            : 0; 
@@ -78,8 +82,10 @@ body > section > header {
 
 // Type margins and sizes
 body > section {
-  h1    { margin-bottom : 1.6rem }
+  h1 { font-size: 2.9rem; margin-bottom : 1.6rem }
+  h2 { font-size: 2.6rem; margin: 1.3rem 0 }
   p, input, textarea, button, li { font-size : 1.8rem }
+  p { margin : 0.9rem 0 }
 }
 
 form {
@@ -103,13 +109,11 @@ ul.common {
   }
 }
 
-// General text sizing
-h1  { font-size: 2.9rem }
-h2  { font-size: 2.6rem }
-
 // Rules for opting-in
 .t-centered { text-align : center }
 .t-padded-top { padding-top : 5rem }
+.t-left-align { text-align : left }
+h1.t-bigger { font-size : 3.9rem }
 
 
 #notifications {

@@ -1,6 +1,6 @@
 class HomeScreen extends Tres.Screen
   id        : 'home'
-  className : 'tres-padded-top'
+  className : 't-padded-top t-centered'
   template  : _.template(JST['home'])
 
 

@@ -36,7 +36,7 @@ class Tres.Screen extends Backbone.View
   __events   : 
     # Click/touch on links will trigger pushState, but stay in the app. Except
     # for links with the "outlink" class.
-    "click a[href]:not('.outlink')" : 'touchLink'
+    "click a[href]:not([href^='http://'])" : 'touchLink'
 
     # Provide a convenience method `submit` which gets fired when you submit a form in a screen.
     # You can still trap forms normally. This is just a shortcut in case you have 1 form in a screen.

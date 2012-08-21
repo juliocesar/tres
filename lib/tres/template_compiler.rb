@@ -36,9 +36,8 @@ module Tres
       unless file?(@assets/'javascripts'/'templates.js')
         copy Tres.templates_dir/'templates.js', @assets/'javascripts'
       end
-      unless in_templates_js? path
-        append_to_file @assets/'javascripts'/'templates.js', jst_format(path, contents)
-      end
+      remove_from_templates_js(path) if in_templates_js?(path)
+      append_to_file @assets/'javascripts'/'templates.js', jst_format(path, contents)
     end
 
     def new_template path, contents = ""
@@ -80,6 +79,7 @@ module Tres
       return false unless file?(@assets/'javascripts'/'templates.js')
       lines = readlines @assets/'javascripts'/'templates.js'
       lines.reject! { |line| line =~ /^JST\[\"#{path.sub(extname(path), '')}\"\]/ }
+      lines.reject! { |line| line == "\n" }
       create_file @assets/'javascripts'/'templates.js', lines.join("\n")
     end
 

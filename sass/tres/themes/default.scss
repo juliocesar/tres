@@ -5,7 +5,8 @@
 $hot                  : #d5253e;
 $body-background      : #f8f8f8;
 $default-text-color   : black;
-$header-background    : rgba(white,.9);
+$header-background    : $hot;
+$header-text          : white;
 $list-border          : rgba(black,.75);
 $list-text            : black;
 $list-background      : white;
@@ -14,6 +15,7 @@ $textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#efefef), t
 $button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
 $notifications-background : rgba(0,0,0,.9);
 $notifications-color      : white;
+$headings-color : $hot;
 
 body {
   background  : $body-background;
@@ -25,14 +27,17 @@ body > section > header {
   @include box-shadow(0 0 0.25rem rgba(black,.75));
   background : $header-background;
   h1 {
-    color          : $hot;
+    color          : $header-text;
     text-transform : uppercase;
     text-align     : center;
   }
 }
 
-a { color : $link-color }
+// General text colours
+a       { color : $link-color }
+h1, h2  { color : $headings-color }
 
+// Constructs
 ul.common {
   @include border-radius(0.6rem);
   @include box-shadow(0 0 0.25rem rgba(black,.75));

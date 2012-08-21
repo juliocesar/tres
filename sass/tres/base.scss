@@ -103,6 +103,14 @@ ul.common {
   }
 }
 
+// General text sizing
+h1  { font-size: 2.9rem }
+h2  { font-size: 2.6rem }
+
+// Rules for opting-in
+.centered { text-align : center }
+
+
 #notifications {
   position : fixed; 
   right    : 0;

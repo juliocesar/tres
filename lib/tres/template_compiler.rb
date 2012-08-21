@@ -19,6 +19,7 @@ module Tres
     end
 
     def compile_to_build path
+      mkdir_p @build
       return copy(@templates/path, @build/path) if path == 'index.html'
       mkdir_p @build/'templates'/dirname(path)
       if static? path

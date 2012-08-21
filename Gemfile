@@ -12,4 +12,5 @@ gem 'colorize'
 group :test do
   gem 'rake'
   gem 'rspec'
+  gem 'rspec-nc'
 end

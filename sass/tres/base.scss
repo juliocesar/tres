@@ -11,13 +11,12 @@
 ul    { list-style : none }
 input, button, textarea { font-size : 100% }
 
-html { min-height : 420px; font-size : 62.5% }
+html { height : 100%; min-height : 420px; font-size : 62.5%; overflow-x : hidden  }
 html, body { height : 99.9% }
 body {
   font-size   : 1.5rem;
   line-height : 2.3rem;
   width       : 100%;
-  overflow-x  : hidden;
   -webkit-perspective      : 800;
   -webkit-text-size-adjust : none;
   -webkit-transform-style  : preserve-3d;
@@ -34,6 +33,7 @@ body > section {
   width          : 100%;
   opacity        : 0;
   overflow       : auto;
+  overflow-x     : hidden;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
   -webkit-transform-style : preserve-3d;
@@ -108,7 +108,8 @@ h1  { font-size: 2.9rem }
 h2  { font-size: 2.6rem }
 
 // Rules for opting-in
-.centered { text-align : center }
+.t-centered { text-align : center }
+.t-padded-top { padding-top : 5rem }
 
 
 #notifications {

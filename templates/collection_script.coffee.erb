@@ -1,0 +1,6 @@
+class <%= name.classify %> extends Backbone.Collection
+  <% if model_name %>
+  model : <%= model_name.classify %>
+  <% end %>
+
+window.<%= name.classify %> = <%= name.classify %>

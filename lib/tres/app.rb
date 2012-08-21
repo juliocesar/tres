@@ -44,6 +44,8 @@ module Tres
       new_dir @root/'assets'/'stylesheets'
       new_dir @root/'assets'/'javascripts'
       new_dir @root/'assets'/'javascripts'/'screens'
+      new_dir @root/'assets'/'javascripts'/'models'
+      new_dir @root/'assets'/'javascripts'/'collections'
       new_dir @root/'templates'
       new_dir @root/'build'
     end

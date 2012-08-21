@@ -13,6 +13,8 @@
 
 ## Automatically require all scripts in assets/javascripts/screens, 
 ## so generators "just work"
+#= require_tree ./models
+#= require_tree ./collections
 #= require_tree ./screens
 
 ## Sample app file that includes a home screen. Change this at your leisure

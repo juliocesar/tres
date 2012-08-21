@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec', 'spec_helper')
 require 'rspec/core/rake_task'
+require 'bundler/gem_tasks'
 
 RSpec::Core::RakeTask.new do |task|
   task.pattern = 'spec/**/*_spec.rb'

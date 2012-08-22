@@ -12,7 +12,8 @@ ACTIONS = {
   :screen     => %w(screen sc),
   :model      => %w(model mo),
   :collection => %w(collection co),
-  :template   => %w(template t)
+  :template   => %w(template t),
+  :package    => %w(package)
 }
 
 def bail! reason
@@ -38,9 +39,16 @@ Tres
     tres new <directory>
   Example:
     tres new myapp
+
   Other commands:
-    help        shows this menu
-    version     shows the current version of Tres you have installed
+    screen <name>               creates a new screen script and a template for it
+    model <name>                creates a new Backbone.js model
+    collection <name> <model>   creates a new Backbone.js collection, with <model> as it's model
+    template <name>             creates a new template. Defaults to Haml.
+    server                      starts the preview server from within a Tres app directory
+    package                     compiles all assets and templates to the build directory
+    help                        shows this menu
+    version                     shows the current version of Tres you have installed
     
   HELP
   exit -1
@@ -98,6 +106,14 @@ def collection name, model_name = nil
     script = script.render OpenStruct.new(:name => name, :model_name => model_name)
     app.asset_manager.new_script "collections/#{name.downcase}", script    
   end  
+end
+
+def package
+  app = Tres::App.open Dir.pwd, :deaf => true
+  Tres.say_progress "Compiling all assets and templates to #{'build'.colorize(:yellow)}" do
+    app.packager.write_all
+    app.template_manager.compile_all
+  end
 end
 
 figure_what_to_do!

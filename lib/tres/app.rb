@@ -70,7 +70,7 @@ module Tres
     end
 
     def make_packager
-      @packager = Tres::Packager.new :root => @root
+      @packager = Tres::Packager.new :root => @root, :asset_manager => @asset_manager
     end
 
     def make_templates_listener

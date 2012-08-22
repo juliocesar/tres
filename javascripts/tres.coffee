@@ -113,7 +113,7 @@ class Tres.List extends Backbone.View
     @collection.on 'reset',   @__addAll, @
 
   __add : (model) ->
-    tag = @entry.tagName or @_tagMap[@$el.get(0).tagName]
+    tag = @entry?.tagName or @_tagMap[@$el.get(0).tagName]
     template = new Tres.ListEntry(_.extend(@entry, { tagName : tag, model : model }))
     model.template = template
     @$el.append template.render().el

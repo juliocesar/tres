@@ -21,14 +21,14 @@ describe Tres::Server do
   end
 
   it "serves <APP ROOT>/index.html for requests that don't match an asset of a file in <APP ROOT>/build" do
-    @app.template_compiler.compile_to_build 'index.html'
+    @app.template_manager.compile_to_build 'index.html'
     @server.should_receive(:serve_index).twice.and_return(ok_response)
     @mock.get('/')
     @mock.get('/foobar')
   end
 
   it "serves static files it finds in <APP ROOT>/build" do
-    @app.asset_packager.compile_to_build 'stylesheets/app.css'
+    @app.asset_manager.compile_to_build 'stylesheets/app.css'
     @server.should_not_receive :serve_asset
     @mock.get('/stylesheets/app.css')
   end

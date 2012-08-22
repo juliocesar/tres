@@ -52,7 +52,7 @@ def new_at dir
     app = Tres::App.new dir
   end
   Tres.say_progress "Compiling boilerplate templates" do
-    app.template_compiler.compile_all
+    app.template_manager.compile_all
   end
   Tres.say "All done!"
 end
@@ -66,19 +66,19 @@ end
 def template name
   app = Tres::App.open Dir.pwd, :deaf => true
   Tres.say_progress "Creating template #{name.downcase.colorize(:yellow)}" do
-    app.template_compiler.new_template name.downcase
+    app.template_manager.new_template name.downcase
   end
 end
 
 def screen name
   app = Tres::App.open Dir.pwd, :deaf => true
   Tres.say_progress "Creating template #{name.downcase.colorize(:yellow)}" do
-    app.template_compiler.new_template name.downcase
+    app.template_manager.new_template name.downcase
   end
   Tres.say_progress "Creating #{name.to_screen_name.colorize(:yellow)} at #{("screens/" + name.downcase).colorize(:yellow)}" do
     script = Tilt.new(Tres.templates_dir/'screen_script.coffee.erb')
     script = script.render OpenStruct.new(:name => name)
-    app.asset_packager.new_script "screens/#{name.downcase}", script
+    app.asset_manager.new_script "screens/#{name.downcase}", script
   end
 end
 
@@ -87,7 +87,7 @@ def model name
   Tres.say_progress "Creating #{name.classify.colorize(:yellow)} at #{("models/" + name.downcase).colorize(:yellow)}" do
     script = Tilt.new(Tres.templates_dir/'model_script.coffee.erb')
     script = script.render OpenStruct.new(:name => name)
-    app.asset_packager.new_script "models/#{name.downcase}", script    
+    app.asset_manager.new_script "models/#{name.downcase}", script    
   end
 end
 
@@ -96,7 +96,7 @@ def collection name, model_name = nil
   Tres.say_progress "Creating #{name.classify.colorize(:yellow)} at #{("collections/" + name).colorize(:yellow)}" do
     script = Tilt.new(Tres.templates_dir/'collection_script.coffee.erb')
     script = script.render OpenStruct.new(:name => name, :model_name => model_name)
-    app.asset_packager.new_script "collections/#{name.downcase}", script    
+    app.asset_manager.new_script "collections/#{name.downcase}", script    
   end  
 end
 

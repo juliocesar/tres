@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Tres::AssetPackager do
+describe Tres::AssetManager do
   before do
     stub_listener!
-    @packager = Tres::AssetPackager.new :root => Anagen.root, :logger => MEMLOGGER
+    @packager = Tres::AssetManager.new :root => Anagen.root, :logger => MEMLOGGER
   end
 
   let(:sprockets) { @packager.sprockets }

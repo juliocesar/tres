@@ -34,7 +34,7 @@ class String
   end
 
   def escaped_compile
-    compiler = Tres::TemplateCompiler.new :root => Anagen.root
+    compiler = Tres::TemplateManager.new :root => Anagen.root
     compiler.send :escape_js, Tilt.new(self).render
   end
 end

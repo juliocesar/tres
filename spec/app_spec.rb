@@ -30,11 +30,11 @@ describe Tres::App do
     end
 
     it "creates an asset packager" do
-      @app.asset_packager.should be_a Tres::AssetPackager
+      @app.asset_manager.should be_a Tres::AssetManager
     end
 
     it "creates a template compiler" do
-      @app.template_compiler.should be_a Tres::TemplateCompiler
+      @app.template_manager.should be_a Tres::TemplateManager
     end
 
     it "creates a listener for templates" do

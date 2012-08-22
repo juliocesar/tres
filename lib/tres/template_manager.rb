@@ -4,7 +4,7 @@ require 'find'
 require 'stringio'
 
 module Tres
-  class TemplateCompiler
+  class TemplateManager
     include FileMethods
 
     EXTENSION_MAP = {

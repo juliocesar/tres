@@ -4,7 +4,7 @@ require 'compass'
 require 'coffee_script'
 
 module Tres
-  class AssetPackager
+  class AssetManager
     attr_reader :sprockets
 
     include FileMethods

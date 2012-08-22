@@ -22,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "json_pure"
   gem.add_runtime_dependency "haml"
   gem.add_runtime_dependency "colorize"
+  gem.add_runtime_dependency "ffi"
+  gem.add_runtime_dependency "nokogiri"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"

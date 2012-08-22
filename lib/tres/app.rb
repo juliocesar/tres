@@ -1,11 +1,11 @@
-require 'tres/asset_packager'
-require 'tres/template_compiler'
+require 'tres/asset_manager'
+require 'tres/template_manager'
 require 'listen'
 require 'ostruct'
 
 module Tres
   class App
-    attr_reader :root, :asset_packager, :template_compiler, :listeners
+    attr_reader :root, :asset_manager, :template_manager, :listeners
     
     include FileMethods and extend FileMethods
 
@@ -28,8 +28,8 @@ module Tres
         copy_templates_over
         copy_fonts_over
       end
-      make_asset_packager
-      make_template_compiler
+      make_asset_manager
+      make_template_manager
       make_templates_listener unless options[:deaf] == true
     end
 
@@ -60,12 +60,12 @@ module Tres
       copy Tres.root/'font', @root/'build'
     end
 
-    def make_asset_packager
-      @asset_packager = Tres::AssetPackager.new :root => @root, :logger => @logger
+    def make_asset_manager
+      @asset_manager = Tres::AssetManager.new :root => @root, :logger => @logger
     end
 
-    def make_template_compiler
-      @template_compiler = Tres::TemplateCompiler.new :root => @root
+    def make_template_manager
+      @template_manager = Tres::TemplateManager.new :root => @root
     end
 
     def make_templates_listener
@@ -76,13 +76,13 @@ module Tres
 
         unless added_modified.empty?
           Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
-            @template_compiler.compile_all
+            @template_manager.compile_all
           end
         end
 
         unless removed.empty?
           Tres.say_progress "Removing #{removed.join(', ').colorize(:yellow)}" do
-            @template_compiler.remove_template removed 
+            @template_manager.remove_template removed 
           end
         end
       end

@@ -32,7 +32,7 @@ module Tres
     end
 
     def serve_asset env
-      @app.asset_packager.sprockets.call env
+      @app.asset_manager.sprockets.call env
     end
 
     def serve_index 

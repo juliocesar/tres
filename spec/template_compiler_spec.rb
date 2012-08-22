@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Tres::TemplateCompiler do
+describe Tres::TemplateManager do
   before do
     FileUtils.rm_rf TMP/'temp'
-    @compiler = Tres::TemplateCompiler.new :root => Anagen.root
+    @compiler = Tres::TemplateManager.new :root => Anagen.root
     clean_build!
   end
 

@@ -12,12 +12,12 @@ describe Tres::Server do
   it "serves straight from the app's sprockets environment" do
     @server.should_receive(:serve_asset).and_return(ok_response)
     @server.should_not_receive :serve_index
-    @mock.get('/stylesheets/app.css')
+    @mock.get('/stylesheets/all.css')
   end
 
   it "accepts either absolute or relative paths for assets" do
-    @mock.get('/stylesheets/app.css').status.should == 200
-    @mock.get('stylesheets/app.css').status.should == 200
+    @mock.get('/stylesheets/all.css').status.should == 200
+    @mock.get('stylesheets/all.css').status.should == 200
   end
 
   it "serves <APP ROOT>/index.html for requests that don't match an asset of a file in <APP ROOT>/build" do
@@ -28,8 +28,8 @@ describe Tres::Server do
   end
 
   it "serves static files it finds in <APP ROOT>/build" do
-    @app.asset_manager.compile_to_build 'stylesheets/app.css'
+    @app.asset_manager.compile_to_build 'stylesheets/all.css'
     @server.should_not_receive :serve_asset
-    @mock.get('/stylesheets/app.css')
+    @mock.get('/stylesheets/all.css')
   end
 end

@@ -5,7 +5,7 @@ require 'ostruct'
 
 module Tres
   class App
-    attr_reader :root, :asset_manager, :template_manager, :listeners
+    attr_reader :root, :asset_manager, :template_manager, :packager, :listeners
     
     include FileMethods and extend FileMethods
 
@@ -30,6 +30,7 @@ module Tres
       end
       make_asset_manager
       make_template_manager
+      make_packager
       make_templates_listener unless options[:deaf] == true
     end
 
@@ -66,6 +67,10 @@ module Tres
 
     def make_template_manager
       @template_manager = Tres::TemplateManager.new :root => @root
+    end
+
+    def make_packager
+      @packager = Tres::Packager.new :root => @root
     end
 
     def make_templates_listener

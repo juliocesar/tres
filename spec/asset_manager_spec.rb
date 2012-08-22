@@ -13,12 +13,12 @@ describe Tres::AssetManager do
   end
 
   context "opening Anagen" do
-    it "has `anagen.js` in js/anagen.js" do
+    it "has `anagen.js` in javascripts/anagen.js" do
       sprockets['javascripts/anagen.js'].should be_a Sprockets::BundledAsset
     end
 
-    it "has `app.css` in css/app.css" do
-      sprockets['stylesheets/app.css'].should be_a Sprockets::BundledAsset
+    it "has `all.css` in stylesheets/all.css" do
+      sprockets['stylesheets/all.css'].should be_a Sprockets::BundledAsset
     end
   end
 
@@ -38,8 +38,8 @@ describe Tres::AssetManager do
     after { clean_build! }
 
     it 'compiles stylesheets do the same path found in sprockets' do
-      @packager.compile_to_build 'stylesheets/app.css'
-      (Anagen.build/'stylesheets'/'app.css').contents.should == sprockets['stylesheets/app.css'].to_s
+      @packager.compile_to_build 'stylesheets/all.css'
+      (Anagen.build/'stylesheets'/'all.css').contents.should == sprockets['stylesheets/all.css'].to_s
     end
   end
 

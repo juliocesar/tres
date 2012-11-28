@@ -16,6 +16,8 @@ $button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), 
 $notifications-background : rgba(0,0,0,.9);
 $notifications-color      : white;
 $headings-color : $hot;
+$default-radius       : 0.6rem;
+$default-shadow       : 0 0 0.25rem rgba(black,.75);
 
 body {
   background  : $body-background;
@@ -24,7 +26,7 @@ body {
 }
 
 body > section > header {
-  @include box-shadow(0 0 0.25rem rgba(black,.75));
+  @include box-shadow($default-shadow);
   background : $header-background;
   h1 {
     color          : $header-text;
@@ -38,8 +40,8 @@ a       { color : $link-color }
 h1, h2  { color : $headings-color }
 
 // Constructs
-ul.common {
-  @include border-radius(0.6rem);
+.t-list-common {
+  @include border-radius($default-radius);
   @include box-shadow(0 0 0.25rem rgba(black,.75));
   color      : $list-text;    
   background : transparent;
@@ -48,13 +50,16 @@ ul.common {
     font-weight : bold;
     background  : $list-background;
     &:first-child {
-      @include border-top-right-radius(0.6rem);
-      @include border-top-left-radius(0.6rem);
+      @include border-top-right-radius($default-radius);
+      @include border-top-left-radius($default-radius);
       border-top: 0 
     }
     &:last-child {
-      @include border-bottom-right-radius(0.6rem);
-      @include border-bottom-left-radius(0.6rem);
+      @include border-bottom-right-radius($default-radius);
+      @include border-bottom-left-radius($default-radius);
+    }
+    a {
+      text-decoration : none;
     }
   }
 }
@@ -65,7 +70,14 @@ input {
   background  : $textfield-background;
 }
 
-#notifications {
-  background  : $notifications-background;
-  color       : $notifications-color
+button {
+  @include border-radius($default-radius);
+  @include box-shadow($default-shadow);
+  display    : block;
+  width      : 100%;
+  padding : 0.25em;
+  background : $hot;
+  color      : white;
+  font-weight : bold;
+  font-family : inherit;
 }

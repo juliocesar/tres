@@ -4,18 +4,23 @@
 // a bit to the right
 [class^="icon-"]:before { margin-right : .5rem }
 
-* { 
-  margin             : 0; 
-  padding            : 0; 
-  outline            : 0; 
-  border             : 0; 
-  -webkit-box-sizing : border-box 
+* {
+  margin             : 0;
+  padding            : 0;
+  outline            : 0;
+  border             : 0;
+  -webkit-box-sizing : border-box
 }
 
-ul    { list-style : none }
+ul { list-style : none }
 input, button, textarea { font-size : 100% }
 
-html { height : 100%; min-height : 420px; font-size : 62.5%; overflow-x : hidden  }
+html {
+  height: 100%;
+  min-height: 420px;
+  font-size : 62.5%;
+  overflow-x : hidden
+}
 html, body { height : 99.9% }
 body {
   font-size   : 1.5rem;
@@ -42,7 +47,7 @@ body > section {
   -webkit-transition      : all 0.25s ease-in-out;
   -webkit-transform-style : preserve-3d;
   -webkit-transform       : translate3d(100%,0%,0);
-  &>*:not(header) {
+  &>*:not(header):not(footer):not(.marginless) {
     margin-left   : 1rem !important;
     margin-right  : 1rem !important;
   }
@@ -57,21 +62,16 @@ body > section {
 body > section > header {
   margin     : 0;
   text-align : center;
-  &.fixed {
-    position : fixed;
-    top      : 0;
-    left     : 0;
-    width    : 100%;
-    z-index  : 10000
-  }
   & + * { margin-top : 4.6rem !important }
   h1 {
     font-size   : 1.9rem;
-    margin      : 0.9rem 0;
+    margin      : 1.1rem 0;
     white-space : nowrap
   }
-  a {
+  a, button {
     position        : absolute;
+    line-height     : 2.9rem;
+    width           : 2.9rem;
     font-size       : 1.9rem;
     margin-top      : 0.9rem;
     text-decoration : none;
@@ -85,17 +85,17 @@ body > section {
   h1 { font-size: 2.9rem; margin-bottom : 1.6rem }
   h2 { font-size: 2.6rem; margin: 1.3rem 0 }
   p, input, textarea, button, li { font-size : 1.8rem }
-  p { margin : 0.9rem 0 }
+  p { margin : 1.1rem 0 }
 }
 
 form {
   margin : 1.3rem 0;
-  label { 
+  label {
     display     : block;
     margin      : 0.25em 0;
     font-weight : bold;
   }
-  input, textarea { 
+  input, textarea {
     display     : block;
     padding     : 0.9rem;
     width       : 100%;
@@ -109,15 +109,32 @@ ul.common {
   }
 }
 
-// Rules for opting-in
+// Opt-in rules
+.t-header-fixed {
+  position : fixed;
+  top      : 0;
+  left     : 0;
+  width    : 100%;
+  z-index  : 10000
+}
+.t-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000
+}
+.t-list-common {
+  li { padding : 0.9rem }
+}
 .t-centered { text-align : center }
 .t-padded-top { padding-top : 5rem }
 .t-left-align { text-align : left }
-h1.t-bigger { font-size : 3.9rem }
+.t-h1-bigger { font-size : 3.9rem }
 
 
 #notifications {
-  position : fixed; 
+  position : fixed;
   right    : 0;
   bottom   : 0;
   left     : 0;

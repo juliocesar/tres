@@ -1,0 +1,18 @@
+// Tres - Mixins
+// =============
+//
+// A set of mixins used throughout Tres
+
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+  -moz-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  transform: translate($x, $y)
+}
+
+@mixin vendor-transition($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -ms-transition: $transition;
+  transition: $transition
+}

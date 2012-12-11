@@ -23,7 +23,7 @@ defaultTemplate = _.template """
 # ---
 
 # Tres.Device handles/exposes device events (orientation change, accellerometer,
-# etc), screen width, and other hardware-related goodies.
+# etc), screen width, and other hardware-related goodies
 class Device
   constructor: ->
     _.extend @, Backbone.Events
@@ -38,18 +38,20 @@ Tres.Device = new Device
 # ---
 
 # Tres.Screen is the base screen class. So you'll pretty have one of these for
-# each "route" in your app.
+# each "route" in your app
 class Tres.Screen extends Backbone.View
 
   # Defaults to using sections for screens
   tagName: 'section'
 
-  # Ensure one can still declare events in a view without getting in the way of the defaults.
+  # Ensure one can still declare events in a view without getting in the
+  # way of the defaults
   __events:
     "click a[href]:not([href^='http://'])": 'touchLink'
 
-    # Provide a convenience method `submit` which gets fired when you submit a form in a screen.
-    # You can still trap forms normally. This is just a shortcut in case you have 1 form in a screen.
+    # Provide a convenience method `submit` which gets fired when you
+    # submit a form in a screen. You can still trap forms normally.
+    # This is just a shortcut in case you have 1 form in a screen
     "submit form": '__submit'
 
   events: {}
@@ -142,7 +144,8 @@ class Tres.List extends Backbone.View
   # Adds one record to the list, wrapping it in a Tres.List
   __add: (model) ->
     tag = @entry?.tagName or @_tagMap[@$el.get(0).tagName]
-    template = new Tres.ListEntry _.extend(@entry, { tagName : tag, model : model })
+    template = new Tres.ListEntry
+      _.extend(@entry, { tagName : tag, model : model })
     model.template = template
     @$el.append template.render().el
 
@@ -225,7 +228,7 @@ Tres.Notifier =
 
 # ---
 
-# Just a regular Backbone.Router for now. By default you'll have one for application
+# Just a regular Backbone.Router for now. You'll have one for application
 class Router extends Backbone.Router
 
 Tres.Router = new Router

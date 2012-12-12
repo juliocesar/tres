@@ -1,25 +1,44 @@
-@import 'font-awesome';
+// Tres base grid and grid related settings
+// ========================================
 
-// Quick FontAwesome fix so icons push the sentence
-// a bit to the right
+@import 'font-awesome';
+@import 'mixins';
+
+
+// Resets
+
+// Quick FontAwesome fix so icons push the sentence a bit to the right
 [class^="icon-"]:before { margin-right : .5rem }
+input[class^="icon-"] {
+  position: relative;
+
+  &:before {
+    @include translate(0, -50%);
+    position: absolute;
+    top: 50%
+  }
+}
 
 * {
   margin             : 0;
   padding            : 0;
   outline            : 0;
   border             : 0;
-  -webkit-box-sizing : border-box
+  -webkit-box-sizing : border-box;
+  box-sizing: border-box;
 }
 
 ul { list-style : none }
 input, button, textarea { font-size : 100% }
 
+// ---
+
+// Structural settings for getting screens to use the whole vertical space.
+
 html {
-  height: 100%;
   min-height: 420px;
   font-size : 62.5%;
-  overflow-x : hidden
+  overflow-x : hidden;
 }
 html, body { height : 99.9% }
 body {
@@ -32,17 +51,18 @@ body {
   -webkit-user-select      : none;
 }
 
+// ---
+
 // A base section unit. Think of this as a "screen".
 body > section {
-  display        : block;
   position       : absolute;
   padding        : 1.6rem 0;
   top            : 0;
   left           : 0;
   width          : 100%;
+  min-height     : 100%;
   opacity        : 0;
   overflow       : auto;
-  overflow-x     : hidden;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
   -webkit-transform-style : preserve-3d;
@@ -109,7 +129,10 @@ ul.common {
   }
 }
 
-// Opt-in rules
+// ---
+
+// Grid classes, for adding features to elements
+
 .t-header-fixed {
   position : fixed;
   top      : 0;
@@ -132,17 +155,4 @@ ul.common {
 .t-left-align { text-align : left }
 .t-h1-bigger { font-size : 3.9rem }
 
-
-#notifications {
-  position : fixed;
-  right    : 0;
-  bottom   : 0;
-  left     : 0;
-  li {
-    display     : none;
-    padding     : 0.6rem 1rem;
-    font-weight : bold;
-    font-size   : 1.6rem;
-    &:before { margin-right : 1rem }
-  }
-}
+// ---

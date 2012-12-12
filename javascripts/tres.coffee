@@ -27,7 +27,9 @@ defaultTemplate = _.template """
 class Device
   constructor: ->
     _.extend @, Backbone.Events
-    $window.on 'orientationchange', _.bind @trigger, @, 'orientation:change'
+    $window.on 'orientationchange', =>
+      @trigger 'orientation:change'
+      window.scrollTo 0, 0
 
   width: -> window.outerWidth
   height: -> window.outerHeight
@@ -72,7 +74,12 @@ class Tres.Screen extends Backbone.View
   render: ->
     @$el.html (@template or defaultTemplate)(@model)
     @delegateEvents _.extend @events, @__events
+    @expandVertically()
     @
+
+  # Sets the height of the screen to the maximum possible minus the URL bar
+  expandVertically: ->
+    @$el.css 'min-height', window.innerHeight+75
 
   # Embeds a Tres.Screen into the <body>. Returns false in case it's already
   # embedded.
@@ -249,6 +256,7 @@ class Tres.App
         screen = map[url]
         screen.embed() unless screen.embedded is true
         args = arguments
+        window.scroll 0, 0
         _.defer => screen.activate.apply screen, args
 
   # Boots the app, executing the routes and adding a handy `before`
@@ -258,7 +266,6 @@ class Tres.App
     Backbone.history.loadUrl = =>
       Tres.Router.before.call @ if _.isFunction Tres.Router.before
       Tres.Router.trigger 'navigate'
-      window.scroll 0, 0
       __super.apply Backbone.history, arguments
     Backbone.history.start _.extend(options, pushState : true)
 

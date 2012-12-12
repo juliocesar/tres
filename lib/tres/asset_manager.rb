@@ -19,10 +19,13 @@ module Tres
           env.append_path path.to_s
         end
         env.append_path Tres.styles_dir
-        env.append_path Tres.scripts_dir        
+        env.append_path Tres.scripts_dir
         env.append_path @assets/'javascripts'
         env.append_path @assets/'stylesheets'
         env.append_path @assets
+        env.context_class.class_eval do
+          def asset_path path, options = {}; path end
+        end
       end
     end
 

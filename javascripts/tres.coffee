@@ -144,8 +144,7 @@ class Tres.List extends Backbone.View
   # Adds one record to the list, wrapping it in a Tres.List
   __add: (model) ->
     tag = @entry?.tagName or @_tagMap[@$el.get(0).tagName]
-    template = new Tres.ListEntry
-      _.extend(@entry, { tagName : tag, model : model })
+    template = new Tres.ListEntry _.extend(@entry, { tagName : tag, model : model })
     model.template = template
     @$el.append template.render().el
 
@@ -215,7 +214,7 @@ class Tres.Form
 
 # Handles displaying in-app notifications
 Tres.Notifier =
-  $el: $ make 'ul', id: 'notifications'
+  $el: $ make('ul', id: 'notifications')
 
   notify : (message, options = { duration : 5000, type : 'exclamation-sign' }) ->
     @$el.appendTo $body

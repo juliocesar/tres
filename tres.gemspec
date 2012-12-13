@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "compass"
   gem.add_runtime_dependency "coffee-script"
   gem.add_runtime_dependency "sprockets", "2.8.2"
-  gem.add_runtime_dependency "json_pure"
   gem.add_runtime_dependency "sass"
   gem.add_runtime_dependency "haml", "=3.1.7"
   gem.add_runtime_dependency "colorize"

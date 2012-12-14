@@ -69,20 +69,15 @@ class Tres.Screen extends Backbone.View
     else
       @$el.find('h1').html()
 
-  # Renders the screen's template into the container element. Also
-  # (re)delegates the screen's events
+  # Renders the screen's template into the container element, and applies
+  # the screen's events
   render: ->
     @$el.html (@template or defaultTemplate)(@model)
     @delegateEvents _.extend @events, @__events
-    @expandVertically()
     @
 
-  # Sets the height of the screen to the maximum possible minus the URL bar
-  expandVertically: ->
-    @$el.css 'min-height', window.innerHeight+75
-
   # Embeds a Tres.Screen into the <body>. Returns false in case it's already
-  # embedded.
+  # embedded
   embed: ->
     return false if @embedded
     @render()
@@ -106,10 +101,17 @@ class Tres.Screen extends Backbone.View
 
   # Sets the class "current" to this screen, removing the class from
   # whatever other sections that have it. Call the `active` method in
-  # case a screen has one
+  # case a screen has one. Removes -webkit-transform to prevent Webkit from
+  # screwing position: fixed
   activate: ->
-    $body.find('>section').removeClass 'current'
+    $body.find('>section')
+      .removeClass('current')
+      .css('-webkit-transform', '')
     @$el.addClass 'current'
+    _.delay =>
+      @$el.css '-webkit-transform', 'none'
+    , 300
+    @$el.css 'min-height', window.innerHeight+50
     @active.apply @, arguments if _.isFunction @active
 
 # ---

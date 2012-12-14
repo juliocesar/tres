@@ -4,7 +4,6 @@
 @import 'font-awesome';
 @import 'mixins';
 
-
 // Resets
 
 // Quick FontAwesome fix so icons push the sentence a bit to the right
@@ -35,12 +34,14 @@ input, button, textarea { font-size : 100% }
 
 // Structural settings for getting screens to use the whole vertical space.
 
+$measure-unit: .6rem;
+
 html {
   min-height: 420px;
   font-size : 62.5%;
   overflow-x : hidden;
 }
-html, body { height : 99.9% }
+html, body { height : 99.9%; overflow-x: hidden ; }
 body {
   font-size   : 1.5rem;
   line-height : 2.3rem;
@@ -56,13 +57,12 @@ body {
 // A base section unit. Think of this as a "screen".
 body > section {
   position       : absolute;
-  padding        : 1.6rem 0;
   top            : 0;
   left           : 0;
   width          : 100%;
   min-height     : 100%;
   opacity        : 0;
-  overflow       : auto;
+  overflow-y     : auto;
   pointer-events : none;
   -webkit-transition      : all 0.25s ease-in-out;
   -webkit-transform-style : preserve-3d;
@@ -82,21 +82,22 @@ body > section {
 body > section > header {
   margin     : 0;
   text-align : center;
-  & + * { margin-top : 4.6rem !important }
+  overflow   : hidden;
+
+  & + * { margin-top : $measure-unit*4 !important }
+  & > * { margin: $measure-unit*2 0 }
   h1 {
     font-size   : 1.9rem;
     margin      : 1.1rem 0;
     white-space : nowrap
   }
   a, button {
-    position        : absolute;
-    line-height     : 2.9rem;
     width           : 2.9rem;
-    font-size       : 1.9rem;
-    margin-top      : 0.9rem;
+    font-size       : 2.3rem;
     text-decoration : none;
-    &.left  { left  : 1.6rem }
-    &.right { right : 1.6rem }
+  }
+  menu {
+    @extend .spans-horizontally;
   }
 }
 

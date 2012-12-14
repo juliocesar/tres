@@ -44,3 +44,14 @@
   -ms-filter     : $parameters;
   filter         : $parameters
 }
+
+.spans-horizontally {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: box;
+  -webkit-box-orient : horizontal;
+  -moz-box-orient    : horizontal;
+  -ms-box-orient     : horizontal;
+  box-orient         : horizontal;
+}

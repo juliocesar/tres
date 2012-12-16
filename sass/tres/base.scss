@@ -1,7 +1,6 @@
 // Tres base grid and grid related settings
 // ========================================
 
-@import 'font-awesome';
 @import 'mixins';
 
 // Resets
@@ -32,6 +31,8 @@ input, button, textarea { font-size : 100% }
 
 // ---
 
+$spacing: .5rem;
+
 // Structural settings for getting screens to use the whole vertical space.
 
 $measure-unit: .6rem;
@@ -39,13 +40,15 @@ $measure-unit: .6rem;
 html {
   min-height: 420px;
   font-size : 62.5%;
-  overflow-x : hidden;
 }
-html, body { height : 99.9%; overflow-x: hidden ; }
+html, body { overflow: hidden }
 body {
-  font-size   : 1.5rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   line-height : 2.3rem;
-  width       : 100%;
   -webkit-perspective      : 800;
   -webkit-text-size-adjust : none;
   -webkit-transform-style  : preserve-3d;
@@ -55,18 +58,18 @@ body {
 // ---
 
 // A base section unit. Think of this as a "screen".
-body > section {
-  position       : absolute;
+.screen {
+  -webkit-transition      : all 0.25s ease-in-out;
+  -webkit-transform-style : preserve-3d;
+  -webkit-transform       : translate3d(100%,0%,0);
+  position       : fixed;
   top            : 0;
   left           : 0;
   width          : 100%;
   min-height     : 100%;
   opacity        : 0;
-  overflow-y     : auto;
+  overflow       : auto;
   pointer-events : none;
-  -webkit-transition      : all 0.25s ease-in-out;
-  -webkit-transform-style : preserve-3d;
-  -webkit-transform       : translate3d(100%,0%,0);
   &>*:not(header):not(footer):not(.marginless) {
     margin-left   : 1rem !important;
     margin-right  : 1rem !important;
@@ -78,13 +81,17 @@ body > section {
   }
 }
 
-// Floating header, header stuffs
-body > section > header {
+// ---
+
+// Headers
+
+.screen > header {
   margin     : 0;
   text-align : center;
   overflow   : hidden;
 
-  & + * { margin-top : $measure-unit*4 !important }
+  & + .content { top : 60px }
+
   & > * { margin: $measure-unit*2 0 }
   h1 {
     font-size   : 1.9rem;
@@ -99,15 +106,43 @@ body > section > header {
   menu {
     @extend .spans-horizontally;
   }
+
+  .fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
 }
 
+// ---
+
+// Screen content
+
+.screen > .content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+// ---
+
 // Type margins and sizes
-body > section {
+.screen {
   h1 { font-size: 2.9rem; margin-bottom : 1.6rem }
   h2 { font-size: 2.6rem; margin: 1.3rem 0 }
   p, input, textarea, button, li { font-size : 1.8rem }
   p { margin : 1.1rem 0 }
 }
+
+// ---
+
+// Default form settings
 
 form {
   margin : 1.3rem 0;
@@ -123,37 +158,5 @@ form {
     font-family : inherit;
   }
 }
-
-ul.common {
-  li {
-    padding : 0.9rem;
-  }
-}
-
-// ---
-
-// Grid classes, for adding features to elements
-
-.t-header-fixed {
-  position : fixed;
-  top      : 0;
-  left     : 0;
-  width    : 100%;
-  z-index  : 10000
-}
-.t-footer-fixed {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10000
-}
-.t-list-common {
-  li { padding : 0.9rem }
-}
-.t-centered { text-align : center }
-.t-padded-top { padding-top : 7rem }
-.t-left-align { text-align : left }
-.t-h1-bigger { font-size : 3.9rem }
 
 // ---

@@ -70,9 +70,10 @@ class Tres.Screen extends Backbone.View
       @$el.find('h1').html()
 
   # Renders the screen's template into the container element, and applies
-  # the screen's events
+  # the screen's events and the default screen class
   render: ->
     @$el.html (@template or defaultTemplate)(@model)
+    @$el.addClass 'screen'
     @delegateEvents _.extend @events, @__events
     @
 

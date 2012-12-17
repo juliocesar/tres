@@ -82,7 +82,7 @@ class Tres.Screen extends Backbone.View
   embed: ->
     return false if @embedded
     @render()
-    $body.append @el
+    $body.prepend @el
     @embedded = true
     @
 
@@ -105,13 +105,9 @@ class Tres.Screen extends Backbone.View
   # case a screen has one. Removes -webkit-transform to prevent Webkit from
   # screwing position: fixed
   activate: ->
-    $body.find('>section')
-      .removeClass('current')
-      .css('-webkit-transform', '')
+    if not @modal then $body.find('>section').removeClass('current')
     @$el.addClass 'current'
-    _.delay =>
-      @$el.css '-webkit-transform', 'none'
-    , 300
+    @$el.addClass 'modal' if @modal
     @$el.css 'min-height', window.innerHeight+50
     @active.apply @, arguments if _.isFunction @active
 

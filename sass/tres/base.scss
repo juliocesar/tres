@@ -59,7 +59,7 @@ body {
 
 // A base section unit. Think of this as a "screen".
 .screen {
-  -webkit-transition      : all 0.25s ease-in-out;
+  -webkit-transition      : all 0.25s ease-out;
   -webkit-transform-style : preserve-3d;
   -webkit-transform       : translate3d(100%,0%,0);
   position       : fixed;
@@ -70,15 +70,14 @@ body {
   opacity        : 0;
   overflow       : auto;
   pointer-events : none;
-  &>*:not(header):not(footer):not(.marginless) {
-    margin-left   : 1rem !important;
-    margin-right  : 1rem !important;
-  }
+
   &.current {
     opacity        : 1;
     pointer-events : auto;
     -webkit-transform : translate3d(0%,0%, 0)
   }
+
+  &.modal { z-index: 1000 }
 }
 
 // ---
@@ -94,7 +93,7 @@ body {
 
   & > * { margin: $measure-unit*2 0 }
   h1 {
-    font-size   : 1.9rem;
+    font-size   : 1.6rem;
     margin      : 1.1rem 0;
     white-space : nowrap
   }
@@ -125,7 +124,6 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -136,7 +134,7 @@ body {
 .screen {
   h1 { font-size: 2.9rem; margin-bottom : 1.6rem }
   h2 { font-size: 2.6rem; margin: 1.3rem 0 }
-  p, input, textarea, button, li { font-size : 1.8rem }
+  p, input, textarea, button, li { font-size : 1.3rem }
   p { margin : 1.1rem 0 }
 }
 
@@ -146,16 +144,19 @@ body {
 
 form {
   margin : 1.3rem 0;
-  label {
-    display     : block;
-    margin      : 0.25em 0;
-    font-weight : bold;
-  }
-  input, textarea {
+  input:not([type="checkbox"]), textarea {
     display     : block;
     padding     : 0.9rem;
     width       : 100%;
     font-family : inherit;
+  }
+  input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem
+  }
+  input[type="checkbox"] + label {
+    display: inline-block;
+    margin-left: $spacing;
   }
 }
 

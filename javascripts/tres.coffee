@@ -29,6 +29,8 @@ class Device
     _.extend @, Backbone.Events
     $window.on 'orientationchange', =>
       @trigger 'orientation:change'
+      # Fix <html> not stretching beyond 320px
+      $('html').width window.innerWidth
       window.scrollTo 0, 0
 
   width: -> window.outerWidth
@@ -103,12 +105,17 @@ class Tres.Screen extends Backbone.View
   # Sets the class "current" to this screen, removing the class from
   # whatever other sections that have it. Call the `active` method in
   # case a screen has one. Removes -webkit-transform to prevent Webkit from
-  # screwing position: fixed
+  # screwing a whole lot of stuff
   activate: ->
-    if not @modal then $body.find('>section').removeClass('current')
+    if not @modal
+      $body.find('>section')
+        .removeClass('current')
+        .css '-webkit-transform', ''
     @$el.addClass 'current'
     @$el.addClass 'modal' if @modal
-    @$el.css 'min-height', window.innerHeight+50
+    @$el.css
+      'min-height': window.innerHeight+50
+      '-webkit-transform': 'none'
     @active.apply @, arguments if _.isFunction @active
 
 # ---

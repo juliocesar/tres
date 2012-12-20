@@ -35,13 +35,12 @@ $spacing: .5rem;
 
 // Structural settings for getting screens to use the whole vertical space.
 
-$measure-unit: .6rem;
-
 html {
   min-height: 420px;
+  min-width: 100%;
   font-size : 62.5%;
 }
-html, body { overflow: hidden }
+html, body { overflow: hidden; width: 100%; height: 100% }
 body {
   position: fixed;
   top: 0;
@@ -52,7 +51,7 @@ body {
   -webkit-perspective      : 800;
   -webkit-text-size-adjust : none;
   -webkit-transform-style  : preserve-3d;
-  -webkit-user-select      : none;
+  -webkit-user-select      : none
 }
 
 // ---
@@ -64,9 +63,9 @@ body {
   -webkit-transform       : translate3d(100%,0%,0);
   position       : fixed;
   top            : 0;
+  right          : 0;
+  bottom         : 0;
   left           : 0;
-  width          : 100%;
-  min-height     : 100%;
   opacity        : 0;
   overflow       : auto;
   pointer-events : none;
@@ -85,32 +84,39 @@ body {
 // Headers
 
 .screen > header {
+  position   : fixed;
+  top        : 0;
+  right      : 0;
+  left       : 0;
   margin     : 0;
   text-align : center;
   overflow   : hidden;
+  z-index    : 100;
 
   & + .content { top : 60px }
 
-  & > * { margin: $measure-unit*2 0 }
+  & > * { margin: $spacing*2 0 }
   h1 {
     font-size   : 1.6rem;
     margin      : 1.1rem 0;
     white-space : nowrap
   }
-  a, button {
+  &>a, &>button {
+    position: absolute;
+    top             : 0;
     width           : 2.9rem;
-    font-size       : 2.3rem;
+    font-size       : 2.1rem;
     text-decoration : none;
+
+
+    &.left  { left: $spacing }
+    &.right { right: $spacing }
   }
   menu {
     @extend .spans-horizontally;
-  }
-
-  .fixed {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
+    a, button {
+      font-size: 2.3rem
+    }
   }
 }
 

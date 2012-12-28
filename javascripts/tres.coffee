@@ -270,7 +270,8 @@ class Tres.App
   boot: (options = {}) ->
     __super = Backbone.history.loadUrl
     Backbone.history.loadUrl = =>
-      Tres.Router.before.call @ if _.isFunction Tres.Router.before
+      if _.isFunction Tres.Router.before
+        Tres.Router.before Backbone.history.getFragment()
       Tres.Router.trigger 'navigate'
       __super.apply Backbone.history, arguments
     Backbone.history.start _.extend(options, pushState : true)

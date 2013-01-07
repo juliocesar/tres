@@ -3,7 +3,6 @@ $:.unshift File.dirname(__FILE__)
 
 require 'rubygems'
 require 'logger'
-require 'json/pure'
 require 'ext/string'
 require 'ext/filemethods'
 require 'tres/app'
@@ -21,15 +20,15 @@ module Tres
     def quiet!
       @quiet = true
     end
-    
+
     def quiet?
       !!@quiet
     end
-    
+
     def verbose!
       @quiet = false
     end
-    
+
     def say something
       STDOUT.puts(OUTPUT_FORMAT % something) unless quiet?
       yield if block_given?

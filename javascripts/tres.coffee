@@ -12,7 +12,6 @@ Backbone  = window.Backbone
 JST       = window.JST
 $window   = $ window
 $body     = $ 'body'
-make      = Backbone.View.prototype.make
 
 # Default screen template
 defaultTemplate = _.template """
@@ -67,9 +66,9 @@ class Tres.Screen extends Backbone.View
   # header with a <h1> inside of it
   title: (title = null) ->
     if title?
-      @$el.find('h1').html title
+      @$el.find('header h1').html title
     else
-      @$el.find('h1').html()
+      @$el.find('header h1').html()
 
   # Renders the screen's template into the container element, and applies
   # the screen's events and the default screen class
@@ -227,7 +226,7 @@ class Tres.Form
 
 # Handles displaying in-app notifications
 Tres.Notifier =
-  $el: $ make('ul', id: 'notifications')
+  $el: $('<ul id="notifications"></ul>')
 
   notify : (message, options = { duration : 5000, type : 'exclamation-sign' }) ->
     @$el.appendTo $body

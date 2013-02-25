@@ -1,13 +1,12 @@
 PATH
   remote: .
   specs:
-    tres (0.1.2)
+    tres (0.1.4)
       coffee-script
       colorize
       compass
       ffi
       haml (= 3.1.7)
-      json_pure
       listen
       nokogiri
       sass
@@ -34,11 +33,10 @@ GEM
     fssm (0.2.9)
     haml (3.1.7)
     hike (1.2.1)
-    json_pure (1.7.5)
     listen (0.6.0)
     multi_json (1.5.0)
     nokogiri (1.5.5)
-    rack (1.4.1)
+    rack (1.4.3)
     rake (0.9.2.2)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)

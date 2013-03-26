@@ -50,7 +50,6 @@ class Tres.Screen extends Backbone.View
   # Ensure one can still declare events in a view without getting in the
   # way of the defaults
   __events:
-    "click a[href]:not([href^='http://'])": 'touchLink'
 
     # Provide a convenience method `submit` which gets fired when you
     # submit a form in a screen. You can still trap forms normally.
@@ -87,11 +86,6 @@ class Tres.Screen extends Backbone.View
     @embedded = true
     @
 
-  # Click/touch on links will trigger pushState, but stay in the app
-  touchLink: (event) ->
-    event.preventDefault()
-    Tres.Router.navigate $(event.currentTarget).attr('href'), true
-
   # Runs whatever @submit method is declared, with the added bonus of
   # un-focusing any text fields that are currently focused
   __submit: (event) ->
@@ -112,10 +106,9 @@ class Tres.Screen extends Backbone.View
         .css '-webkit-transform', ''
     @$el.addClass 'current'
     @$el.addClass 'modal' if @modal
-    @$el.css
-      'min-height': window.innerHeight+50
-      '-webkit-transform': 'none'
+    @$el.css '-webkit-transform': 'none'
     @active.apply @, arguments if _.isFunction @active
+    $window.trigger 'resize'
 
 # ---
 

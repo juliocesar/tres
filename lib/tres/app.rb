@@ -6,7 +6,7 @@ require 'ostruct'
 module Tres
   class App
     attr_reader :root, :asset_manager, :template_manager, :packager, :listeners
-    
+
     include FileMethods and extend FileMethods
 
     SKELETON = {
@@ -17,7 +17,7 @@ module Tres
       'app.coffee'    => 'assets'/'javascripts',
       'home.coffee'   => 'assets'/'javascripts'/'screens',
       'all.scss'      => 'assets'/'stylesheets'
-    }    
+    }
 
     def initialize root, options = { :fresh => true }
       @root = expand(root)
@@ -80,14 +80,18 @@ module Tres
         removed         = removed.map { |path| relativize(path, @root) }
 
         unless added_modified.empty?
-          Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
-            @template_manager.compile_all
+          begin
+            Tres.say_progress "Compiling #{added_modified.join(', ').colorize(:yellow)}" do
+              @template_manager.compile_all
+            end
+          rescue Exception => e
+            Tres.say "Error: #{e.message}"
           end
         end
 
         unless removed.empty?
           Tres.say_progress "Removing #{removed.join(', ').colorize(:yellow)}" do
-            @template_manager.remove_template removed 
+            @template_manager.remove_template removed
           end
         end
       end

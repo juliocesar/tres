@@ -1,0 +1,83 @@
+@import 'compass/css3/border-radius';
+@import 'compass/css3/images';
+@import 'compass/css3/box-shadow';
+
+$hot                  : #d5253e;
+$body-background      : #f8f8f8;
+$default-text-color   : black;
+$header-background    : $hot;
+$header-text          : white;
+$list-border          : rgba(black,.75);
+$list-text            : black;
+$list-background      : white;
+$link-color           : $hot;
+$textfield-background : -webkit-gradient(linear, 0% 0%, 0% 18%, from(#efefef), to(#FFFFFF));
+$button-background    : -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5D201), to(#f5a101));
+$notifications-background : rgba(0,0,0,.9);
+$notifications-color      : white;
+$headings-color : $hot;
+$default-radius       : 0.6rem;
+$default-shadow       : 0 0 0.25rem rgba(black,.75);
+
+body {
+  background  : $body-background;
+  color       : $default-text-color;
+  font-family : 'PT Sans Narrow', 'Helvetica Neue';
+}
+
+body > section > header {
+  @include box-shadow($default-shadow);
+  background : $header-background;
+  h1 {
+    color          : $header-text;
+    text-transform : uppercase;
+    text-align     : center;
+  }
+}
+
+// General text colours
+a       { color : $link-color }
+h1, h2  { color : $headings-color }
+
+// Constructs
+.t-list-common {
+  @include border-radius($default-radius);
+  @include box-shadow(0 0 0.25rem rgba(black,.75));
+  color      : $list-text;    
+  background : transparent;
+  li {
+    border-top  : 1px solid lighten($list-border, 75%);
+    font-weight : bold;
+    background  : $list-background;
+    &:first-child {
+      @include border-top-right-radius($default-radius);
+      @include border-top-left-radius($default-radius);
+      border-top: 0 
+    }
+    &:last-child {
+      @include border-bottom-right-radius($default-radius);
+      @include border-bottom-left-radius($default-radius);
+    }
+    a {
+      text-decoration : none;
+    }
+  }
+}
+
+input {
+  @include box-shadow(0 0 0.25rem rgba(black,.75));
+  @include border-radius(0.3rem);
+  background  : $textfield-background;
+}
+
+button {
+  @include border-radius($default-radius);
+  @include box-shadow($default-shadow);
+  display    : block;
+  width      : 100%;
+  padding : 0.25em;
+  background : $hot;
+  color      : white;
+  font-weight : bold;
+  font-family : inherit;
+}

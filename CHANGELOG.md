@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+* Stripped all CLI tools and generators.
+* Added Hopla as a the dev suite for Tres.
+* Removed a lot of dead weight from the styles.
+
 ## 0.1.5
 
 * Fixed the template compilation thread dying when a template compilation fails.

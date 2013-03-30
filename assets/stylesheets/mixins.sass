@@ -1,0 +1,56 @@
+// Vendor prefix handling mixins
+// =============================
+
+@mixin vendor-background-clip($parameters)
+  -webkit-background-clip : $parameters
+  -moz-background-clip    : $parameters
+  -ms-background-clip     : $parameters
+  background-clip         : $parameters
+
+@mixin vendor-transition($parameters)
+  -webkit-transition : $parameters
+  -moz-transition    : $parameters
+  -ms-transition     : $parameters
+  transition         : $parameters
+
+@mixin vendor-transition-delay($parameters)
+  -webkit-transition-delay : $parameters
+  -moz-transition-delay    : $parameters
+  -ms-transition-delay     : $parameters
+  transition-delay         : $parameters
+
+@mixin vendor-transform($parameters)
+  -webkit-transform : $parameters
+  -moz-transform    : $parameters
+  -ms-transform     : $parameters
+  transform         : $parameters
+
+@mixin vendor-transform-origin($parameters)
+  -webkit-transform-origin : $parameters
+  -moz-transform-origin    : $parameters
+  -ms-transform-origin     : $parameters
+  transform-origin         : $parameters
+
+@mixin vendor-animation($parameters)
+  -webkit-animation : $parameters
+  -moz-animation    : $parameters
+  -ms-animation     : $parameters
+  animation         : $parameters
+
+@mixin vendor-animation-delay($parameters)
+  -webkit-animation-delay : $parameters
+  -moz-animation-delay    : $parameters
+  -ms-animation-delay     : $parameters
+  animation-delay         : $parameters
+
+@mixin vendor-animation-fill-mode($parameters)
+  -webkit-animation-fill-mode : $parameters
+  -moz-animation-fill-mode    : $parameters
+  -ms-animation-fill-mode     : $parameters
+  animation-fill-mode         : $parameters
+
+@mixin vendor-filter($parameters)
+  -webkit-filter : $parameters
+  -moz-filter    : $parameters
+  -ms-filter     : $parameters
+  filter         : $parameters

@@ -149,42 +149,6 @@ namespace :hopla do
     Rack::Server.start :app => Hopla.make_preview_server, :Port => 4567
   end
 
-  # Compiles all templates, and assets referred to in said templates
-  task :compile do
-    Dir["#{Hopla.Templates}/**/*"].each do |template|
-      target = Hopla.Public/template.sub(Hopla.Templates, '').sub(/.\w+$/, '.html')
-      File.open(target, 'w') do |file| file << Tilt.new(template).render; end
-      Hopla.logger.info "Compiled #{template.red}"
-    end
-
-    # For each HTML file in the public directory...
-    Dir["#{Hopla.Public}/**/*.html"].each do |html|
-
-      # .. open it with Nokogiri
-      document = Nokogiri::HTML File.read(html)
-
-      # ... get each script with a "src" attribute
-      document.css('script[src]').each do |script|
-        # ... if asset found in sprockets, compile/write it to public/
-        relative_asset_path = script['src'].sub(/^\//, '')
-        if asset = Hopla.compiler[relative_asset_path]
-          asset.write_to Hopla.Public/script['src']
-          Hopla.logger.info "Compiled #{relative_asset_path.red}"
-        end
-      end
-
-      # ... get each stylesheet
-      document.css('link[rel="stylesheet"][href]').each do |css|
-        # ... if asset found in sprockets, compile/write it to public/
-        relative_asset_path = css['href'].sub(/^\//, '')
-        if asset = Hopla.compiler[relative_asset_path]
-          asset.write_to Hopla.Public/css['href']
-          Hopla.logger.info "Compiled #{relative_asset_path.red}"
-        end
-      end
-    end
-  end
-
   # Creates all the directories needed for Hopla.
   task :setup do
     Hopla.logger.info "Creating necessary directories..."
@@ -200,6 +164,19 @@ namespace :hopla do
       not File.directory? dir
     end
     Rake::Task['hopla:setup'].invoke if needs_setup
+  end
+end
+
+# Tres specific tasks.
+namespace :tres do
+  # Compiles Tres' JavaScripts and styles.
+  task :compile do
+    script = Hopla.compiler['javascripts/tres.js']
+    script.write_to Hopla.Root/'tres.js'
+    Hopla.logger.info "Compiled #{"tres.js".red}"
+    style = Hopla.compiler['stylesheets/tres.css']
+    style.write_to Hopla.Root/'tres.css'
+    Hopla.logger.info "Compiled #{"tres.css".red}"
   end
 end
 # ---

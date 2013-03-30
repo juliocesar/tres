@@ -1,0 +1,141 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+html {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+  q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none; }
+
+a img {
+  border: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+html {
+  min-height: 420px;
+  min-width: 100%;
+  font-size: 62.5%; }
+
+html, body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%; }
+
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  line-height: 2.3rem;
+  -webkit-perspective: 800;
+  -webkit-text-size-adjust: none;
+  -webkit-transform-style: preserve-3d;
+  -webkit-user-select: none; }
+
+.screen {
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+  -ms-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-transform: translate3d(100%, 0%, 0);
+  -moz-transform: translate3d(100%, 0%, 0);
+  -ms-transform: translate3d(100%, 0%, 0);
+  transform: translate3d(100%, 0%, 0);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  overflow-y: auto;
+  pointer-events: none; }
+  .screen.screen-current {
+    -webkit-transform: translate3d(0%, 0%, 0);
+    -moz-transform: translate3d(0%, 0%, 0);
+    -ms-transform: translate3d(0%, 0%, 0);
+    transform: translate3d(0%, 0%, 0);
+    opacity: 1;
+    pointer-events: auto; }
+  .screen.screen-modal {
+    z-index: 1000; }
+
+.screen-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  text-align: center;
+  overflow: hidden;
+  z-index: 100; }
+  .screen-header + .content {
+    top: 60px; }
+  .screen-header > a, .screen-header > button {
+    position: absolute;
+    top: 0;
+    width: 2.9rem;
+    font-size: 2.1rem;
+    text-decoration: none; }
+    .screen-header > a.left, .screen-header > button.left {
+      left: 1rem; }
+    .screen-header > a.right, .screen-header > button.right {
+      right: 1rem; }
+
+.screen-footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden; }
+
+.screen > .content {
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto; }

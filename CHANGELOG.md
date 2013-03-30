@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+* Fixed the template compilation thread dying when a template compilation fails.
+* Bumped Backbone to 1.0.
+
 ## 0.1.4
 
 * Bumped a whole lot of dependencies.

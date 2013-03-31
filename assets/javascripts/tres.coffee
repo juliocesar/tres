@@ -102,10 +102,10 @@ class Tres.Screen extends Backbone.View
   activate: ->
     if not @modal
       $body.find('>section')
-        .removeClass('current')
+        .removeClass('current-screen')
         .css '-webkit-transform', ''
-    @$el.addClass 'current'
-    @$el.addClass 'modal' if @modal
+    @$el.addClass 'current-screen'
+    @$el.addClass 'modal-screen' if @modal
     @$el.css '-webkit-transform': 'none'
     @active.apply @, arguments if _.isFunction @active
     $window.trigger 'resize'
@@ -217,23 +217,12 @@ class Tres.Form
 
 # ---
 
-# Handles displaying in-app notifications
-Tres.Notifier =
-  $el: $('<ul id="notifications"></ul>')
-
-  notify : (message, options = { duration : 5000, type : 'exclamation-sign' }) ->
-    @$el.appendTo $body
-    $li = $ make 'li', { class: "icon-#{options.type}" }, message
-    @$el.append $li
-    $li.slideDown 250, =>
-      _.delay =>
-        $li.slideUp => $li.remove()
-      , options.duration
-
-# ---
-
-# Just a regular Backbone.Router for now. You'll have one for application
+# Just a regular Backbone.Router for now. You'll have one for application.
 class Router extends Backbone.Router
+
+  # Shorthand for going to a URL and triggering it.
+  go: (url) ->
+    @navigate url, trigger: yes
 
 Tres.Router = new Router
 

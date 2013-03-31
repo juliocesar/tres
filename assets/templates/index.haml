@@ -6,8 +6,27 @@
     %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0")
     %meta(name="apple-mobile-web-app-capable" content="yes")
     %meta(name="apple-mobile-web-app-status-bar-style" content="black")
+    %script(src="//use.typekit.net/huo5jmu.js")
+    %script
+      try{Typekit.load();}catch(e){}
     %link(rel="stylesheet" href="/stylesheets/readlet-mini.css")
   %body
-
-
+    %script(type="template" id="home-template")
+      %h1
+        Readlet Mini
+      %form
+        %input(type="text" name="query" placeholder="Wikipedia Search" autocomplete="off")
+        %button(type="submit") Search
+    %script(type="template" id="results-template")
+      %header
+        %button.left.back-button
+          Back
+        %h1
+      %ul
+    %script(type="template" id="article-template")
+      %h1
+        Readlet Mini
+      %form
+        %input(type="text" name="query" placeholder="Wikipedia Search")
+        %button(type="submit") Search
     %script(src="/javascripts/readlet-mini.js")

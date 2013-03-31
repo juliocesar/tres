@@ -4,3 +4,43 @@
 @import 'compass/reset'
 @import 'tres'
 
+$background-color: #e9ebe6
+$text-color: #333
+$font: 'proxima-nova-alt-condensed', 'sans-serif'
+$spacing: 1rem
+$font: "proxima-nova-alt-condensed", "sans-serif"
+
+body
+  background: $background-color
+  color: $text-color
+
+body, input, button
+  font-family: $font
+
+.home-screen
+  padding-top: $spacing*10
+  text-align: center
+
+  form
+    width: 100%
+    padding: $spacing*4 $spacing
+
+  h1
+    font-size: 3.5rem
+    font-weight: bold
+
+  input, button
+    display: block
+    width: 100%
+    font-size: 1.5rem
+    border-radius: .5rem
+
+  input
+    padding: $spacing/2 $spacing
+
+  button
+    padding: $spacing/2 $spacing
+    margin: $spacing 0
+    background: $text-color
+    color: $background-color
+    font-weight: bold

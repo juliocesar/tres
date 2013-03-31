@@ -20,7 +20,7 @@ $spacing: 1rem
 // Structural settings for getting screens to use the whole
 // vertical space.
 html
-  min-height : 420px
+  min-height : 510px
   min-width  : 100%
   font-size  : 62.5%
 
@@ -55,12 +55,12 @@ body
   overflow-y     : auto
   pointer-events : none
 
-  &.screen-current
+  &.current-screen
     +vendor-transform(translate3d(0%,0%,0))
     opacity        : 1
     pointer-events : auto
 
-  &.screen-modal
+  &.modal-screen
     z-index: 1000
 // ---
 

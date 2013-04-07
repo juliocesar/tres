@@ -18,15 +18,23 @@
         %input.query(type="text" name="query" placeholder="Wikipedia Search" autocomplete="off")
         %button.submit-button(type="submit") Search
     %script(type="template" id="results-template")
-      %header
+      %header.screen-header
         %button.left.back-button
-          Back
+          ←
         %h1
-      %ul
+      .content
+        %ul.results-list
     %script(type="template" id="article-template")
-      %h1
-        Readlet Mini
-      %form
-        %input(type="text" name="query" placeholder="Wikipedia Search")
-        %button(type="submit") Search
+      %header.screen-header
+        %button.left.back-button
+          ←
+        %h1
+      .content
+        <% if (!_.isEmpty(attributes.text)) { %>
+        <%= attributes.text %>
+        <% } %>
+    %script(type="template" id="results-entry-template")
+      <li data-title="<%= attributes.title %>">
+      <%= attributes.title %>
+      </li>
     %script(src="/javascripts/readlet-mini.js")

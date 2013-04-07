@@ -9,15 +9,16 @@
 #= require backbone-min
 #= require tres
 
-## Require all scripts from the screens directory
+#= require models/wikipedia
+#= require_tree ./models
 #= require_tree ./screens
 
 $ ->
   App = new Tres.App
 
   App.on
-    ''                    : new HomeScreen
-    'search?query=:query' : new ResultsScreen
-    'article?name=:name'  : new ArticleScreen
+    ''                     : new HomeScreen
+    'search?query=:query'  : new ResultsScreen(collection: new SearchResults)
+    'article?title=:title' : new ArticleScreen(model: new Article)
 
   App.boot()

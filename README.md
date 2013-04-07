@@ -1,50 +1,21 @@
 # Tres
 
-Tres is (will be) a mobile web development framework based in Backbone.js. The idea is instead of using
-a bunch of jQuery plugins and whatnot, you'll build your application as you'd build a regular Backbone
-app: you write the markup, declare the JS classes for each view, and style everything using CSS. A good 
-good looking theme will be provided, as well as transitions.
+Tres is an implementation of a [Backbone.js](http://backbonejs.org/) pattern, which greatly simplifies things by giving views (referred to as "screens") control over all the action that goes on when you're looking at a screen.
 
-# Roadmap
+This pattern goes really well for mobile web apps, and more so for mobile-specific builds, since it embeds a few best practices suitable for it.
 
-1. Standalone JS file and CSS includes.
-2. Console interface, with generators for models, collections, and screens.
-3. Ruby library, Rails and Sinatra interfaces.
+# Using it
 
-# Classes
+Tres is two-fold: a JavaScript (written in CoffeeScript) part, which you'll need if you plan on writing apps with it, and a stylesheet, which works like a "bootstrap" library for common screen/header/footer/scrollable contents arrangements. You'll need to style your app yourself anyway.
 
-* `Tres.Device`
-  - Will track events such as orientation change, and keep info such as width/height, supported 
-  features, etc.
-* `Tres.Screen`
-  - A screen, with some features such as a fixed header/footer and momentum scrolling.
-* `Tres.SwipeSet`
-  - This class wraps a set of `Tres.Screen`s and allows for swipe navigation across them.
-* `Tres.List`
-  - A simple list, bindable to a `Backbone.Collection`.
-* `Tres.ListEntry`
-  - Contained by `Tres.List`. You can make it clickable by adding a `click` method to it. Renders
-  differently depending on that.
-* `Tres.Form`
-  - A <form> wrapper class to capture data from it, and handle submitting and validations. Most
-  likely tied to a `Backbone.Model`. Note: not likely this will generate the form from a model's
-  attributes, since that means we need to define a schema for the model, and in which case we're 
-  replicating what Backbone.Forms does. Just go and use it instead.
-* `Tres.Notifier`
-  - Displays animated notifications, clickable or not.
-  
-Tentative stuff, but could be handled later by plugins.
+# This repo
 
-* `Tres.Map`
-  - A Google map screen, with some helpers to ease the capture/insertion of data from it.
+Tres' GitHub repository is an example application in itself, built using [Hopla](http://hopla.io/). Hopla is a really simple suite built in a Rake file which gives you [Sprockets](http://getsprockets.org).
 
-# Development Track
+The standalone library (without the repo) can be downloaded from the repo: both [tres.js](https://raw.github.com/juliocesar/tres/master/tres.js) and [tres.css](https://raw.github.com/juliocesar/tres/master/tres.css).
 
-Things will be messy until I make final decisions on things. If you'd like to contribute or hack with this
-project, give me a shout and I'll help you set up the environment. Until then, this repo won't have any
-purpose beyond educational.
-    
-# Styles
+# What about the Ruby gem?
 
-As much as the philosophy is "stay out the way" and will remain so, a basic theme will be provided which
-uses exclusively fonts for icons and CSS3. That's in conformity with the trend of high resolution displays.
+Tres was initially released as a Ruby gem, and had a set of generators for creating screens, models, and templates. As I increasingly found myself using less of that, and disagreeing with tools like that in principle, I decided to revert the effort into a much simpler library.
+
+That, and the fact I managed to rewrite the entirety of it's back-end features in a single file with a few methods (see Hopla).

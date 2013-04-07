@@ -17,6 +17,20 @@ body
 body, input, button
   font-family: $font
 
+// Styles that apply to all screens
+.screen-header
+  line-height: 3.5rem
+  background: $text-color
+  color: $background-color
+
+  h1
+    font-size: 2rem
+
+  button, .button
+    background: transparent
+    color: $background-color
+    font-size: 2.5rem
+
 .home-screen
   padding-top: $spacing*10
   text-align: center
@@ -46,3 +60,65 @@ body, input, button
     background: $text-color
     color: $background-color
     font-weight: bold
+
+.results-screen
+
+  .content
+    margin: 0 $spacing
+
+.results-list
+  font-size: 1.5rem
+  background: white
+  color: $text-color
+  border-radius: .5rem
+  border: 1px solid lighten($text-color, 60%)
+
+  li
+    padding: .5rem
+    border-bottom: 1px solid lighten($text-color, 60%)
+
+    &:last-child
+      border-bottom: 0
+
+.article-screen
+  font-size: 1.5rem
+  background: white
+  color: $text-color
+
+  .content
+    margin: 0 $spacing
+
+  a
+    color: $text-color
+
+// Wikipedia style overrides
+.article-screen
+
+  .infobox
+    float: right
+    margin: 0 0 $spacing $spacing
+
+  .dablink
+    margin: $spacing 0
+
+  .tleft
+    margin: 0 $spacing $spacing 0
+    float: left
+
+  .tright
+    margin: 0 0 $spacing $spacing
+    float: right
+
+  .rellink, .relarticle, .mainarticle
+    margin: $spacing 0
+
+  .references
+
+    li
+      margin: $spacing/2 0
+
+    .mw-cite-backlink
+      margin-right: $spacing
+
+      a
+        text-decoration: none

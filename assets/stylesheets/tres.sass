@@ -71,17 +71,19 @@ body
   right      : 0
   left       : 0
   margin     : 0
+  line-height: 40px
   text-align : center
   overflow   : hidden
   z-index    : 100
 
-  & + .content
-    top: 60px
+  .screen & + .content
+    top: 50px
 
   &>a, &>button
-    position: absolute
-    top             : 0
-    width           : 2.9rem
+    +vendor-transform(translate3d(0, -50%, 0))
+    position        : absolute
+    top: 50%
+    min-width       : 2.9rem
     font-size       : 2.1rem
     text-decoration : none
 

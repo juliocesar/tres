@@ -107,11 +107,11 @@
 
     Screen.prototype.activate = function() {
       if (!this.modal) {
-        $body.find('>section').removeClass('current').css('-webkit-transform', '');
+        $body.find('>section').removeClass('current-screen').css('-webkit-transform', '');
       }
-      this.$el.addClass('current');
+      this.$el.addClass('current-screen');
       if (this.modal) {
-        this.$el.addClass('modal');
+        this.$el.addClass('modal-screen');
       }
       this.$el.css({
         '-webkit-transform': 'none'
@@ -279,32 +279,6 @@
 
   })();
 
-  Tres.Notifier = {
-    $el: $('<ul id="notifications"></ul>'),
-    notify: function(message, options) {
-      var $li,
-        _this = this;
-      if (options == null) {
-        options = {
-          duration: 5000,
-          type: 'exclamation-sign'
-        };
-      }
-      this.$el.appendTo($body);
-      $li = $(make('li', {
-        "class": "icon-" + options.type
-      }, message));
-      this.$el.append($li);
-      return $li.slideDown(250, function() {
-        return _.delay(function() {
-          return $li.slideUp(function() {
-            return $li.remove();
-          });
-        }, options.duration);
-      });
-    }
-  };
-
   Router = (function(_super) {
 
     __extends(Router, _super);
@@ -312,6 +286,12 @@
     function Router() {
       return Router.__super__.constructor.apply(this, arguments);
     }
+
+    Router.prototype.go = function(url) {
+      return this.navigate(url, {
+        trigger: true
+      });
+    };
 
     return Router;
 

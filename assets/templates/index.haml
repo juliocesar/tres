@@ -12,11 +12,11 @@
     %link(rel="stylesheet" href="/stylesheets/readlet-mini.css")
   %body
     %script(type="template" id="home-template")
-      %h1
+      %h1.logo-ish
         Readlet Mini
       %form
-        %input(type="text" name="query" placeholder="Wikipedia Search" autocomplete="off")
-        %button(type="submit") Search
+        %input.query(type="text" name="query" placeholder="Wikipedia Search" autocomplete="off")
+        %button.submit-button(type="submit") Search
     %script(type="template" id="results-template")
       %header
         %button.left.back-button

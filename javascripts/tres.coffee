@@ -21,6 +21,10 @@ defaultTemplate = _.template """
 """
 # ---
 
+# Keep a copy by reference of all screens that were instantiated so we
+# can do things like tearing down the whole app.
+Tres.screens = []
+
 # Tres.Device handles/exposes device events (orientation change, accellerometer,
 # etc), screen width, and other hardware-related goodies
 class Device
@@ -60,6 +64,7 @@ class Tres.Screen extends Backbone.View
 
   initialize: (options = {}) ->
     _.extend @, options
+    Tres.screens.push @
 
   # Returns the title of the screen, which will only exist if there's a
   # header with a <h1> inside of it
@@ -83,7 +88,14 @@ class Tres.Screen extends Backbone.View
     return false if @embedded
     @render()
     $body.prepend @el
-    @embedded = true
+    @embedded = yes
+    @
+
+  # Destroys the element associated with the screen and flags as
+  # not embedded
+  teardown: ->
+    @$el.remove()
+    @embedded = no
     @
 
   # Runs whatever @submit method is declared, with the added bonus of
@@ -244,9 +256,6 @@ class Tres.App
   constructor: (options = {}) ->
     _.extend @, options
 
-  # All the screens that are currently instanced
-  screens: []
-
   # Takes a hash to use as a mapping of URLs -> Tres.Screen objects
   on: (map = {}) ->
     _.each _.keys(map), (url) =>
@@ -268,6 +277,13 @@ class Tres.App
       Tres.Router.trigger 'navigate'
       __super.apply Backbone.history, arguments
     Backbone.history.start options
+
+  # Tears down every screen that was instantiated. Pass a list
+  # of arguments for types of screen that you'd like to stay
+  # intact
+  reboot: ->
+    for screen in Tres.screens
+      screen.teardown()
 
 # ---
 

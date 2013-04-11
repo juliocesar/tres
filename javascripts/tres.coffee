@@ -260,13 +260,14 @@ class Tres.App
   # Boots the app, executing the routes and adding a handy `before`
   # event to the router
   boot: (options = {}) ->
+    options = _.extend pushState: true, options
     __super = Backbone.history.loadUrl
     Backbone.history.loadUrl = =>
       if _.isFunction Tres.Router.before
         Tres.Router.before Backbone.history.getFragment()
       Tres.Router.trigger 'navigate'
       __super.apply Backbone.history, arguments
-    Backbone.history.start _.extend(options, pushState : true)
+    Backbone.history.start options
 
 # ---
 

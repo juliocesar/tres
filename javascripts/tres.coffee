@@ -21,9 +21,9 @@ defaultTemplate = _.template """
 """
 # ---
 
-# Keep a copy by reference of all screens that were instantiated so we
-# can do things like tearing down the whole app.
-Tres.screens = []
+# Keep a copy by reference of all screens that were embedded so we
+# can do things like tearing down the whole app by clearing them.
+Tres.embedded = []
 
 # Tres.Device handles/exposes device events (orientation change, accellerometer,
 # etc), screen width, and other hardware-related goodies
@@ -64,7 +64,6 @@ class Tres.Screen extends Backbone.View
 
   initialize: (options = {}) ->
     _.extend @, options
-    Tres.screens.push @
 
   # Returns the title of the screen, which will only exist if there's a
   # header with a <h1> inside of it
@@ -89,11 +88,13 @@ class Tres.Screen extends Backbone.View
     @render()
     $body.prepend @el
     @embedded = yes
+    Tres.embedded.push @
     @
 
   # Destroys the element associated with the screen and flags as
   # not embedded
   teardown: ->
+    @render()
     @$el.remove()
     @embedded = no
     @
@@ -282,8 +283,9 @@ class Tres.App
   # of arguments for types of screen that you'd like to stay
   # intact
   reboot: ->
-    for screen in Tres.screens
+    for screen in Tres.embedded
       screen.teardown()
+    Tres.embedded.length = 0
 
 # ---
 

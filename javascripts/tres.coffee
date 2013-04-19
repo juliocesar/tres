@@ -38,7 +38,6 @@ class Device
 
   width: -> window.outerWidth
   height: -> window.outerHeight
-  orientation: ->
 
 Tres.Device = new Device
 
@@ -99,6 +98,12 @@ class Tres.Screen extends Backbone.View
     @embedded = no
     @
 
+  # This forces the element to redraw. Currently iOS devices seem to
+  # randomly not finish up drawing once a transition is complete.
+  forceRedraw: ->
+    @$el.css 'opacity', .99
+    _.defer => @$el.css 'opacity', 1
+
   # Runs whatever @submit method is declared, with the added bonus of
   # un-focusing any text fields that are currently focused
   __submit: (event) ->
@@ -121,6 +126,7 @@ class Tres.Screen extends Backbone.View
     @$el.addClass 'modal' if @modal
     @$el.css '-webkit-transform': 'none'
     @active.apply @, arguments if _.isFunction @active
+    @forceRedraw()
     $window.trigger 'resize'
 
 # ---
